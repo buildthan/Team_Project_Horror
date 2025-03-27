@@ -646,6 +646,8 @@ MonoBehaviour:
   maxXLook: 85
   lookSensitivity: 0.5
   canLook: 1
+  bobFrequency: 12
+  bobAmplitude: 0.05
 --- !u!114 &1326117192
 MonoBehaviour:
   m_ObjectHideFlags: 0

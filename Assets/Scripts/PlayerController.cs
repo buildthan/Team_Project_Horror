@@ -16,13 +16,18 @@ public class PlayerController : MonoBehaviour
     public float maxXLook;
     private float camCurXRot;
     public float lookSensitivity;
-
     private Vector2 mouseDelta;
 
     [HideInInspector]
     public bool canLook = true;
 
     private Rigidbody rigidbody;
+
+    [Header("Headbob")]
+    public float bobFrequency = 10f;
+    public float bobAmplitude = 0.05f;
+    private float bobTimer;
+    private Vector3 initialCamLocalPos;
 
     private void Awake()
     {
@@ -32,6 +37,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        initialCamLocalPos = cameraContainer.localPosition;
     }
 
     private void FixedUpdate()
@@ -44,6 +50,7 @@ public class PlayerController : MonoBehaviour
         if (canLook)
         {
             CameraLook();
+            HeadBob();
         }
     }
 
@@ -88,6 +95,33 @@ public class PlayerController : MonoBehaviour
         cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0, 0);
 
         transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity, 0);
+    }
+
+    void HeadBob()
+    {
+        if (curMovementInput.magnitude > 0.1f && IsGrounded())
+        {
+            bobTimer += Time.deltaTime * bobFrequency;
+
+            float bobOffsetY = Mathf.Sin(bobTimer) * bobAmplitude;
+            Vector3 newPos = new Vector3(
+                initialCamLocalPos.x,
+                initialCamLocalPos.y + bobOffsetY,
+                initialCamLocalPos.z
+            );
+
+            cameraContainer.localPosition = newPos;
+        }
+        else
+        {
+            cameraContainer.localPosition = Vector3.Lerp(
+                cameraContainer.localPosition,
+                initialCamLocalPos,
+                Time.deltaTime * bobFrequency
+            );
+
+            bobTimer = 0f;
+        }
     }
 
     bool IsGrounded()
