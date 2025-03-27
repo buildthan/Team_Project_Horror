@@ -60,6 +60,5 @@ public class UIManager : MonoBehaviour
         currentState = state; //아래에서 해당하는 UI오브젝트를 찾아 on off 해줌
         titleUI?.SetActive(currentState);
         gameUI?.SetActive(currentState);
-
     }
 }
