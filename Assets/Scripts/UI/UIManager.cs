@@ -18,7 +18,7 @@ public class UIManager : MonoBehaviour
 
     static UIManager instance;
 
-    public static UIManager Instance //½Ì±ÛÅæ ¼±¾ğ
+    public static UIManager Instance //ì‹±ê¸€í†¤ ì„ ì–¸
     {
         get
         {
@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void Awake() //½Ì±ÛÅæ ¼±¾ğ
+    private void Awake() //ì‹±ê¸€í†¤ ì„ ì–¸
     {
 
 
@@ -55,9 +55,9 @@ public class UIManager : MonoBehaviour
         ChangeState(UIState.Title);
     }
 
-    public void ChangeState(UIState state) //UI¿ÀºêÁ§Æ®¸¦ on off ÇØÁÖ´Â ±â´É
+    public void ChangeState(UIState state) //UIì˜¤ë¸Œì íŠ¸ë¥¼ on off í•´ì£¼ëŠ” ê¸°ëŠ¥
     {
-        currentState = state; //¾Æ·¡¿¡¼­ ÇØ´çÇÏ´Â UI¿ÀºêÁ§Æ®¸¦ Ã£¾Æ on off ÇØÁÜ
+        currentState = state; //ì•„ë˜ì—ì„œ í•´ë‹¹í•˜ëŠ” UIì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì•„ on off í•´ì¤Œ
         titleUI?.SetActive(currentState);
         gameUI?.SetActive(currentState);
     }

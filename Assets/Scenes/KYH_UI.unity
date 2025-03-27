@@ -465,9 +465,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Temporary
-
-    Title'
+  m_text: "Temporary\nTitle (\uC784\uC2DC \uD0C0\uC774\uD2C0)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4965e23b0cfde074eb859b6e441493b7, type: 2}
   m_sharedMaterial: {fileID: -1327704977301161484, guid: 4965e23b0cfde074eb859b6e441493b7, type: 2}
@@ -1400,6 +1398,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ddbbb8d63b715048b3b12c05b45910d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startButton: {fileID: 1517719058}
+  optionButton: {fileID: 1045142973}
+  exitButton: {fileID: 213855083}
 --- !u!1 &1001405753570366
 GameObject:
   m_ObjectHideFlags: 0
