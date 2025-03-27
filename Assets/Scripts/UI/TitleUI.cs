@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitleUI : MonoBehaviour
+public class TitleUI : BaseUI
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override UIState GetUIState()
     {
-        
+        return UIState.Title;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Init(UIManager uiManager)
     {
-        
+        base.Init(uiManager);
+
     }
 }
