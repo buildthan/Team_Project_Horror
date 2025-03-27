@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool canLook = true;
 
-    private Rigidbody rigidbody;
+    private Rigidbody _rigidbody;
 
     [Header("Headbob")]
     public float bobFrequency = 10f;
@@ -29,9 +29,13 @@ public class PlayerController : MonoBehaviour
     private float bobTimer;
     private Vector3 initialCamLocalPos;
 
+    [Header("Sprint")]
+    public float sprintMultiplier = 1.5f;
+    private bool isSprinting;
+
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     void Start()
@@ -75,17 +79,49 @@ public class PlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started && IsGrounded())
         {
-            rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            _rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         }
+    }
+
+    public void OnSprintInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            PlayerCondition condition = GetComponent<PlayerCondition>();
+            if (condition != null && condition.IsSprintingAllowed)
+            {
+                isSprinting = true;
+            }
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            isSprinting = false;
+        }
+    }
+
+    public bool IsSprinting()
+    {
+        return isSprinting && curMovementInput.magnitude > 0.1f && IsGrounded();
+    }
+
+    public void ForceStopSprint()
+    {
+        isSprinting = false;
     }
 
     private void Move()
     {
-        Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
-        dir *= moveSpeed;
-        dir.y = rigidbody.velocity.y;
+        float speed = moveSpeed;
+        if (isSprinting)
+        {
+            speed *= sprintMultiplier;
+        }
 
-        rigidbody.velocity = dir;
+        Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
+        dir *= speed;
+        dir.y = _rigidbody.velocity.y;
+
+        _rigidbody.velocity = dir;
     }
 
     void CameraLook()
@@ -99,11 +135,14 @@ public class PlayerController : MonoBehaviour
 
     void HeadBob()
     {
+        float frequency = isSprinting ? bobFrequency * 1.5f : bobFrequency;
+        float amplitude = isSprinting ? bobAmplitude * 1.5f : bobAmplitude;
+
         if (curMovementInput.magnitude > 0.1f && IsGrounded())
         {
-            bobTimer += Time.deltaTime * bobFrequency;
+            bobTimer += Time.deltaTime * frequency;
 
-            float bobOffsetY = Mathf.Sin(bobTimer) * bobAmplitude;
+            float bobOffsetY = Mathf.Sin(bobTimer) * amplitude;
             Vector3 newPos = new Vector3(
                 initialCamLocalPos.x,
                 initialCamLocalPos.y + bobOffsetY,
@@ -117,7 +156,7 @@ public class PlayerController : MonoBehaviour
             cameraContainer.localPosition = Vector3.Lerp(
                 cameraContainer.localPosition,
                 initialCamLocalPos,
-                Time.deltaTime * bobFrequency
+                Time.deltaTime * frequency
             );
 
             bobTimer = 0f;
