@@ -74,7 +74,6 @@ public class Monster : MonoBehaviour
     }
     private void Update()
     {
-        OnDrawGizmos();
         switch (state)
         {
             case MonsterState.Idle:
