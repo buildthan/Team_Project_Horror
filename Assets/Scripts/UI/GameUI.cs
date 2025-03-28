@@ -66,8 +66,6 @@ public class GameUI : BaseUI
 
         ClearSelectedItemWindow();
 
-        //test용 명령어
-        AddItem();
     }
 
     void ClearSelectedItemWindow()
