@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PiercingBullet : Bullet
 {
-    public int piercingCount; // 관통력 (몇 명의 적을 관통할 수 있는지)
+    //public int piercingCount; // 관통력 (몇 명의 적을 관통할 수 있는지)
+    public PiercingBulletDataSO piercingBulletDataSO;
 
     public override void Activate(Vector3 startPosition, Vector3 direction)
     {
@@ -14,7 +15,7 @@ public class PiercingBullet : Bullet
 
 
         // 총알이 발사되었을 때 여러 명의 적을 관통하는 효과를 추가
-        Debug.Log("PiercingBullet fired with piercing power: " + piercingCount);
+        Debug.Log("PiercingBullet fired with piercing power: " + piercingBulletDataSO.piercingCount);
 
         // 하나 닿을때마다 piercingCount가 1씩 줄어들고, 0이 되거나 벽에 닿으면 사라진다(오브젝트 풀링)
     }
@@ -23,11 +24,11 @@ public class PiercingBullet : Bullet
     public override void OnHit(Collider collider)
     {
         // 관통할 수 있는 적이 있을 때만 관통
-        if (piercingCount > 0)
+        if (piercingBulletDataSO.piercingCount > 0)
         {
-            piercingCount--;
+            piercingBulletDataSO.piercingCount--;
             base.OnHit(collider);
-            Debug.Log("PiercingBullet passed through and now has " + piercingCount + " penetrations left.");
+            Debug.Log("PiercingBullet passed through and now has " + piercingBulletDataSO.piercingCount + " penetrations left.");
         }
         else
         {

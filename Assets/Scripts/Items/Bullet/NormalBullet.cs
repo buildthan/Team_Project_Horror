@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NormalBullet : Bullet
 {
-    public int bulletDamage; // 총알의 공격력
+    public NormalBulletDataSO normalBulletDataSO;
 
     public override void Activate(Vector3 startPosition, Vector3 direction)
     {
