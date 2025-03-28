@@ -101,4 +101,10 @@ public class UIManager : MonoBehaviour
 #endif
     }
 
+    //Option 내부
+
+    public void OnClickTitleOptionBack()
+    {
+        ChangeState(UIState.Title);
+    }
 }
