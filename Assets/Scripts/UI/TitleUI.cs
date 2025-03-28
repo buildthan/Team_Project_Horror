@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,5 +17,23 @@ public class TitleUI : BaseUI
     {
         base.Init(uiManager);
 
+        startButton.onClick.AddListener(OnClickStartButton);
+        optionButton.onClick.AddListener(OnClickOptionButton);
+        exitButton.onClick.AddListener(OnClickExitButton);
+    }
+
+    public void OnClickStartButton()
+    {
+        uiManager.OnClickStart();
+    }
+
+    public void OnClickOptionButton()
+    {
+        uiManager.OnClickOption();
+    }
+
+    public void OnClickExitButton()
+    {
+        uiManager.OnClickExit();
     }
 }
