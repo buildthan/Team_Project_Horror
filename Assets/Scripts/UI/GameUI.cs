@@ -38,6 +38,7 @@ public class GameUI : BaseUI
     public void Start()
     {
         inventorySlots = new GameObject[20]; //아이템 슬롯 생성
+        //추후에 아이템 데이터를 받아와서 적용하는 것으로 바꿀 것.
 
         for (int i = 0; i < inventorySlots.Length; i++)
         {
