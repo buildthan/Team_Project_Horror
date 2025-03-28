@@ -7,4 +7,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewNormalBullet", menuName = "Items/Bullet/NormalBullet")]
 public class NormalBulletDataSO : BulletDataSO
 {
+    public int bulletDamage; // 총알의 공격력
 }

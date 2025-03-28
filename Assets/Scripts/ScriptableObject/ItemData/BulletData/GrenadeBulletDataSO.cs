@@ -7,5 +7,5 @@ using UnityEngine;
 public class GrenadeBulletDataSO : BulletDataSO
 {
     public float explosionRadius; // 폭발 반경
-    // 폭발로 인한 데미지
+    public int explosionDamage;   // 폭발로 인한 데미지
 }
