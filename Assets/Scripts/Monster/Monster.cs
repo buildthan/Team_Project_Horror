@@ -52,7 +52,6 @@ public class Monster : MonoBehaviour
     public void SetState(MonsterState stat)
     {
         state = stat;
-        Debug.Log($"{gameObject.name}, {stat}, {state}");
         switch (state)
         {
             case MonsterState.Idle:
@@ -75,10 +74,7 @@ public class Monster : MonoBehaviour
     }
     private void Update()
     {
-        foreach (Animator anim in animator)
-        {
-            anim.SetBool("Move", state != MonsterState.Idle);
-        }
+        OnDrawGizmos();
         switch (state)
         {
             case MonsterState.Idle:
@@ -88,6 +84,10 @@ public class Monster : MonoBehaviour
             case MonsterState.Attacking:
                // AttackingUpdate();
                 break;
+        }
+        foreach (Animator anim in animator)
+        {
+            anim.SetBool("Move", state != MonsterState.Idle);
         }
     }
 
@@ -107,26 +107,12 @@ public class Monster : MonoBehaviour
     void WanderToNewLocation()
     {
         if (state != MonsterState.Idle) return;
-        Debug.Log("check");
         SetState(MonsterState.Walk);
         agent.SetDestination(GetWanderLocation());
     }
 
     Vector3 GetWanderLocation()
     {
-        /*
-        NavMeshHit hit;
-        NavMesh.SamplePosition(transform.position + (Random.onUnitSphere * Random.Range(1, mobData.maxWanderDistance)), out hit, mobData.maxWanderDistance, NavMesh.AllAreas);
-
-        int i = 0;
-        while (Vector3.Distance(transform.position, hit.position) < mobData.detectRange)
-        {
-            NavMesh.SamplePosition(transform.position + (Random.onUnitSphere * Random.Range(1, mobData.maxWanderDistance)), out hit, mobData.maxWanderDistance, NavMesh.AllAreas);
-            i++;
-            if (i == 0) break;
-        }
-        return hit.position;
-    */
         Vector3 randomDirection = transform.position + Random.insideUnitSphere * mobData.maxWanderDistance;
         NavMeshHit hit;
 
@@ -201,7 +187,25 @@ public class Monster : MonoBehaviour
             StartCoroutine(Die());
         }
     }
-    
+
+    void OnDrawGizmos()
+    {
+        // 시야 범위 그리기
+        Gizmos.color = Color.yellow;
+        Vector3 forward = transform.forward;
+        float angleStep = mobData.sight / 10f;
+        for (float angle = -mobData.sight / 2f; angle <= mobData.sight / 2f; angle += angleStep)
+        {
+            Quaternion rotation = Quaternion.Euler(0, angle, 0);
+            Vector3 direction = rotation * forward;
+            Gizmos.DrawLine(transform.position, transform.position + direction * mobData.detectRange);
+        }
+
+        // 범위 안에서의 원형 영역
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, mobData.detectRange);
+    }
+
     IEnumerator Die()
     {
 
