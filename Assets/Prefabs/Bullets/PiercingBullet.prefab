@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 368271113742709266}
+  - component: {fileID: 1582676836332111514}
   m_Layer: 0
   m_Name: PiercingBullet
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   - {fileID: 3650317452987848519}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1582676836332111514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4800462052694964848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65e655194cbb8de4d86231a30bd9ad6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  piercingBulletDataSO: {fileID: 11400000, guid: 1225f918b6e2fac488705589fadc1409, type: 2}
 --- !u!1 &4959860017608402744
 GameObject:
   m_ObjectHideFlags: 0

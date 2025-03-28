@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 0
   name: "\uC800\uACA9\uCD1D \uC804\uC6A9 \uD0C4"
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 7b971ba2ac9ef4240ab06969db38ce32, type: 3}
   prefab: {fileID: 4800462052694964848, guid: 69a51a7475ca79841a55479364c890e6, type: 3}
   canStack: 1
   maxStackAmount: 5

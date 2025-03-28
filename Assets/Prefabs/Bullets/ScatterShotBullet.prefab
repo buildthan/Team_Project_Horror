@@ -128,5 +128,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8e0779c0150fe4187e109d3bba6235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scatterCount: 0
-  spreadAngle: 0
+  scatterBulletData: {fileID: 11400000, guid: fdd661f33e10aff45814ea90ba8db2a0, type: 2}

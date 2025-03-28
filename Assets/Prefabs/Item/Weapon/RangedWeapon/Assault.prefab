@@ -45,11 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b31f46526ceb0499ba0030affb3dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseItemData: {fileID: 11400000, guid: 731c01eee49a393408b0b3f29575d965, type: 2}
-  weaponData: {fileID: 0}
-  bullet: {fileID: 0}
-  inventory: {fileID: 0}
-  inventorySlot: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: 731c01eee49a393408b0b3f29575d965, type: 2}
+  bullet: {fileID: 2970432674855611396, guid: d41866c376c3d5b4d9fcddfe0bc2c53e, type: 3}
 --- !u!1 &7148042855235296307
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,8 +156,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b31f46526ceb0499ba0030affb3dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseItemData: {fileID: 0}
   weaponData: {fileID: 11400000, guid: 731c01eee49a393408b0b3f29575d965, type: 2}
   bullet: {fileID: 0}
-  inventory: {fileID: 0}
-  inventorySlot: {fileID: 0}

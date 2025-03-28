@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BaseItem : MonoBehaviour
 {
-    public BaseItemDataSO baseItemData;
+    //public BaseItemDataSO baseItemData;
 
 
 
@@ -13,7 +13,7 @@ public class BaseItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        baseItemData.id = 0;
+        //baseItemData.id = 0;
     }
 
 }

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 919544063498203905}
+  - component: {fileID: 8572774483842729496}
   m_Layer: 0
   m_Name: GrenadeBullet
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   - {fileID: 7198687032652747249}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &8572774483842729496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476845788073039314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f831e04f320d1459a539a9539a8b38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grenadeBulletDataSO: {fileID: 11400000, guid: 166a74df26c67164f9e7a99b12a2927f, type: 2}
 --- !u!1 &6488787192100180356
 GameObject:
   m_ObjectHideFlags: 0
