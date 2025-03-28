@@ -21,6 +21,11 @@ public class BaseItemDataSO : ScriptableObject
 {
     [Header("Item Info")]
     public int id;  // 아이템을 구분, json으로 저장할 때 사용
+    // id 를 string으로 W0000 같은거
+    // 소비하는 아이템은 C0000 같은식으로
+
+    // 같은타입인지로 비교하면 상관이 없다..
+
     public string name;
     public string description;
     public Sprite icon;

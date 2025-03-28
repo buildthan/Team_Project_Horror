@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public abstract class Bullet : MonoBehaviour
+public abstract class Bullet : BaseItem
 {
 
     /// <summary>

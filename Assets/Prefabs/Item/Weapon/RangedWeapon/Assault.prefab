@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4794586537937339820}
+  - component: {fileID: 3057989893563136373}
   m_Layer: 0
   m_Name: Assault
   m_TagString: Untagged
@@ -32,6 +33,23 @@ Transform:
   - {fileID: 6182586524667680735}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3057989893563136373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2575439267577512613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b31f46526ceb0499ba0030affb3dc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseItemData: {fileID: 11400000, guid: 731c01eee49a393408b0b3f29575d965, type: 2}
+  weaponData: {fileID: 0}
+  bullet: {fileID: 0}
+  inventory: {fileID: 0}
+  inventorySlot: {fileID: 0}
 --- !u!1 &7148042855235296307
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b31f46526ceb0499ba0030affb3dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseItemData: {fileID: 0}
   weaponData: {fileID: 11400000, guid: 731c01eee49a393408b0b3f29575d965, type: 2}
   bullet: {fileID: 0}
   inventory: {fileID: 0}
