@@ -9,6 +9,10 @@ public class PlayerCondition : MonoBehaviour
     public float staminaRegenPerSecond = 10f;
     public float regenDelay = 2f;
 
+    [Header("Health")]
+    public float maxHealth = 100f;
+    public float currentHealth;
+
     private float lastSprintTime;
     private PlayerController controller;
 
@@ -18,6 +22,7 @@ public class PlayerCondition : MonoBehaviour
     {
         controller = GetComponent<PlayerController>();
         currentStamina = maxStamina;
+        currentHealth = maxHealth;
     }
 
     void Update()
@@ -37,14 +42,12 @@ public class PlayerCondition : MonoBehaviour
 
         currentStamina = Mathf.Clamp(currentStamina, 0, maxStamina);
 
-        // ½ºÅÂ¹Ì³ª°¡ 0ÀÌ¸é °­Á¦·Î ½ºÇÁ¸°Æ® ²ô±â
         if (currentStamina <= 0f && controller.IsSprinting())
         {
             controller.ForceStopSprint();
         }
 
-        // µð¹ö±× Ãâ·Â
-        Debug.Log($"[PlayerCondition] ÇöÀç ½ºÅÂ¹Ì³ª: {currentStamina:F1} / {maxStamina}");
+        Debug.Log($"[PlayerCondition] ìŠ¤íƒœë¯¸ë‚˜: {currentStamina:F1} / {maxStamina}, ì²´ë ¥: {currentHealth:F1} / {maxHealth}");
     }
 
     void DrainStamina()
@@ -55,5 +58,30 @@ public class PlayerCondition : MonoBehaviour
     void RegenStamina()
     {
         currentStamina += staminaRegenPerSecond * Time.deltaTime;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("[PlayerCondition] í”Œë ˆì´ì–´ ì‚¬ë§!");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Enemy enemy = other.GetComponent<Enemy>();
+        if (enemy != null)
+        {
+            TakeDamage(enemy.attackDamage);
+        }
     }
 }
