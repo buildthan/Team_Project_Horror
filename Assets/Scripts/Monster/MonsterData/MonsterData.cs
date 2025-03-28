@@ -15,9 +15,14 @@ public class MonsterData : ScriptableObject
     [SerializeField] private float attack;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
+    public float detectRange;
     public float attackRate;
     public float attackRange;
     public float sight;
+    public float minWanderWaitTime;
+    public float maxWanderWaitTime;
+    public float maxWanderDistance;
+
     public MobType mobType;
     public float GetInitHp() { return hp; }
 

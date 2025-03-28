@@ -16,6 +16,7 @@ MonoBehaviour:
   attack: 1
   walkSpeed: 3
   runSpeed: 3
+  detectRange: 5
   attackRate: 1
   attackRange: 3
   sight: 360
