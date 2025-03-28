@@ -16,7 +16,7 @@ MonoBehaviour:
   name: 
   description: 
   icon: {fileID: 0}
-  prefab: {fileID: 0}
+  prefab: {fileID: 8643034949716001440, guid: b48bde288ee0cc74897c866ac8ecb19e, type: 3}
   bulletType: {fileID: 0}
   range: 0
   fireRate: 0

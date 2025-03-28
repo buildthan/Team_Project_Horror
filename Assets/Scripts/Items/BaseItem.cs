@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TempInventorySlot : MonoBehaviour
+public class BaseItem : MonoBehaviour
 {
-    // 아이템의 스프라이트와, 실제 자료형만 들고 있어야한다
-    // 자료형을 가지고 검색
+    public BaseItemDataSO baseItemData;
 
 
     // Start is called before the first frame update
@@ -13,4 +12,5 @@ public class TempInventorySlot : MonoBehaviour
     {
         
     }
+
 }
