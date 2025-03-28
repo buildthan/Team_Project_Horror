@@ -25,4 +25,9 @@ public class BaseItemDataSO : ScriptableObject
     public string description;
     public Sprite icon;
     public GameObject prefab;
+
+    [Header("Stacking")]    // 아이템은 여러개 가질 수 있는 것도 있다
+    public bool canStack;   // 여러개 가질 수 있는 아이템인가?
+    public int maxStackAmount;  // 얼마나 많이 가질 수 있는가?
+
 }
