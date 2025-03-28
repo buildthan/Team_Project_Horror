@@ -18,6 +18,10 @@ public class NormalBullet : Bullet
 
     public override void OnHit(Collider collider)
     {
+        normalBulletDataSO.id = 1;
+
+
+
         // 산탄총알의 특성상 하나씩 깎는다
         base.OnHit(collider);
     }

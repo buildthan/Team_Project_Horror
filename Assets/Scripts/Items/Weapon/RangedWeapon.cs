@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedWeapon : Weapon
+public class RangedWeapon : BaseItem
 {
     public RangedWeaponDataSO weaponData;   
 
@@ -41,6 +41,13 @@ public class RangedWeapon : Weapon
     // 총알을 발사한다    
     public virtual void Fire(Transform origin)
     {
+        weaponData.description = "asd";
+
+        baseItemData.description = "asdf";
+
+    
+
+
         //if (bulletType == null)
         //{
         //    Debug.LogWarning("No bullet assigned to this weapon.");

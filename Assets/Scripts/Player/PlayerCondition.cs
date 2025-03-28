@@ -47,7 +47,7 @@ public class PlayerCondition : MonoBehaviour
             controller.ForceStopSprint();
         }
 
-        Debug.Log($"[PlayerCondition] 스태미나: {currentStamina:F1} / {maxStamina}, 체력: {currentHealth:F1} / {maxHealth}");
+        //Debug.Log($"[PlayerCondition] 스태미나: {currentStamina:F1} / {maxStamina}, 체력: {currentHealth:F1} / {maxHealth}");
     }
 
     void DrainStamina()
