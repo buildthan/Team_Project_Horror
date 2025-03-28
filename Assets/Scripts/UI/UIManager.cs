@@ -9,21 +9,19 @@ public enum UIState
     Game,
     Option,
 
-    Loading
+    Nothing
 }
 
 public class UIManager : MonoBehaviour
 {
 
     UIState currentState = UIState.Title;
+    public string nextSceneName;
 
     //ChangeState로 관리
     TitleUI titleUI = null;
     GameUI gameUI = null;
     OptionUI optionUI = null;
-
-    //독립적으로 관리
-    LoadingUI loadingUI = null;
 
     static UIManager instance;
 
@@ -61,8 +59,6 @@ public class UIManager : MonoBehaviour
         gameUI?.Init(this);
         optionUI = GetComponentInChildren<OptionUI>(true);
         optionUI?.Init(this);
-        loadingUI = GetComponentInChildren<LoadingUI>(true);
-        loadingUI?.Init(this);
 
 
         ChangeState(UIState.Title);
@@ -81,9 +77,9 @@ public class UIManager : MonoBehaviour
 
     public void OnClickStart()
     {
+        nextSceneName = "KYH_UI2"; //로딩이 끝나면 이동할 씬 이름
+        ChangeState(UIState.Nothing); //로딩하는 동안 UI를 모두 꺼준다.
         SceneManager.LoadScene("KYH_UI_LoadingScene");
-        loadingUI.SetActive(UIState.Loading); //로딩UI틀어주고
-        ChangeState(UIState.Game);
     }
 
     public void OnClickOption()
