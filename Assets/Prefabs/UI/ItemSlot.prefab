@@ -214,6 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemPrefab: {fileID: 0}
+  icon: {fileID: 8604138635893759361}
 --- !u!114 &7527352259074098830
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7143051642592310444}
   - component: {fileID: 2261845545838500306}
   - component: {fileID: 2519626083802258228}
-  m_Layer: 8
+  - component: {fileID: 1593567630564490619}
+  m_Layer: 0
   m_Name: sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,6 +97,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc74bb52495beed45aa2ab2ba4b460ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &1593567630564490619
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7122797296716728814}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.330396, y: 1.1573764, z: 6.786172}
+  m_Center: {x: 0.02164212, y: -0.025194917, z: 0.0052063535}
 --- !u!1 &8982043952419070114
 GameObject:
   m_ObjectHideFlags: 0
@@ -141,5 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b31f46526ceb0499ba0030affb3dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseItemData: {fileID: 0}
   weaponData: {fileID: 11400000, guid: 1e89c6e9d9c682f4cab567e98255698a, type: 2}
   bullet: {fileID: 1582676836332111514, guid: 69a51a7475ca79841a55479364c890e6, type: 3}
