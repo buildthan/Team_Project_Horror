@@ -25,5 +25,12 @@ public class Loading : MonoBehaviour
 
         
         UIManager.Instance.ChangeState(UIState.Game);
+
+        // 플레이어와 인벤토리 연결
+        //CharacterManager.Instance.Player.controller.inventory += UIManager.Instance.gameUI.Toggle;
+
+        //UIManager.Instance.gameUI.dropPosition = CharacterManager.Instance.Player.dropPosition;
+
+        //CharacterManager.Instance.Player.addItem += AddItem;  // delegate에 함수 등록
     }
 }

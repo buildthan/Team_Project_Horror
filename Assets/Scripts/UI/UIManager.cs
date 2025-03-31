@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
 
     //ChangeState로 관리
     TitleUI titleUI = null;
-    GameUI gameUI = null;
+    public GameUI gameUI = null;
     OptionUI optionUI = null;
 
     static UIManager instance;

@@ -44,7 +44,7 @@ public class GameUI : BaseUI
 
     public void Start()
     {
-        // 플레이어와 인벤토리 연결
+        //// 플레이어와 인벤토리 연결
         CharacterManager.Instance.Player.controller.inventory += Toggle;
 
         dropPosition = CharacterManager.Instance.Player.dropPosition;
