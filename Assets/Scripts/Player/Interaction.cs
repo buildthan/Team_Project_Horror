@@ -17,6 +17,9 @@ public class Interaction : MonoBehaviour
     /// </summary>
     public GameObject curInteractGameObject;    // 검출 성공했다면, interaction하는 게임오브젝트 정보를 저장
     private IInteractable curInteractable;      /// ★검출된 정보를 인터페이스로 캐싱한다 
+    private IDamageable curDamageable;
+
+    public int attackDamage = 10;
 
     // 검출한 아이템 정보를 promptText에 띄운다
     public TextMeshProUGUI promptText;  /// 일단 분리하지는 않지만, 개인과제할때는 UI를 분리해서 drag and drop 안하고 사용하는 방법을 찾아서 리팩토링 해봐라
@@ -25,6 +28,7 @@ public class Interaction : MonoBehaviour
     void Start()
     {
         camera = Camera.main;
+        Debug.Log("[Start] Interaction 초기화 완료");
     }
 
     // Update is called once per frame
@@ -35,26 +39,36 @@ public class Interaction : MonoBehaviour
         {
             lastCheckTime = Time.time;
 
+            Debug.Log("[Raycast] 시도 중...");
+
             // 카메라에서 화면 중앙에 ray 발사
             Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));    // 카메라가 찍고 있는 방향이 있기 때문에, 시작점만 정해주면 된다
             RaycastHit hit; // ray에 부딪힌 게임오브젝트의 정보가 들어간다
 
+            Debug.DrawRay(ray.origin, ray.direction * maxCheckDistance, Color.red, checkRate);
+
             if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask)) // ray에 검출된 오브젝트가 있다
             {
+
+                Debug.Log("[Raycast] Hit 감지됨: " + hit.collider.name);
                 if (hit.collider.gameObject != curInteractGameObject)   // ray에 충돌한 게임오브젝트가 현재 상호작용하는 게임오브젝트가 아니라면
                 {
                     Debug.Log(hit.collider.gameObject);
                     curInteractGameObject = hit.collider.gameObject;    // 새로운 정보로 바꿔
-                    //curInteractable = hit.collider.GetComponent<IInteractable>();       /// ★검출된 정보를 인터페이스로 캐싱
+                    curInteractable = hit.collider.GetComponent<IInteractable>();       /// ★검출된 정보를 인터페이스로 캐싱
+                    curDamageable = hit.collider.GetComponent<IDamageable>();   //공격가능한 대상을 캐싱
+                    Debug.Log("curDamageable: " + curDamageable);
                     //SetPromptText();    // promptText에 출력해라
                 }
             }
             else // 빈공간에 ray를 쏜 경우
             {
+                Debug.Log("[Raycast] 아무것도 맞지 않음");
                 //Debug.Log("아무것도 없습니다");
                 // 모든 정보를 없애라
                 curInteractGameObject = null;
-                //curInteractable = null;
+                curInteractable = null;
+                curDamageable = null;
                 //promptText.gameObject.SetActive(false);
             }
         }
@@ -76,6 +90,26 @@ public class Interaction : MonoBehaviour
             curInteractGameObject = null;
             curInteractable = null;
             promptText.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnAttackInput(InputAction.CallbackContext context)
+    {
+        Debug.Log("[Input] 우클릭 입력 감지됨"); //  추가됨
+
+        if (context.phase == InputActionPhase.Started)
+        {
+            Debug.Log("[Input] AttackInput Started"); //  추가됨
+
+            if (curDamageable != null)
+            {
+                Debug.Log("[Input] 공격 대상 있음 → 데미지 전달"); //  추가됨
+                curDamageable.TakeDamage(attackDamage);
+            }
+            else
+            {
+                Debug.Log("[Input] curDamageable이 null입니다. 대상 없음"); //  추가됨
+            }
         }
     }
 }

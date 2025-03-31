@@ -52,7 +52,7 @@ public class PlayerCondition : MonoBehaviour
 
     private void FixedUpdate() //플레이어 Hp UI 정보 업데이트용
     {
-        UIManager.Instance.gameUI.UpdatePlayerHpIndicator(currentHealth,maxHealth);
+        //UIManager.Instance.gameUI.UpdatePlayerHpIndicator(currentHealth,maxHealth);
     }
 
     void DrainStamina()
