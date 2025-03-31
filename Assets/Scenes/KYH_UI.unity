@@ -1279,7 +1279,8 @@ MonoBehaviour:
   sfxVolume: 1
   isSFXMute: 0
   bgmSource: {fileID: 474388793}
-  bgmClips: []
+  bgmClips:
+  - {fileID: 8300000, guid: 74aec4606952f4af1ba8d3c7d9581b43, type: 3}
   sfxPrefab: {fileID: 283300455499261974, guid: 6862b866b22c69c4a9d1e9c6697a7f34, type: 3}
   poolSize: 10
   sfxClips: []

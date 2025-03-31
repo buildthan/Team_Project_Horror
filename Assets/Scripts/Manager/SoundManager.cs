@@ -240,7 +240,7 @@ public class SoundManager : MonoBehaviour
     {
         switch (sceneName)
         {
-            case "TitleScene":
+            case "KYH_UI":
                 return bgmClips[0];
             default:
                 return null;
