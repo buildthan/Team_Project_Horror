@@ -25,5 +25,7 @@ public class Loading : MonoBehaviour
 
         
         UIManager.Instance.ChangeState(UIState.Game);
+
+        //CharacterManager.Instance.Player.addItem += AddItem;  // delegate에 함수 등록
     }
 }

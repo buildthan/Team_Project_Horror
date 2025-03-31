@@ -8,10 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/KYH_UI.unity
     guid: 4b93e2a0e3d568742b93984bb6827ecc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/KYH_UI2.unity
     guid: 457ef9f4be55723458b5d8e9198dddfb
   - enabled: 1
     path: Assets/Scenes/KYH_UI_LoadingScene.unity
     guid: 0641ca6f5602b5c4b880aeea2e278c45
+  - enabled: 1
+    path: Assets/Scenes/ISG_Item.unity
+    guid: 1744a545863f56548a5f6621335b1eb0
   m_configObjects: {}
