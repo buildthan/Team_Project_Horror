@@ -100,6 +100,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void PlayUIClickAudio()
+    {
+        SoundManager.Instance.PlaySFX("SFX_UI_Button_Keyboard_Space_Thick_1", transform.position);
+    }
+
 
     //Title 내부
 

@@ -28,6 +28,7 @@ public class OptionUI : BaseUI
 
     public void OnClickBackButton()
     {
+        uiManager.PlayUIClickAudio();
         uiManager.OnClickTitleOptionBack();
     }
 }

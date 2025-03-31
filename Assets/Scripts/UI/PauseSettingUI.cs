@@ -28,6 +28,7 @@ public class PauseSettingUI : BaseUI
 
     public void OnClickPauseSettingBackButton()
     {
+        uiManager.PlayUIClickAudio();
         uiManager.OnClickPauseSettingBack();
     }
 }

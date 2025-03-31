@@ -102,6 +102,7 @@ public class GameUI : BaseUI
     {
         if (IsOpen())
         {
+            uiManager.PlayUIClickAudio();
             CharacterManager.Instance.Player.controller.ToggleCursor(false);
             inventory.SetActive(false);
             crosshair.SetActive(true);
@@ -109,6 +110,7 @@ public class GameUI : BaseUI
         }
         else
         {
+            uiManager.PlayUIClickAudio();
             CharacterManager.Instance.Player.controller.ToggleCursor(true);
             inventory.SetActive(true);
             crosshair.SetActive(false);
@@ -223,6 +225,8 @@ public class GameUI : BaseUI
     // 선택한 아이템 정보창에 업데이트 해주는 함수
     public void SelectItem(int index)
     {
+        uiManager.PlayUIClickAudio();
+
         ItemSlot slot = inventorySlots[index].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
 
         if (slot.itemData == null) return;  // 슬롯에 아이템이 없다면 리턴

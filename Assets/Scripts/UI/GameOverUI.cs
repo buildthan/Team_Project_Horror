@@ -22,6 +22,7 @@ public class GameOverUI : BaseUI
 
     public void OnClickGameOverTitleButton()
     {
+        uiManager.PlayUIClickAudio();
         uiManager.OnClickGameOverTitle();
     }
 }

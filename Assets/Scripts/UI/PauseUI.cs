@@ -24,16 +24,19 @@ public class PauseUI : BaseUI
 
     public void OnClickPauseBackButton()
     {
+        uiManager.PlayUIClickAudio();
         uiManager.OnClickPauseBack();
     }
     
     public void OnClickPauseSettingButton()
     {
+        uiManager.PlayUIClickAudio();
         uiManager.OnClickPauseSetting();
     }
 
     public void OnClickPauseTitleButton()
     {
+        uiManager.PlayUIClickAudio();
         uiManager.OnClickPauseTitle();
     }
 

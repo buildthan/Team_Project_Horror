@@ -24,16 +24,19 @@ public class TitleUI : BaseUI
 
     public void OnClickStartButton()
     {
+        uiManager.PlayUIClickAudio();
         uiManager.OnClickStart();
     }
 
     public void OnClickOptionButton()
     {
+        uiManager.PlayUIClickAudio();
         uiManager.OnClickOption();
     }
 
     public void OnClickExitButton()
     {
+        uiManager.PlayUIClickAudio();
         uiManager.OnClickExit();
     }
 }
