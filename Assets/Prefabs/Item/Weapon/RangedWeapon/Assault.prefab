@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4794586537937339820}
   - component: {fileID: 3057989893563136373}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Assault
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b31f46526ceb0499ba0030affb3dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseItemData: {fileID: 0}
   weaponData: {fileID: 11400000, guid: 731c01eee49a393408b0b3f29575d965, type: 2}
   bullet: {fileID: 2970432674855611396, guid: d41866c376c3d5b4d9fcddfe0bc2c53e, type: 3}
 --- !u!1 &7148042855235296307
@@ -60,8 +59,8 @@ GameObject:
   - component: {fileID: 1094798690806457418}
   - component: {fileID: 7513995576205488146}
   - component: {fileID: 7542361291136980553}
-  - component: {fileID: 4393712828393738096}
-  m_Layer: 0
+  - component: {fileID: 948865867161056840}
+  m_Layer: 8
   m_Name: Assault
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc74bb52495beed45aa2ab2ba4b460ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &4393712828393738096
+--- !u!65 &948865867161056840
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

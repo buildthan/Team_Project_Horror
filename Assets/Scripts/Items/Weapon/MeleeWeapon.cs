@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeWeapon : BaseItem
+public class MeleeWeapon : Weapon
 {
     public MeleeWeaponDataSO weaponData;
+
+    public override BaseItemDataSO GetItemData()
+    {
+        return weaponData; /// 부모 타입(BaseItemDataSO)으로 반환(업캐스팅)
+    }
+
 
     public virtual void Attack(Transform origin)
     {

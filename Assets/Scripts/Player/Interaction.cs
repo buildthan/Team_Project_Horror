@@ -45,7 +45,15 @@ public class Interaction : MonoBehaviour
                 {
                     Debug.Log(hit.collider.gameObject);
                     curInteractGameObject = hit.collider.gameObject;    // 새로운 정보로 바꿔
-                    //curInteractable = hit.collider.GetComponent<IInteractable>();       /// ★검출된 정보를 인터페이스로 캐싱
+
+                    /// 파생 클래스에서 기반 클래스에 붙은 IInteractable을 가져와야 한다
+                    /// 하지만, GetComponent로 찾을 수 없다
+                    ///curInteractable = hit.collider.GetComponent<IInteractable>();       /// ★검출된 정보를 인터페이스로 캐싱
+
+                    /// BaseItem에 붙어있는 것은 IInteractable이 아니라 BaseItem이므로
+                    /// BaseItem으로 받아서 IInteractable으로 캐스팅한다
+                    curInteractable = hit.collider.GetComponentInParent<BaseItem>() as IInteractable;
+
                     //SetPromptText();    // promptText에 출력해라
                 }
             }
@@ -54,7 +62,7 @@ public class Interaction : MonoBehaviour
                 //Debug.Log("아무것도 없습니다");
                 // 모든 정보를 없애라
                 curInteractGameObject = null;
-                //curInteractable = null;
+                curInteractable = null;
                 //promptText.gameObject.SetActive(false);
             }
         }
@@ -69,13 +77,13 @@ public class Interaction : MonoBehaviour
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         /// E를 눌렀을 때, aim이 아이템을 바라보고 있을 때(인터페이스로 캐싱하고 있는 정보가 있을 때)
-        if (context.phase == InputActionPhase.Started /*&& curInteractable != null*/)
+        if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
             curInteractable.OnInteract();   // 상호작용 끝나고 인벤토리로 이동한 아이템은 Destroy까지 해준다
             // 상호작용을 끝냈으니 모두 null, 비활성화
             curInteractGameObject = null;
             curInteractable = null;
-            promptText.gameObject.SetActive(false);
+            //promptText.gameObject.SetActive(false);
         }
     }
 }
