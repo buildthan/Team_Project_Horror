@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Sniper
   m_EditorClassIdentifier: 
   id: 0
-  name: 
-  description: 
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
+  name: "\uC800\uACA9\uCD1D"
+  description: "\uC800\uACA9\uCD1D \uC804\uC6A9 \uD0C4\uC744 \uC0AC\uC6A9\uD558\uB294
+    \uC800\uACA9\uCD1D. \uC5F0\uC0AC \uC18D\uB3C4\uAC00 \uB290\uB9AC"
+  icon: {fileID: -776903529, guid: cecbc1e21bfd4654cace7246a1733982, type: 3}
+  prefab: {fileID: 8982043952419070114, guid: 6c833b3b2b63a504db855430051e56f5, type: 3}
+  canStack: 0
+  maxStackAmount: 0
   bulletType: {fileID: 0}
   range: 0
-  fireRate: 0
-  reloadTime: 0
+  fireRate: 5
+  reloadTime: 1

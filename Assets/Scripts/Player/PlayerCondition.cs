@@ -47,7 +47,12 @@ public class PlayerCondition : MonoBehaviour
             controller.ForceStopSprint();
         }
 
-        Debug.Log($"[PlayerCondition] 스태미나: {currentStamina:F1} / {maxStamina}, 체력: {currentHealth:F1} / {maxHealth}");
+        //Debug.Log($"[PlayerCondition] 스태미나: {currentStamina:F1} / {maxStamina}, 체력: {currentHealth:F1} / {maxHealth}");
+    }
+
+    private void FixedUpdate() //플레이어 Hp UI 정보 업데이트용
+    {
+        UIManager.Instance.gameUI.UpdatePlayerHpIndicator(currentHealth,maxHealth);
     }
 
     void DrainStamina()

@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
 
     //ChangeState로 관리
     TitleUI titleUI = null;
-    GameUI gameUI = null;
+    public GameUI gameUI = null;
     OptionUI optionUI = null;
 
     static UIManager instance;
@@ -77,7 +77,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickStart()
     {
-        nextSceneName = "KYH_UI2"; //로딩이 끝나면 이동할 씬 이름
+        //nextSceneName = "KYH_UI2"; //로딩이 끝나면 이동할 씬 이름
+        nextSceneName = "ISG_Item"; //로딩이 끝나면 이동할 씬 이름
         ChangeState(UIState.Nothing); //로딩하는 동안 UI를 모두 꺼준다.
         SceneManager.LoadScene("KYH_UI_LoadingScene");
     }
