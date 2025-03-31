@@ -34,7 +34,6 @@ public class ItemSlot : MonoBehaviour
         icon.gameObject.SetActive(true);
         icon.sprite = itemData.icon;
         quatityText.text = quantity > 1 ? quantity.ToString() : string.Empty;   // 0이면 표시안하고 1 이상만 표시
-
     }
     // 슬롯에서 아이템을 비우는 경우(버리거나, 사용을 했거나) 자동 호출
     // UI(슬롯 한 칸)에 정보가 없을 때 UI를 비워주는 함수
@@ -50,7 +49,4 @@ public class ItemSlot : MonoBehaviour
         // 인벤토리의 SelectItem 호출, 현재 슬롯의 인덱스만 전달.
         inventory.SelectItem(index);
     }
-
-
-
 }
