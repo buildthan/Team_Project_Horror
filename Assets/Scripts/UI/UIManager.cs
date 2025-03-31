@@ -113,6 +113,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickOption()
     {
+        optionUI.bgmSlider.value = SoundManager.Instance.bgmVolume;
+        optionUI.sfxSlider.value = SoundManager.Instance.sfxVolume;
         ChangeState(UIState.Option);
     }
 
@@ -176,6 +178,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickPauseSetting()
     {
+        pauseSettingUI.bgmSlider.value = SoundManager.Instance.bgmVolume;
+        pauseSettingUI.sfxSlider.value = SoundManager.Instance.sfxVolume;
         ChangeState(UIState.PauseSetting);
     }
 
