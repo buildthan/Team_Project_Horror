@@ -102,13 +102,17 @@ public class GameUI : BaseUI
     {
         if (IsOpen())
         {
+            CharacterManager.Instance.Player.controller.ToggleCursor(false);
             inventory.SetActive(false);
             crosshair.SetActive(true);
+            Time.timeScale = 1f;
         }
         else
         {
+            CharacterManager.Instance.Player.controller.ToggleCursor(true);
             inventory.SetActive(true);
             crosshair.SetActive(false);
+            Time.timeScale = 0f;
         }
     }
     public bool IsOpen()

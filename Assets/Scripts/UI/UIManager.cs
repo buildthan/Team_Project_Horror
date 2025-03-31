@@ -9,6 +9,7 @@ public enum UIState
     Game,
     Option,
     GameOver,
+    Pause,
 
     Nothing
 }
@@ -77,9 +78,14 @@ public class UIManager : MonoBehaviour
         gameOverUI?.SetActive(currentState);
     }
 
-    public void FixedUpdate()
+    public void Update() //테스트용.
     {
         if(Input.GetKeyDown(KeyCode.V))
+        {
+            InvokeGameOverUI();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             InvokeGameOverUI();
         }
@@ -134,5 +140,12 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene("KYH_UI_LoadingScene");
     }
 
+    //Pause 내부
 
+    public void InvokePauseUI()
+    {
+        CharacterManager.Instance.Player.controller.ToggleCursor(true);
+        ChangeState(UIState.Pause);
+        Time.timeScale = 0f;
+    }
 }
