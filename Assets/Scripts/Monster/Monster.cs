@@ -22,7 +22,6 @@ public class Monster : MonoBehaviour
     private float walkSpeed;
     private float runSpeed;
     private float playerDistance;
-    public bool isFind;
     [Header("Monster setting")]
     public float lastAttack;
 
@@ -63,7 +62,6 @@ public class Monster : MonoBehaviour
                 agent.isStopped = false;
                 break;
             case MonsterState.Find:
-                if(!isFind)
                     StartCoroutine(StartFind());
                     break;
             case MonsterState.Attacking:
@@ -141,15 +139,12 @@ public class Monster : MonoBehaviour
     }
     IEnumerator StartFind()
     {
-        isFind = true;
-        agent.isStopped = true;
         foreach (Animator anim in animator)
         {
             anim.speed = 0;
             anim.SetTrigger("Find");
         }
         yield return new WaitForSeconds(1f);
-        agent.isStopped = false;
         SetState(MonsterState.Attacking);
     }
     void AttackingUpdate() //전투시
@@ -190,7 +185,6 @@ public class Monster : MonoBehaviour
             }
             else
             {
-                isFind = false;
                 agent.SetDestination(transform.position);
                 agent.isStopped = true;
                 SetState(MonsterState.Walk);
