@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5978344638034712261}
   - component: {fileID: -1882961906334258677}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b31f46526ceb0499ba0030affb3dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseItemData: {fileID: 0}
   weaponData: {fileID: 11400000, guid: 09347b0b8e7ca1445b0dbb0841c066aa, type: 2}
   bullet: {fileID: 4307792578551046586, guid: e149686616a124b4dad7eb884fcf6ee4, type: 3}
 --- !u!1 &3334640765961056255
@@ -61,7 +60,7 @@ GameObject:
   - component: {fileID: 7656214161435687246}
   - component: {fileID: 8154406596012867715}
   - component: {fileID: 2446970990591763603}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

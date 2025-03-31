@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 368271113742709266}
   - component: {fileID: 1582676836332111514}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PiercingBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,8 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e655194cbb8de4d86231a30bd9ad6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseItemData: {fileID: 0}
-  piercingBulletDataSO: {fileID: 11400000, guid: 1225f918b6e2fac488705589fadc1409, type: 2}
+  bulletDataSO: {fileID: 0}
 --- !u!1 &4959860017608402744
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +58,7 @@ GameObject:
   - component: {fileID: 9059840910523687462}
   - component: {fileID: 8056239301763560871}
   - component: {fileID: 6734229107174151322}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Bullet_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}

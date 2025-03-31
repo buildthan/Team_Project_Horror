@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedWeapon : BaseItem
+public class RangedWeapon : Weapon
 {
     public RangedWeaponDataSO weaponData;   
 
     public Bullet bullet;    // 사용하는 Bullet의 종류
+
+    public override BaseItemDataSO GetItemData()
+    {
+        return weaponData; /// 부모 타입(BaseItemDataSO)으로 반환(업캐스팅)
+    }
+
 
     // 임시
     //public TempInventory inventory; // 인벤토리

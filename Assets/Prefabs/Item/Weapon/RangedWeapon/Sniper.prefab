@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2261845545838500306}
   - component: {fileID: 2519626083802258228}
   - component: {fileID: 1593567630564490619}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7569099215268043715}
   - component: {fileID: -3387145216883205638}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,6 +163,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b31f46526ceb0499ba0030affb3dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseItemData: {fileID: 0}
   weaponData: {fileID: 11400000, guid: 1e89c6e9d9c682f4cab567e98255698a, type: 2}
   bullet: {fileID: 1582676836332111514, guid: 69a51a7475ca79841a55479364c890e6, type: 3}
