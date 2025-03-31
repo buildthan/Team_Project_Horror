@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     public GameUI gameUI = null;
     OptionUI optionUI = null;
     GameOverUI gameOverUI = null;
+    PauseUI pauseUI = null;
 
     static UIManager instance;
 
@@ -64,6 +65,8 @@ public class UIManager : MonoBehaviour
         optionUI?.Init(this);
         gameOverUI = GetComponentInChildren<GameOverUI>(true);
         gameOverUI?.Init(this);
+        pauseUI = GetComponentInChildren<PauseUI>(true);
+        pauseUI?.Init(this);
 
 
         ChangeState(UIState.Title);
@@ -76,18 +79,19 @@ public class UIManager : MonoBehaviour
         gameUI?.SetActive(currentState);
         optionUI?.SetActive(currentState);
         gameOverUI?.SetActive(currentState);
+        pauseUI?.SetActive(currentState);
     }
 
-    public void Update() //테스트용.
+    public void Update() //테스트용. 나중에 플레이어에서 수정할 것.
     {
-        if(Input.GetKeyDown(KeyCode.V))
+        if(Input.GetKeyDown(KeyCode.V) && currentState == UIState.Game)
         {
             InvokeGameOverUI();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            InvokeGameOverUI();
+            TogglePauseUI();
         }
     }
 
@@ -142,10 +146,39 @@ public class UIManager : MonoBehaviour
 
     //Pause 내부
 
-    public void InvokePauseUI()
+    public void TogglePauseUI()
     {
-        CharacterManager.Instance.Player.controller.ToggleCursor(true);
-        ChangeState(UIState.Pause);
-        Time.timeScale = 0f;
+        if (currentState == UIState.Pause) //패스 화면이 켜져있는 경우 꺼주고
+        {
+            CharacterManager.Instance.Player.controller.ToggleCursor(false);
+            ChangeState(UIState.Game);
+            Time.timeScale = 1f;
+        }
+        else if(currentState == UIState.Game) //패스 화면이 꺼져있는 경우 켜준다.
+        {
+            CharacterManager.Instance.Player.controller.ToggleCursor(true);
+            ChangeState(UIState.Pause);
+            Time.timeScale = 0f;
+        }
+    }
+
+    public void OnClickPauseBack()
+    {
+        CharacterManager.Instance.Player.controller.ToggleCursor(false);
+        ChangeState(UIState.Game);
+        Time.timeScale = 1f;
+    }
+
+    public void OnClickPauseSetting()
+    {
+
+    }
+
+    public void OnClickPauseTitle()
+    {
+        Time.timeScale = 1f;
+        nextSceneName = "KYH_UI"; //로딩이 끝나면 이동할 씬 이름
+        ChangeState(UIState.Nothing);
+        SceneManager.LoadScene("KYH_UI_LoadingScene");
     }
 }

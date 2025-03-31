@@ -29901,7 +29901,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 264}
+  m_AnchoredPosition: {x: -605, y: 264}
   m_SizeDelta: {x: 1000, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3180362813004811781
@@ -29997,7 +29997,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -165}
+  m_AnchoredPosition: {x: -612, y: -391}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3417331456710176075
@@ -32217,9 +32217,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Temporary
+  m_text: 'Into The
 
-    Title'
+    Deep'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4965e23b0cfde074eb859b6e441493b7, type: 2}
   m_sharedMaterial: {fileID: -1327704977301161484, guid: 4965e23b0cfde074eb859b6e441493b7, type: 2}

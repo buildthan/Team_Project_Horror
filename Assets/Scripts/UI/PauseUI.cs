@@ -24,17 +24,17 @@ public class PauseUI : BaseUI
 
     public void OnClickPauseBackButton()
     {
-
+        uiManager.OnClickPauseBack();
     }
     
     public void OnClickPauseSettingButton()
     {
-
+        uiManager.OnClickPauseSetting();
     }
 
     public void OnClickPauseTitleButton()
     {
-
+        uiManager.OnClickPauseTitle();
     }
 
 }
