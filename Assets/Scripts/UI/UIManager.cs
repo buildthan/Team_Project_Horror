@@ -162,12 +162,14 @@ public class UIManager : MonoBehaviour
     {
         if (currentState == UIState.Pause) //패스 화면이 켜져있는 경우 꺼주고
         {
+            PlayUIClickAudio();
             CharacterManager.Instance.Player.controller.ToggleCursor(false);
             ChangeState(UIState.Game);
             Time.timeScale = 1f;
         }
         else if(currentState == UIState.Game) //패스 화면이 꺼져있는 경우 켜준다.
         {
+            PlayUIClickAudio();
             CharacterManager.Instance.Player.controller.ToggleCursor(true);
             ChangeState(UIState.Pause);
             Time.timeScale = 0f;
