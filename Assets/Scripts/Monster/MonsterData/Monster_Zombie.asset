@@ -18,9 +18,9 @@ MonoBehaviour:
   runSpeed: 2
   detectRange: 6
   attackRate: 2
-  attackRange: 3
+  attackRange: 2
   sight: 80
   minWanderWaitTime: 3
   maxWanderWaitTime: 4
-  maxWanderDistance: 4
+  maxWanderDistance: 5
   mobType: 0

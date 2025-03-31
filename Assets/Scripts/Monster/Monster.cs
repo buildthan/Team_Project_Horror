@@ -8,7 +8,7 @@ public enum MonsterState
 {
     Idle,
     Walk,
-    Chasing,
+    Find,
     Attacking
 }
 
@@ -22,7 +22,7 @@ public class Monster : MonoBehaviour
     private float walkSpeed;
     private float runSpeed;
     private float playerDistance;
-
+    public bool isFind;
     [Header("Monster setting")]
     public float lastAttack;
 
@@ -62,6 +62,10 @@ public class Monster : MonoBehaviour
                 agent.speed = walkSpeed;
                 agent.isStopped = false;
                 break;
+            case MonsterState.Find:
+                if(!isFind)
+                    StartCoroutine(StartFind());
+                    break;
             case MonsterState.Attacking:
                 agent.speed = runSpeed;
                 agent.isStopped = false;
@@ -76,26 +80,29 @@ public class Monster : MonoBehaviour
     {
         playerDistance = Vector3.Distance(transform.position, CharacterManager.Instance.Player.transform.position);
 
-        switch (state)
+        if (!isDie)
         {
-            case MonsterState.Idle:
-            case MonsterState.Walk:
-                PassiveUpdate();
-                break;
-            case MonsterState.Attacking:
-                AttackingUpdate();
-                break;
-        }
-        foreach (Animator anim in animator)
-        {
-            anim.SetBool("Move", state != MonsterState.Idle);
-        }
-
-        if(state == MonsterState.Attacking)
-        {
+            switch (state)
+            {
+                case MonsterState.Idle:
+                case MonsterState.Walk:
+                    PassiveUpdate();
+                    break;
+                case MonsterState.Attacking:
+                    AttackingUpdate();
+                    break;
+            }
             foreach (Animator anim in animator)
             {
-                anim.SetBool("Move", false);
+                anim.SetBool("Move", state != MonsterState.Idle);
+            }
+
+            if (state == MonsterState.Attacking)
+            {
+                foreach (Animator anim in animator)
+                {
+                    anim.SetBool("Move", false);
+                }
             }
         }
     }
@@ -110,7 +117,7 @@ public class Monster : MonoBehaviour
        
         if (playerDistance < mobData.detectRange)
         {
-            SetState(MonsterState.Attacking);
+            SetState(MonsterState.Find);
         }
  /**/    }
     void WanderToNewLocation() //새 목적지 갱신
@@ -127,12 +134,23 @@ public class Monster : MonoBehaviour
 
         if (NavMesh.SamplePosition(randomDirection, out hit, mobData.maxWanderDistance, NavMesh.AllAreas))
         {
-            Debug.Log($"[Monster] 유효한 경로 찾음: {hit.position}");
             return hit.position;
         }
 
-        Debug.LogWarning("[Monster] 유효한 NavMesh 위치를 찾지 못함! 다시 시도 중...");
         return transform.position;
+    }
+    IEnumerator StartFind()
+    {
+        isFind = true;
+        agent.isStopped = true;
+        foreach (Animator anim in animator)
+        {
+            anim.speed = 0;
+            anim.SetTrigger("Find");
+        }
+        yield return new WaitForSeconds(1f);
+        agent.isStopped = false;
+        SetState(MonsterState.Attacking);
     }
     void AttackingUpdate() //전투시
     {
@@ -172,6 +190,7 @@ public class Monster : MonoBehaviour
             }
             else
             {
+                isFind = false;
                 agent.SetDestination(transform.position);
                 agent.isStopped = true;
                 SetState(MonsterState.Walk);
@@ -192,11 +211,6 @@ public class Monster : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
-            isDie = true;
-            foreach (Animator anim in animator)
-            {
-                anim.SetTrigger("Die");
-            }
             StartCoroutine(Die());
         }
     }
@@ -221,8 +235,12 @@ public class Monster : MonoBehaviour
 
     IEnumerator Die()
     {
-
-        yield return new WaitForSeconds(0.5f);
+        foreach (Animator anim in animator)
+        {
+            anim.SetTrigger("Die");
+        }
+        isDie = true;
+        yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
     }
 }
