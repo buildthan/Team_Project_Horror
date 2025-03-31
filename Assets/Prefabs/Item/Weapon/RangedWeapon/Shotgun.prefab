@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5978344638034712261}
   - component: {fileID: -1882961906334258677}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,10 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b31f46526ceb0499ba0030affb3dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponData: {fileID: 0}
-  bullet: {fileID: 0}
-  inventory: {fileID: 0}
-  inventorySlot: {fileID: 0}
+  baseItemData: {fileID: 0}
+  weaponData: {fileID: 11400000, guid: 09347b0b8e7ca1445b0dbb0841c066aa, type: 2}
+  bullet: {fileID: 4307792578551046586, guid: e149686616a124b4dad7eb884fcf6ee4, type: 3}
 --- !u!1 &3334640765961056255
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +60,8 @@ GameObject:
   - component: {fileID: 5229288546019655168}
   - component: {fileID: 7656214161435687246}
   - component: {fileID: 8154406596012867715}
-  m_Layer: 8
+  - component: {fileID: 2446970990591763603}
+  m_Layer: 0
   m_Name: shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,3 +145,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc74bb52495beed45aa2ab2ba4b460ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &2446970990591763603
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3334640765961056255}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.34545305, y: 1.4224896, z: 6.216007}
+  m_Center: {x: 0, y: -0.037159324, z: -0.41183197}
