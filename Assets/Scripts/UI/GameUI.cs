@@ -30,6 +30,9 @@ public class GameUI : BaseUI
     public GameObject unEquipButton;    // 해제버튼
     public GameObject dropButton;   // 버리기버튼
 
+    //인벤토리 슬롯 접근용
+    public Transform inventoryContent;
+
     private PlayerController controller;    // 정보를 주고받을 플레이어의 정보(특히 delegate를 가져오기 위함이다)
     private PlayerCondition condition;  // 정보를 주고받을 플레이어의 상태
 
@@ -45,9 +48,9 @@ public class GameUI : BaseUI
     public void Start()
     {
         //// 플레이어와 인벤토리 연결
-        CharacterManager.Instance.Player.controller.inventory += Toggle;
+        //CharacterManager.Instance.Player.controller.inventory += Toggle;
 
-        dropPosition = CharacterManager.Instance.Player.dropPosition;
+        //dropPosition = CharacterManager.Instance.Player.dropPosition;
 
         //CharacterManager.Instance.Player.addItem += AddItem;  // delegate에 함수 등록
 
@@ -57,7 +60,7 @@ public class GameUI : BaseUI
 
         for (int i = 0; i < inventorySlots.Length; i++)
         {
-            inventorySlots[i] = Instantiate(inventorySlotPrefab, this.transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0).GetChild(0));
+            inventorySlots[i] = Instantiate(inventorySlotPrefab, inventoryContent);
         }
     }
     public void Update()

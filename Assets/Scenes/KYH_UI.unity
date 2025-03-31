@@ -670,8 +670,17 @@ MonoBehaviour:
   inventory: {fileID: 28733243}
   inventorySlots: []
   inventorySlotPrefab: {fileID: 4232352999653026479, guid: 1c92a78fbc9c84c46b1ce818a9b96440, type: 3}
+  crosshair: {fileID: 0}
+  dropPosition: {fileID: 0}
   selectedItemName: {fileID: 1281616986}
   selectedItemDescription: {fileID: 1694067017}
+  selectedItemStatName: {fileID: 0}
+  selectedItemStatValue: {fileID: 0}
+  useButton: {fileID: 0}
+  equipButton: {fileID: 0}
+  unEquipButton: {fileID: 0}
+  dropButton: {fileID: 0}
+  inventoryContent: {fileID: 1305226504}
 --- !u!1 &349962027
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,6 +965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneName: 
+  gameUI: {fileID: 0}
 --- !u!1 &660326253
 GameObject:
   m_ObjectHideFlags: 0

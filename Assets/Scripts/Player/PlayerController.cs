@@ -51,6 +51,10 @@ public class PlayerController : MonoBehaviour
         /// fps 하니까 가운데에 고정하고 보여준다
         Cursor.lockState = CursorLockMode.Locked;
         initialCamLocalPos = cameraContainer.localPosition;
+
+        //인벤토리 접근용
+        inventory += UIManager.Instance.gameUI.Toggle;
+        UIManager.Instance.gameUI.dropPosition = CharacterManager.Instance.Player.dropPosition;
     }
 
     private void FixedUpdate()
