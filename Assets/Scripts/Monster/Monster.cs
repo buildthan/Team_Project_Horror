@@ -48,8 +48,8 @@ public class Monster : MonoBehaviour
         }
         SetState(MonsterState.Walk);
     }
-    
-    public void SetState(MonsterState stat)
+
+    public void SetState(MonsterState stat) //현재 상태 변화
     {
         state = stat;
         switch (state)
@@ -74,6 +74,8 @@ public class Monster : MonoBehaviour
     }
     private void Update()
     {
+        playerDistance = Vector3.Distance(transform.position, CharacterManager.Instance.Player.transform.position);
+
         switch (state)
         {
             case MonsterState.Idle:
@@ -81,36 +83,44 @@ public class Monster : MonoBehaviour
                 PassiveUpdate();
                 break;
             case MonsterState.Attacking:
-               // AttackingUpdate();
+                AttackingUpdate();
                 break;
         }
         foreach (Animator anim in animator)
         {
             anim.SetBool("Move", state != MonsterState.Idle);
         }
+
+        if(state == MonsterState.Attacking)
+        {
+            foreach (Animator anim in animator)
+            {
+                anim.SetBool("Move", false);
+            }
+        }
     }
 
-    void PassiveUpdate()
+    void PassiveUpdate() //비전투
     {
         if (state == MonsterState.Walk && agent.remainingDistance < 0.1f)
         {
             SetState(MonsterState.Idle);
             Invoke("WanderToNewLocation", Random.Range(mobData.minWanderWaitTime, mobData.maxWanderWaitTime));
         }
-        /*
+       
         if (playerDistance < mobData.detectRange)
         {
             SetState(MonsterState.Attacking);
         }
-*/    }
-    void WanderToNewLocation()
+ /**/    }
+    void WanderToNewLocation() //새 목적지 갱신
     {
         if (state != MonsterState.Idle) return;
         SetState(MonsterState.Walk);
         agent.SetDestination(GetWanderLocation());
     }
 
-    Vector3 GetWanderLocation()
+    Vector3 GetWanderLocation() //새 목적지 탐색
     {
         Vector3 randomDirection = transform.position + Random.insideUnitSphere * mobData.maxWanderDistance;
         NavMeshHit hit;
@@ -124,11 +134,15 @@ public class Monster : MonoBehaviour
         Debug.LogWarning("[Monster] 유효한 NavMesh 위치를 찾지 못함! 다시 시도 중...");
         return transform.position;
     }
-    void AttackingUpdate()
+    void AttackingUpdate() //전투시
     {
-        if (playerDistance < mobData.attackRange && IsPlayerInView())
+        if (playerDistance <= mobData.attackRange && IsPlayerInView())
         {
             agent.isStopped = true;
+            foreach (Animator anim in animator)
+            {
+                anim.SetBool("Move",false);
+            }
             if (Time.time - lastAttack > mobData.attackRate)
             {
                 lastAttack = Time.time;
@@ -142,7 +156,7 @@ public class Monster : MonoBehaviour
         }
         else
         {
-            if (playerDistance < mobData.detectRange)
+            if (playerDistance <= mobData.detectRange)
             {
                 agent.isStopped = false;
                 NavMeshPath path = new NavMeshPath();
@@ -154,7 +168,6 @@ public class Monster : MonoBehaviour
                 {
                     agent.SetDestination(transform.position);
                     agent.isStopped = true;
-                    SetState(MonsterState.Walk);
                 }
             }
             else
@@ -163,17 +176,18 @@ public class Monster : MonoBehaviour
                 agent.isStopped = true;
                 SetState(MonsterState.Walk);
             }
+            SetState(MonsterState.Walk);
         }
     }
 
-    bool IsPlayerInView()
+    bool IsPlayerInView() //플레이어가 시야 안에 있는 지
     {
         Vector3 dirToPlayer = CharacterManager.Instance.Player.transform.position - transform.position;
         float angle = Vector3.Angle(transform.forward, dirToPlayer);
         return angle < mobData.sight * 0.5f;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage) //피격 시
     {
         hp -= damage;
         if (hp <= 0)
@@ -187,7 +201,7 @@ public class Monster : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
+    void OnDrawGizmos() //Scene에서 시야 범위 출력
     {
         // 시야 범위 그리기
         Gizmos.color = Color.yellow;
