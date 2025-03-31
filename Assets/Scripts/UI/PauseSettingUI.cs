@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class PauseSettingUI : MonoBehaviour
+public class PauseSettingUI : BaseUI
 {
-    // Start is called before the first frame update
-    void Start()
+    public Button backButton;
+    protected override UIState GetUIState()
     {
-        
+        return UIState.PauseSetting;
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Init(UIManager uiManager)
     {
-        
+        base.Init(uiManager);
+
+        backButton.onClick.AddListener(OnClickPauseSettingBackButton);
+    }
+
+    public void OnClickPauseSettingBackButton()
+    {
+        uiManager.OnClickPauseSettingBack();
     }
 }

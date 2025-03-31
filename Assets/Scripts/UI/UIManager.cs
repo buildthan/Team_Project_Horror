@@ -10,6 +10,7 @@ public enum UIState
     Option,
     GameOver,
     Pause,
+    PauseSetting,
 
     Nothing
 }
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
     OptionUI optionUI = null;
     GameOverUI gameOverUI = null;
     PauseUI pauseUI = null;
+    PauseSettingUI pauseSettingUI = null;
 
     static UIManager instance;
 
@@ -67,6 +69,8 @@ public class UIManager : MonoBehaviour
         gameOverUI?.Init(this);
         pauseUI = GetComponentInChildren<PauseUI>(true);
         pauseUI?.Init(this);
+        pauseSettingUI = GetComponentInChildren<PauseSettingUI>(true);
+        pauseSettingUI?.Init(this);
 
 
         ChangeState(UIState.Title);
@@ -80,6 +84,7 @@ public class UIManager : MonoBehaviour
         optionUI?.SetActive(currentState);
         gameOverUI?.SetActive(currentState);
         pauseUI?.SetActive(currentState);
+        pauseSettingUI?.SetActive(currentState);
     }
 
     public void Update() //테스트용. 나중에 플레이어에서 수정할 것.
@@ -171,7 +176,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickPauseSetting()
     {
-
+        ChangeState(UIState.PauseSetting);
     }
 
     public void OnClickPauseTitle()
@@ -181,4 +186,11 @@ public class UIManager : MonoBehaviour
         ChangeState(UIState.Nothing);
         SceneManager.LoadScene("KYH_UI_LoadingScene");
     }
+
+    //PauseSetting내부
+    public void OnClickPauseSettingBack()
+    {
+        ChangeState(UIState.Pause);
+    }
+
 }
