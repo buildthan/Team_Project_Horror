@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,16 +35,16 @@ public class GunView : MonoBehaviour
                     //yRot = Mathf.Clamp(yRot, -75, 75);
                     startPos = Input.GetTouch(0).position;
                 }
-                ScaleUp();
+                //ScaleUp();
             }
             else
             {
                 isFirst = true;
                 zRot = Mathf.Lerp(zRot, 0, 0.08f);
                 yRot = Mathf.Lerp(yRot, 0, 0.08f);
-                ScaleDown();
+                //ScaleDown();
             }
-            transform.eulerAngles = new Vector3(0, 90 + yRot, zRot);
+            //transform.eulerAngles = new Vector3(0, 90 + yRot, zRot);
         }
         else 
         {
@@ -63,23 +63,23 @@ public class GunView : MonoBehaviour
                     //yRot = Mathf.Clamp(yRot, -55, 55);
                     startPos = Input.mousePosition;
                 }
-                ScaleUp();
+                //ScaleUp();
             }else
             {
                 isFirst = true;
                 zRot = Mathf.Lerp(zRot, 0, 0.2f);
                 yRot = Mathf.Lerp(yRot, 0, 0.2f);
-                ScaleDown();
+                //ScaleDown();
             }
-            transform.eulerAngles = new Vector3(0,90 + yRot,zRot);
+            //transform.eulerAngles = new Vector3(0,90 + yRot,zRot);
         }
     }
-    void ScaleUp()
-    {
-        transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, 0.075f);
-    }
-    void ScaleDown()
-    {
-        transform.localScale = Vector3.Lerp(transform.localScale, baseScale, 0.075f);
-    }   
+    //void ScaleUp()
+    //{
+    //    transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, 0.075f);
+    //}
+    //void ScaleDown()
+    //{
+    //    transform.localScale = Vector3.Lerp(transform.localScale, baseScale, 0.075f);
+    //}   
 }

@@ -40,10 +40,13 @@ public class PlayerController : MonoBehaviour
     // UI 관련
     public Action inventory;    // 인벤토리 열고 닫을때 Toggle 메서드를 담아서 실행
 
+    private Animator animator;
+
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     void Start()
@@ -218,7 +221,7 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < rays.Length; i++)
         {
-            if (Physics.Raycast(rays[i], 0.1f, groundLayerMask))
+            if (Physics.Raycast(rays[i], 3f, groundLayerMask))
             {
                 return true;
             }
