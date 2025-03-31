@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEditor.Timeline.Actions.MenuPriority;
 
 /// <summary>
@@ -36,6 +37,9 @@ public class GameUI : BaseUI
     private PlayerController controller;    // 정보를 주고받을 플레이어의 정보(특히 delegate를 가져오기 위함이다)
     private PlayerCondition condition;  // 정보를 주고받을 플레이어의 상태
 
+    //플레이어 정보 명시용
+    [Header("Player Condition Indicators")]
+    public Image hpIndicator;
 
 
     // 선택된 아이템의 정보 저장
@@ -299,4 +303,12 @@ public class GameUI : BaseUI
     {
         UnEquip(selectedItemIndex);
     }
+
+
+    //플레이어 HP 정보 업데이트용
+    public void UpdatePlayerHpIndicator(float curhp, float maxHp) //플레이어의 현재 체력과 최대 체력을 받아옴
+    {
+        hpIndicator.color = new Color(1- curhp / maxHp, curhp/maxHp,0);
+    }
+    
 }

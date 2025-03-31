@@ -30174,6 +30174,7 @@ MonoBehaviour:
   unEquipButton: {fileID: 0}
   dropButton: {fileID: 0}
   inventoryContent: {fileID: 7920914153048260725}
+  hpIndicator: {fileID: 7394135656924747559}
 --- !u!224 &7553122854199566882
 RectTransform:
   m_ObjectHideFlags: 0
