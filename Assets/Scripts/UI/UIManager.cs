@@ -8,6 +8,7 @@ public enum UIState
     Title,
     Game,
     Option,
+    GameOver,
 
     Nothing
 }
@@ -22,6 +23,7 @@ public class UIManager : MonoBehaviour
     TitleUI titleUI = null;
     public GameUI gameUI = null;
     OptionUI optionUI = null;
+    GameOverUI gameOverUI = null;
 
     static UIManager instance;
 
@@ -59,6 +61,8 @@ public class UIManager : MonoBehaviour
         gameUI?.Init(this);
         optionUI = GetComponentInChildren<OptionUI>(true);
         optionUI?.Init(this);
+        gameOverUI = GetComponentInChildren<GameOverUI>(true);
+        gameOverUI?.Init(this);
 
 
         ChangeState(UIState.Title);
@@ -70,6 +74,15 @@ public class UIManager : MonoBehaviour
         titleUI?.SetActive(currentState);
         gameUI?.SetActive(currentState);
         optionUI?.SetActive(currentState);
+        gameOverUI?.SetActive(currentState);
+    }
+
+    public void FixedUpdate()
+    {
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            InvokeGameOverUI();
+        }
     }
 
 
@@ -104,4 +117,22 @@ public class UIManager : MonoBehaviour
     {
         ChangeState(UIState.Title);
     }
+
+    //GameOver 내부
+
+    public void InvokeGameOverUI() //게임오버 UI 발동
+    {
+        CharacterManager.Instance.Player.controller.ToggleCursor(true);
+        ChangeState(UIState.GameOver);
+        Time.timeScale = 0f;
+    }
+    public void OnClickGameOverTitle() //게임오버씬에서 타이틀로 이동 클릭
+    {
+        Time.timeScale = 1f;
+        nextSceneName = "KYH_UI"; //로딩이 끝나면 이동할 씬 이름
+        ChangeState(UIState.Nothing);
+        SceneManager.LoadScene("KYH_UI_LoadingScene");
+    }
+
+
 }
