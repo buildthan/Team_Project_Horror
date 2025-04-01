@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ public class ItemManager : MonoBehaviour
     public Dictionary<System.Type, List<BaseItem>> itemPool; // 비활성화된 아이템 저장 (오브젝트 풀링)
     public List<BaseItem> equippedItems; // 장착한 아이템 리스트
 
+    public Transform itemParentTr;  // 플레이어의 아이템을 모으는 parent
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,32 +33,57 @@ public class ItemManager : MonoBehaviour
 
     /// <summary>
     /// 아이템을 가져오기 (없으면 새로 생성)
+    /// 슬롯에서 호출이다
+    /// 그렇다면.. 슬롯에서 데이터를 가져온 다음 그걸로 아이템을 알아내야겠지?
     /// </summary>
-    public T GetItemToPool<T>() where T : BaseItem, new()
+    public T GetEnableItemFromPool<T>(T item) where T : BaseItem, new()
     {
+        // 어떤 아이템을 가져와야하는지 매개변수로 받아야한다
         System.Type type = typeof(T);
 
+        // Dictionary에서 T를 키로 하는 List에서 검색
+        // 있을 수 없는 일이지만, key에 해당하는 List가없다면
         if (!itemPool.ContainsKey(type))
         {
-            itemPool[type] = new List<BaseItem>();
+            // 리스트가 없는게 말이 안된다            
+            // 따라서 예외처리한다
+            throw new InvalidOperationException($"아이템 풀에 {type.Name} 타입이 존재하지 않습니다.");
         }
 
         if (itemPool[type].Count > 0)
         {
-            BaseItem item = itemPool[type][0];
-            itemPool[type].RemoveAt(0);
-            item.gameObject.SetActive(true);
-            return (T)item;
+            BaseItem enableItem;
+            // itemPool[type]에서 검사해서 해당 아이템을 찾고
+            for (int i = 0; i < itemPool[type].Count; i++)
+            {
+                /// 테스트 해봐야한다, name이 다를 수 있어
+                if (itemPool[type][i].GetType() == type && itemPool[type][i].name == item.name)
+                {
+                    enableItem = itemPool[type][i];
+                    // 2. itemParentTr의 자식 중에서 같은 아이템 찾기
+                    BaseItem[] childItems = itemParentTr.GetComponentsInChildren<BaseItem>(true);
+                    foreach (var child in childItems)
+                    {
+                        if (child.GetType() == type && child.name == enableItem.name)
+                        {
+                            child.gameObject.SetActive(true);
+                            itemPool[type].RemoveAt(i);
+                            return (T)child;
+                        }
+                    }
+                }
+            }
+            // 여기까지 왔으면 아이템이 없다
+            return null;
         }
         else
         {
-            T newItem = new T(); // 새로운 아이템 생성
-            return newItem;
+            // itemPool[type]에 아무것도 없으면 null 리턴
+            return null;
         }
     }
-
     /// <summary>
-    /// 사용한 아이템을 풀에 반환
+    /// 아이템을 풀에 반환
     /// </summary>
     public void ReturnItemToPool<T>(T item) where T : BaseItem
     {
@@ -65,13 +93,15 @@ public class ItemManager : MonoBehaviour
         {
             itemPool[type] = new List<BaseItem>();
         }
-
+        item.gameObject.transform.SetParent(itemParentTr);
         item.gameObject.SetActive(false);
         itemPool[type].Add(item);
     }
 
+
     /// <summary>
     /// 아이템 장착
+    /// 장착 가능한 아이템이 있는 경우 
     /// </summary>
     public void EquipItem(BaseItem item)
     {
@@ -81,7 +111,6 @@ public class ItemManager : MonoBehaviour
             item.gameObject.SetActive(true);
         }
     }
-
     /// <summary>
     /// 아이템 해제
     /// </summary>
