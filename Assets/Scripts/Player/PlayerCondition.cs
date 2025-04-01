@@ -18,6 +18,9 @@ public class PlayerCondition : MonoBehaviour
 
     public bool IsSprintingAllowed => currentStamina > 0f;
 
+    private float lastDamageTime;
+    public float damageCooldown = 1f;
+
     private void Awake()
     {
         controller = GetComponent<PlayerController>();
@@ -81,12 +84,15 @@ public class PlayerCondition : MonoBehaviour
         Debug.Log("[PlayerCondition] 플레이어 사망!");
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy != null)
+        if (enemy != null && Time.time - lastDamageTime > damageCooldown)
         {
+            lastDamageTime = Time.time;
             TakeDamage(enemy.attackDamage);
+
+            Debug.Log($"[PlayerCondition] Enemy와 충돌 중! {enemy.attackDamage} 데미지 받음. 현재 체력: {currentHealth}");
         }
     }
 }
