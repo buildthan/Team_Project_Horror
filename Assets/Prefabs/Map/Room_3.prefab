@@ -1142,12 +1142,12 @@ Transform:
   - {fileID: 3371966460468930466}
   - {fileID: 8092456250535195115}
   - {fileID: 7810739581376613058}
-  - {fileID: 573573142464428360}
   - {fileID: 4588162229684543549}
   - {fileID: 2730704304440345335}
   - {fileID: 2172901273071965907}
   - {fileID: 5791003900153695063}
   - {fileID: 7048239881036181415}
+  - {fileID: 573573142464428360}
   m_Father: {fileID: 784376473100912675}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1365850166269197695
@@ -1553,7 +1553,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4588162229684543549}
   m_Layer: 0
-  m_Name: ItemPoints_5
+  m_Name: KeyPoints_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1584,7 +1584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2172901273071965907}
   m_Layer: 0
-  m_Name: ItemPoints_7
+  m_Name: KeyPoints_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1615,7 +1615,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5791003900153695063}
   m_Layer: 0
-  m_Name: ItemPoints_8
+  m_Name: GunPoints_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2502,7 +2502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2730704304440345335}
   m_Layer: 0
-  m_Name: ItemPoints_6
+  m_Name: KeyPoints_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3911,7 +3911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 573573142464428360}
   m_Layer: 0
-  m_Name: ItemPoints_4
+  m_Name: GunPoints_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4154,7 +4154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7048239881036181415}
   m_Layer: 0
-  m_Name: ItemPoints_9
+  m_Name: GunPoints_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
