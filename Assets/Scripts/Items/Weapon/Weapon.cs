@@ -1,8 +1,6 @@
 using UnityEngine;
 
-
-public abstract class Weapon : BaseItem
-
+public class Weapon : MonoBehaviour
 {
     public WeaponData data;
     private float lastFireTime;
@@ -22,4 +20,3 @@ public abstract class Weapon : BaseItem
         return data.damage;
     }
 }
-
