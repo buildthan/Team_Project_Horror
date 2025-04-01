@@ -1833,9 +1833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Pasue
-
-'
+  m_text: Pause
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4965e23b0cfde074eb859b6e441493b7, type: 2}
   m_sharedMaterial: {fileID: -1327704977301161484, guid: 4965e23b0cfde074eb859b6e441493b7, type: 2}
