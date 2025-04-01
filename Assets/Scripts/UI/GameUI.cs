@@ -65,6 +65,7 @@ public class GameUI : BaseUI
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             inventorySlots[i] = Instantiate(inventorySlotPrefab, inventoryContent);
+            inventorySlots[i].GetComponent<ItemSlot>().index = i;
         }
     }
     public void Update()
@@ -248,8 +249,8 @@ public class GameUI : BaseUI
         /// FoodDataSO, WeaponDataSO, BulletDataSO 중 하나
         /// 해당 자료형인 아이템인 경우에 
         useButton.SetActive(selectedItem.GetType() == typeof(FoodDataSO));  // 선택한 아이템의 type이 consumable일때 사용버튼 활성화
-        equipButton.SetActive(selectedItem.GetType() == typeof(WeaponDataSO) && !slot.equipped);   /// 선택한 아이템의 type이 Equipable이고, 장착하지 않았다면, 장착버튼 활성화
-        unEquipButton.SetActive(selectedItem.GetType() == typeof(WeaponDataSO) && slot.equipped);  /// 선택한 아이템의 type이 Equipable이고, 장착했다면, 해제버튼 활성화
+        equipButton.SetActive(selectedItem.GetType() == typeof(RangedWeaponDataSO) && !slot.equipped);   /// 선택한 아이템의 type이 Equipable이고, 장착하지 않았다면, 장착버튼 활성화
+        unEquipButton.SetActive(selectedItem.GetType() == typeof(RangedWeaponDataSO) && slot.equipped);  /// 선택한 아이템의 type이 Equipable이고, 장착했다면, 해제버튼 활성화
         dropButton.SetActive(true); // 버리기 버튼은 활성화
     }
 

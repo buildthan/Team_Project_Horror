@@ -1,22 +1,14 @@
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+
+public abstract class Weapon : BaseItem
 {
-    public WeaponData data;
-    private float lastFireTime;
+    public abstract bool CanFire();
 
-    public bool CanFire()
-    {
-        return Time.time >= lastFireTime + data.fireRate;
-    }
+    // RangedWeapon은 Fire를 하지만
+    // MeleeWeapon은 실제로 Fire하지는 않지만, 이름을 통일했다
+    public abstract void Fire();
 
-    public void Fire()
-    {
-        lastFireTime = Time.time;
-    }
-
-    public int GetDamage()
-    {
-        return data.damage;
-    }
+    public abstract int GetDamage();
 }
+
