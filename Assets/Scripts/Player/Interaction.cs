@@ -61,7 +61,13 @@ public class Interaction : MonoBehaviour
 
                     Debug.Log(hit.collider.gameObject);
                     curInteractGameObject = hit.collider.gameObject;    // 새로운 정보로 바꿔
-                    curInteractable = hit.collider.GetComponent<IInteractable>();       /// ★검출된 정보를 인터페이스로 캐싱
+
+
+                    /// BaseItem에 붙어있는 것은 IInteractable이 아니라 BaseItem이므로
+                    /// BaseItem으로 받아서 IInteractable으로 캐스팅한다
+                    curInteractable = hit.collider.GetComponentInParent<BaseItem>() as IInteractable;
+
+
                     curDamageable = hit.collider.GetComponent<IDamageable>();   //공격가능한 대상을 캐싱
                     Debug.Log("curDamageable: " + curDamageable);
                     //SetPromptText();    // promptText에 출력해라
@@ -89,7 +95,7 @@ public class Interaction : MonoBehaviour
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         /// E를 눌렀을 때, aim이 아이템을 바라보고 있을 때(인터페이스로 캐싱하고 있는 정보가 있을 때)
-        if (context.phase == InputActionPhase.Started /*&& curInteractable != null*/)
+        if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
             //Debug.Log($"상호작용하는 오브젝트의 ID: {curInteractGameObject.GetInstanceID()}");
 
