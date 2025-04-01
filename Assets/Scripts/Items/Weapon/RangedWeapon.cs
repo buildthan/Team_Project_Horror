@@ -13,6 +13,22 @@ public class RangedWeapon : Weapon
         return weaponData; /// 부모 타입(BaseItemDataSO)으로 반환(업캐스팅)
     }
 
+    public override bool CanFire()
+    {
+        return Time.time >= weaponData.lastFireTime + weaponData.fireRate;
+    }
+
+    public override void Fire()
+    {
+        weaponData.lastFireTime = Time.time;
+    }
+
+    public override int GetDamage()
+    {
+        return weaponData.damage;
+    }
+
+
 
     // 임시
     //public TempInventory inventory; // 인벤토리
