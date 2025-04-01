@@ -1,6 +1,7 @@
 using UnityEngine;
 
 
+
 public abstract class Weapon : BaseItem
 {
     public abstract bool CanFire();
