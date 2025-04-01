@@ -1395,6 +1395,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 509309958439223689, guid: 25656de17dcff504d961a2c8df79d846, type: 3}
+      propertyPath: dropPosition
+      value: 
+      objectReference: {fileID: 949437896}
     - target: {fileID: 1456528830237674035, guid: 25656de17dcff504d961a2c8df79d846, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1472,6 +1476,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25656de17dcff504d961a2c8df79d846, type: 3}
+--- !u!4 &949437896 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3610505106521875925, guid: 25656de17dcff504d961a2c8df79d846, type: 3}
+  m_PrefabInstance: {fileID: 949437895}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1044120400
 PrefabInstance:
   m_ObjectHideFlags: 0
