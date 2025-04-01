@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
+    private Vector2 recoil;
+
 
     private void Awake()
     {
@@ -56,7 +58,7 @@ public class PlayerController : MonoBehaviour
         initialCamLocalPos = cameraContainer.localPosition;
 
         //인벤토리 접근용
-        inventory += UIManager.Instance.gameUI.Toggle;
+        //inventory += UIManager.Instance.gameUI.Toggle;
         //UIManager.Instance.gameUI.dropPosition = CharacterManager.Instance.Player.dropPosition;
     }
 
@@ -178,9 +180,13 @@ public class PlayerController : MonoBehaviour
     {
         camCurXRot += mouseDelta.y * lookSensitivity;
         camCurXRot = Mathf.Clamp(camCurXRot, minXLook, maxXLook);
-        cameraContainer.localEulerAngles = new Vector3(-camCurXRot, 0, 0);
+        cameraContainer.localEulerAngles = new Vector3(-camCurXRot + recoil.x, 0, 0);
 
-        transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity, 0);
+        //   Y축 회전에 recoil.y 적용
+        transform.eulerAngles += new Vector3(0, mouseDelta.x * lookSensitivity + recoil.y, 0);
+
+        //   반동 복구 처리
+        recoil = Vector2.Lerp(recoil, Vector2.zero, Time.deltaTime * 10f);
     }
 
     void HeadBob()
@@ -238,5 +244,12 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
         canLook = !toggle;
+    }
+
+    public void ApplyRecoil(float upKick, float sideKick)
+    {
+        float recoilX = upKick;
+        float recoilY = sideKick;
+        recoil += new Vector2(recoilX, recoilY);
     }
 }
