@@ -18,11 +18,12 @@ public class MonsterData : ScriptableObject
     public float detectRange;
     public float attackRate;
     public float attackRange;
+    public float attackSpeed;
     public float sight;
     public float minWanderWaitTime;
     public float maxWanderWaitTime;
     public float maxWanderDistance;
-
+    
     public MobType mobType;
     public float GetInitHp() { return hp; }
 
