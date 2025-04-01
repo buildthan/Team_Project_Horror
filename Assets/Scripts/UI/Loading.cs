@@ -26,6 +26,8 @@ public class Loading : MonoBehaviour
         if (name == "ISG_Item")
         {
             UIManager.Instance.ChangeState(UIState.Game);
+            // 씬이 바뀐 다음에 gameUI에 itemManager를 연결해야하는데... 
+
         }else if (name == "KYH_UI")
         {
             UIManager.Instance.ChangeState(UIState.Title);

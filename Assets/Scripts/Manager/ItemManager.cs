@@ -17,6 +17,8 @@ public class ItemManager : MonoBehaviour
     public Dictionary<System.Type, List<BaseItem>> itemPool; // 비활성화된 아이템 저장 (오브젝트 풀링)
     public List<BaseItem> equippedItems; // 장착한 아이템 리스트
 
+    public Transform playerItem;    // 플레이어 아이템의 부모
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,7 @@ public class ItemManager : MonoBehaviour
     /// <summary>
     /// 아이템을 가져오기 (없으면 새로 생성)
     /// </summary>
-    public T GetItem<T>() where T : BaseItem, new()
+    public T GetItemFromPool<T>() where T : BaseItem, new()
     {
         System.Type type = typeof(T);
 
@@ -55,10 +57,11 @@ public class ItemManager : MonoBehaviour
 
     /// <summary>
     /// 사용한 아이템을 풀에 반환
+    /// T는 BaseItem을 상속받은 클래스만 올 수 있다
     /// </summary>
-    public void ReturnItem<T>(T item) where T : BaseItem
+    public void ReturnItemToPool<T>(T item) where T : BaseItem
     {
-        System.Type type = typeof(T);
+        System.Type type = typeof(T);   // T의 실제 타입을 System.Type 객체로 저장
 
         if (!itemPool.ContainsKey(type))
         {
@@ -69,27 +72,4 @@ public class ItemManager : MonoBehaviour
         itemPool[type].Add(item);
     }
 
-    /// <summary>
-    /// 아이템 장착
-    /// </summary>
-    public void EquipItem(BaseItem item)
-    {
-        if (!equippedItems.Contains(item))
-        {
-            equippedItems.Add(item);
-            item.gameObject.SetActive(true);
-        }
-    }
-
-    /// <summary>
-    /// 아이템 해제
-    /// </summary>
-    public void UnequipItem(BaseItem item)
-    {
-        if (equippedItems.Contains(item))
-        {
-            equippedItems.Remove(item);
-            ReturnItem(item); // 해제된 아이템을 풀로 반환
-        }
-    }
 }
