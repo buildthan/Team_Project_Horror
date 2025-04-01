@@ -1466,6 +1466,7 @@ MonoBehaviour:
   - {fileID: 6528823338486636184, guid: f6081f35db5f0b54f93166b22640e036, type: 3}
   - {fileID: 8793502842590528533, guid: 38338bd439731374d8074f80fac92708, type: 3}
   - {fileID: 5052611745081999671, guid: 367622d90bd4ce34da9ff4f92d8a3b18, type: 3}
+  - {fileID: 3862243806947387593, guid: 2ae60d459b33dd340a3bf1b1d0740ee1, type: 3}
   keySpawnPoints:
   - {fileID: 7519887267210412430}
   - {fileID: 7058846767032523463}
@@ -1473,7 +1474,7 @@ MonoBehaviour:
   - {fileID: 7748446288447572567}
   - {fileID: 5235309718956788659}
   - {fileID: 6491354290412030553}
-  keyPrefab: {fileID: 0}
+  keyPrefab: {fileID: 1246783851769243074, guid: c20f486cbc1dde0498e62ce711c4e929, type: 3}
 --- !u!1 &1314160998084806453
 GameObject:
   m_ObjectHideFlags: 0
