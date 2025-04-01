@@ -42,7 +42,6 @@ public class PlayerController : MonoBehaviour
 
     private Animator animator;
 
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -115,7 +114,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    #region 인벤토리 연결(임시)
+    #region 인벤토리 연결
     // tab키 누르면 열린다
     public void OnInventory(InputAction.CallbackContext context)
     {

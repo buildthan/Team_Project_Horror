@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
 
 
     // 상호작용 관련
-    public Action addItem;  // 아이템 상호작용을 할 때 호출할 함수를 저장할 delegate
+    public Action<BaseItem> addItem;  // 아이템 상호작용을 할 때 호출할 함수를 저장할 delegate
                            
     // 아이템 정보 표시
     public BaseItemDataSO BaseItemData;   // 현재 Interaction 중인 아이템 정보
