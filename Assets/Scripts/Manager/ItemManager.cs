@@ -31,7 +31,7 @@ public class ItemManager : MonoBehaviour
     /// <summary>
     /// 아이템을 가져오기 (없으면 새로 생성)
     /// </summary>
-    public T GetItem<T>() where T : BaseItem, new()
+    public T GetItemToPool<T>() where T : BaseItem, new()
     {
         System.Type type = typeof(T);
 
@@ -57,7 +57,7 @@ public class ItemManager : MonoBehaviour
     /// <summary>
     /// 사용한 아이템을 풀에 반환
     /// </summary>
-    public void ReturnItem<T>(T item) where T : BaseItem
+    public void ReturnItemToPool<T>(T item) where T : BaseItem
     {
         System.Type type = typeof(T);
 
@@ -90,7 +90,7 @@ public class ItemManager : MonoBehaviour
         if (equippedItems.Contains(item))
         {
             equippedItems.Remove(item);
-            ReturnItem(item); // 해제된 아이템을 풀로 반환
+            ReturnItemToPool(item); // 해제된 아이템을 풀로 반환
         }
     }
 }
