@@ -1,8 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public class Weapon : MonoBehaviour
 {
+    public WeaponData data;
+    private float lastFireTime;
+
+    public bool CanFire()
+    {
+        return Time.time >= lastFireTime + data.fireRate;
+    }
+
+    public void Fire()
+    {
+        lastFireTime = Time.time;
+    }
+
+    public int GetDamage()
+    {
+        return data.damage;
+    }
 }
 

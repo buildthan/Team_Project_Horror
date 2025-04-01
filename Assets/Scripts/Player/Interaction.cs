@@ -21,6 +21,8 @@ public class Interaction : MonoBehaviour
 
     public int attackDamage = 10;
 
+    public Weapon currentWeapon;
+
     // 검출한 아이템 정보를 promptText에 띄운다
     public TextMeshProUGUI promptText;  /// 일단 분리하지는 않지만, 개인과제할때는 UI를 분리해서 drag and drop 안하고 사용하는 방법을 찾아서 리팩토링 해봐라
     private Camera camera;  // 카메라
@@ -95,20 +97,27 @@ public class Interaction : MonoBehaviour
 
     public void OnAttackInput(InputAction.CallbackContext context)
     {
-        Debug.Log("[Input] 우클릭 입력 감지됨"); //  추가됨
-
         if (context.phase == InputActionPhase.Started)
         {
-            Debug.Log("[Input] AttackInput Started"); //  추가됨
+            Debug.Log("[Input] 우클릭 입력 감지됨");
 
-            if (curDamageable != null)
+            if (curDamageable != null && currentWeapon != null)
             {
-                Debug.Log("[Input] 공격 대상 있음 → 데미지 전달"); //  추가됨
-                curDamageable.TakeDamage(attackDamage);
+                if (currentWeapon.CanFire())  // 연사 속도 체크
+                {
+                    int damage = currentWeapon.GetDamage();
+                    Debug.Log($"[Attack] {damage} 데미지 전달 → 대상: {curDamageable}");
+                    currentWeapon.Fire(); // 마지막 발사 시간 갱신
+                    curDamageable.TakeDamage(damage);
+                }
+                else
+                {
+                    Debug.Log("[Attack] 쿨타임 중입니다. 발사 불가");
+                }
             }
             else
             {
-                Debug.Log("[Input] curDamageable이 null입니다. 대상 없음"); //  추가됨
+                Debug.Log("[Input] 공격 실패: 대상 또는 무기 없음");
             }
         }
     }
