@@ -22,11 +22,10 @@ public class Player : MonoBehaviour
         controller = GetComponent<PlayerController>();
         condition = GetComponent<PlayerCondition>();
 
-        //addItem += UIManager.Instance.gameUI.AddItem;  // delegate에 함수 등록
-
+        addItem += UIManager.Instance.gameUI.AddItem;  // delegate에 함수 등록
 
         ///// 처음 씬에는 플레이어가 없기 때문에 Null이 생기는 문제.
-        //CharacterManager.Instance.Player = this;
+        CharacterManager.Instance.Player = this;
     }
 
     //private void Start()
