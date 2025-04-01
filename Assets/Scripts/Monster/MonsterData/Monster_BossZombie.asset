@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82f350433a38e4a43bc7eba57d33b465, type: 3}
-  m_Name: Monster_Zombie
+  m_Name: Monster_BossZombie
   m_EditorClassIdentifier: 
-  hp: 300
+  hp: 400
   attack: 1
-  walkSpeed: 2
-  runSpeed: 2
+  walkSpeed: 3
+  runSpeed: 3
   detectRange: 10
   attackRate: 2
   attackRange: 4
