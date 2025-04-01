@@ -103,7 +103,7 @@ public class Interaction : MonoBehaviour
             // 상호작용을 끝냈으니 모두 null, 비활성화
             curInteractGameObject = null;
             curInteractable = null;
-            promptText.gameObject.SetActive(false);
+            //promptText.gameObject.SetActive(false);
         }
     }
 
