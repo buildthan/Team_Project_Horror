@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -48,14 +49,18 @@ public class GameUI : BaseUI
     // 장착, 해제
     private int curEquipIndex;
 
+    /// <summary>
+    /// 리플렉션을 사용하기 위해 itemManager를 연결해야한다
+    /// </summary>
+    public ItemManager itemManager;
+
+    public BulletManager bulletManager;
 
     public void Start()
     {
         //// 플레이어와 인벤토리 연결
         //CharacterManager.Instance.Player.controller.inventory += Toggle;
-
         //dropPosition = CharacterManager.Instance.Player.dropPosition;
-
         //CharacterManager.Instance.Player.addItem += AddItem;  // delegate에 함수 등록
 
 
@@ -125,7 +130,7 @@ public class GameUI : BaseUI
     }
 
     // 인벤토리에 아이템 추가
-    public void AddItem()
+    public void AddItem(BaseItem item)
     {
         BaseItemDataSO data = CharacterManager.Instance.Player.BaseItemData;  // 상호작용 중인 아이템 데이터를 받아온다
 
@@ -137,6 +142,12 @@ public class GameUI : BaseUI
             if (slot != null)
             {
                 slot.quantity++;
+
+                /// 런타임에 자료형을 알기 위해서는 리플렉션을 사용한다
+                Type itemType = item.GetType();
+                MethodInfo method = typeof(ItemManager).GetMethod("ReturnItemToPool");
+                MethodInfo genericMethod = method.MakeGenericMethod(itemType);
+                genericMethod.Invoke(itemManager, new object[] { item });                //
 
                 // UIUpdate
                 UpdateUI();
@@ -153,6 +164,13 @@ public class GameUI : BaseUI
         {
             emptySlot.itemData = data;  // 아이템 추가
             emptySlot.quantity = 1;
+
+            /// 런타임에 자료형을 알기 위해서는 리플렉션을 사용한다
+            Type itemType = item.GetType();
+            MethodInfo method = typeof(ItemManager).GetMethod("ReturnItemToPool");
+            MethodInfo genericMethod = method.MakeGenericMethod(itemType);
+            genericMethod.Invoke(itemManager, new object[] { item });                //
+
 
             // UIUpdate
             UpdateUI();
@@ -279,6 +297,8 @@ public class GameUI : BaseUI
     // 버튼 이벤트 함수: 장착
     public void OnEquipButton()
     {
+        uiManager.PlayUIClickAudio();
+
         ItemSlot slot = inventorySlots[curEquipIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
 
         if (slot.equipped)
@@ -310,6 +330,8 @@ public class GameUI : BaseUI
     // 버튼 이벤트 함수: 해제
     public void OnUpEquipButton()
     {
+        uiManager.PlayUIClickAudio();
+
         UnEquip(selectedItemIndex);
     }
 

@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         initialCamLocalPos = cameraContainer.localPosition;
 
         //인벤토리 접근용
-        //inventory += UIManager.Instance.gameUI.Toggle;
+        inventory += UIManager.Instance.gameUI.Toggle;
         //UIManager.Instance.gameUI.dropPosition = CharacterManager.Instance.Player.dropPosition;
     }
 

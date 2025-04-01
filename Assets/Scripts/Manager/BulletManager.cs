@@ -16,6 +16,7 @@ public class BulletManager : MonoBehaviour
     void Start()
     {
         bulletPool = new Dictionary<System.Type, List<Bullet>>();
+        UIManager.Instance.gameUI.bulletManager = this;
     }
 
     /// <summary>
