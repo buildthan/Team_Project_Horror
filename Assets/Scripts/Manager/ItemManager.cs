@@ -22,6 +22,7 @@ public class ItemManager : MonoBehaviour
     {
         itemPool = new Dictionary<System.Type, List<BaseItem>>();
         equippedItems = new List<BaseItem>();
+        UIManager.Instance.gameUI.itemManager = this;
     }
 
     // 아이템이 인벤토리에 있는지 확인하고, 인벤토리에 있으면 비활성화
