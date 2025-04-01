@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
@@ -42,12 +41,6 @@ public class GameUI : BaseUI
     [Header("Player Condition Indicators")]
     public Image hpIndicator;
 
-    /// <summary>
-    /// 아이템 매니저, bullet 매니저
-    /// </summary>
-    public ItemManager itemManager;
-    public BulletManager bulletManager;
-
 
     // 선택된 아이템의 정보 저장
     BaseItemDataSO selectedItem;
@@ -58,6 +51,14 @@ public class GameUI : BaseUI
 
     public void Start()
     {
+        //// 플레이어와 인벤토리 연결
+        //CharacterManager.Instance.Player.controller.inventory += Toggle;
+
+        //dropPosition = CharacterManager.Instance.Player.dropPosition;
+
+        //CharacterManager.Instance.Player.addItem += AddItem;  // delegate에 함수 등록
+
+
         inventorySlots = new GameObject[20]; //아이템 슬롯 생성
         //추후에 아이템 데이터를 받아와서 적용하는 것으로 바꿀 것.
 
@@ -66,20 +67,6 @@ public class GameUI : BaseUI
             inventorySlots[i] = Instantiate(inventorySlotPrefab, inventoryContent);
             inventorySlots[i].GetComponent<ItemSlot>().index = i;
         }
-
-        ///// 씬이 바뀐 다음 itemManager 연결... 씬이 바뀌기 전에 호출되네???
-        //ItemManager itemManager = FindObjectOfType<ItemManager>();
-        //if (itemManager != null)
-        //{
-        //    // GameUI의 ItemManager에 ItemManager 연결
-        //    itemManager = itemManager;
-        //    Debug.Log("GameUI에 ItemManager 연결 완료");
-        //}
-        //else
-        //{
-        //    Debug.LogError("ItemManager를 찾을 수 없습니다.");
-        //}
-
     }
     public void Update()
     {
@@ -138,11 +125,9 @@ public class GameUI : BaseUI
     }
 
     // 인벤토리에 아이템 추가
-    public void AddItem(BaseItem item)
+    public void AddItem()
     {
         BaseItemDataSO data = CharacterManager.Instance.Player.BaseItemData;  // 상호작용 중인 아이템 데이터를 받아온다
-        /// data를 이용해서 BaseItem를 상속받는 실제 자료형을 들고와야한다...
-        /// 멤버변수를 이용해서 클래스를 찾는 방법은 없나???
 
         // 중복 가능한 아이템인가? (canStack이 true일 때 가능하다)
         if (data.canStack)
@@ -152,18 +137,6 @@ public class GameUI : BaseUI
             if (slot != null)
             {
                 slot.quantity++;
-                //Type itemType = data.GetType();     // data의 실제 타입이 실형식에 DataSO 붙는 형태, 하지만 이젠 안써도 돼
-
-                /// 아이템을 매개변수로 받았으니 바로 오브젝트 풀링 적용한다
-                //itemManager.ReturnItemToPool<typeof(item)>(item);
-                // 불가능하다. typeof는 컴파일때 객체의 타입을 가져오기 때문이다
-
-                /// 런타임에 자료형을 알기 위해서는 리플렉션을 사용한다
-                Type itemType = item.GetType();
-                MethodInfo method = typeof(ItemManager).GetMethod("ReturnItemToPool");
-                MethodInfo genericMethod = method.MakeGenericMethod(itemType);
-                genericMethod.Invoke(itemManager, new object[] { item });                //
-
 
                 // UIUpdate
                 UpdateUI();
@@ -180,21 +153,6 @@ public class GameUI : BaseUI
         {
             emptySlot.itemData = data;  // 아이템 추가
             emptySlot.quantity = 1;
-
-            /// 여기에서 처리하면 매개변수 안받고 처리할 수 있겠다
-            //itemManager.ReturnItemToPool(item);
-            // 불가능하다. typeof는 컴파일때 객체의 타입을 가져오기 때문이다
-
-            /// 런타임에 자료형을 알기 위해서는 리플렉션을 사용한다
-            Type itemType = item.GetType();
-            MethodInfo method = typeof(ItemManager).GetMethod("ReturnItemToPool");
-            MethodInfo genericMethod = method.MakeGenericMethod(itemType);
-
-            // 여길 못지나가네...
-            // itemManager 연결이 안된다
-            // UIManager에 DontDestroyOnLoad 선언이 되어 있음...            
-            genericMethod.Invoke(itemManager, new object[] { item });                //
-
 
             // UIUpdate
             UpdateUI();
@@ -359,7 +317,7 @@ public class GameUI : BaseUI
     //플레이어 HP 정보 업데이트용
     public void UpdatePlayerHpIndicator(float curhp, float maxHp) //플레이어의 현재 체력과 최대 체력을 받아옴
     {
-        hpIndicator.color = new Color(1 - curhp / maxHp, curhp / maxHp, 0);
+        hpIndicator.color = new Color(1- curhp / maxHp, curhp/maxHp,0);
     }
-
+    
 }

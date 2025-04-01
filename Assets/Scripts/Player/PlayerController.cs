@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         initialCamLocalPos = cameraContainer.localPosition;
 
         //인벤토리 접근용
-        //inventory += UIManager.Instance.gameUI.Toggle;
+        inventory += UIManager.Instance.gameUI.Toggle;
         //UIManager.Instance.gameUI.dropPosition = CharacterManager.Instance.Player.dropPosition;
     }
 
@@ -117,7 +117,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    #region 인벤토리 연결
+    #region 인벤토리 연결(임시)
     // tab키 누르면 열린다
     public void OnInventory(InputAction.CallbackContext context)
     {
