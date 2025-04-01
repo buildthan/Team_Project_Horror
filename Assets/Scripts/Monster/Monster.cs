@@ -22,9 +22,10 @@ public class Monster : MonoBehaviour
     private float walkSpeed;
     private float runSpeed;
     private float playerDistance;
+
     [Header("Monster setting")]
     public float lastAttack;
-
+    
     private NavMeshAgent agent;
     private MonsterState state;
 
@@ -141,10 +142,10 @@ public class Monster : MonoBehaviour
     {
         foreach (Animator anim in animator)
         {
-            anim.speed = 0;
             anim.SetTrigger("Find");
         }
         yield return new WaitForSeconds(1f);
+
         SetState(MonsterState.Attacking);
     }
     void AttackingUpdate() //전투시
