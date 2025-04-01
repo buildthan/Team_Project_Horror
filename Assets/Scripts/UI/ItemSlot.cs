@@ -29,6 +29,12 @@ public class ItemSlot : MonoBehaviour
     // UI(슬롯 한 칸) 업데이트를 위한 함수
     // AddItem으로 아이템 data를 전달받으면, 자동 호출
     // 아이템데이터에서 필요한 정보를 각 UI에 표시
+
+    void Start()
+    {
+        inventory = transform.parent.parent.parent.parent.parent.parent.GetComponent<GameUI>();
+    }
+
     public void Set()
     {
         icon.gameObject.SetActive(true);
