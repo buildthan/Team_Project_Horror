@@ -185,9 +185,10 @@ public class GameUI : BaseUI
     // 아이템 버리기
     void ThrowItem(BaseItemDataSO data)
     {
-        /// itemPool에서 검색해서 들고와야한다 미리 저장한 프리팹 리소스를 이용하여 인스턴스를 생성
-        /// Instantiate(data.prefab, dropPosition.position, Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360));
-        
+        // 미리 저장한 프리팹 리소스를 이용하여 인스턴스를 생성
+        Instantiate(data.prefab, dropPosition.position, Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360));
+
+        /// 해당 오브젝트를 itemPool에서 검색해서 삭제 
 
     }
 
@@ -252,29 +253,24 @@ public class GameUI : BaseUI
 
         if (slot.itemData == null)
         {
-            // 비어있는 슬롯을 선택하면 모든 버튼 활성화
-            useButton.SetActive(true);
-            equipButton.SetActive(true);
-            unEquipButton.SetActive(true);
-            dropButton.SetActive(true);
+            // 비어있는 슬롯을 선택하면 모든 버튼 비활성화
+            useButton.SetActive(false);
+            equipButton.SetActive(false);
+            unEquipButton.SetActive(false);
+            dropButton.SetActive(false);
+
             selectedItemName.text = "";
             selectedItemDescription.text = "";
 
             return;  // 슬롯에 아이템이 없다면 리턴
         }
-
-
         // 배열에 접근해서 해당 인덱스에 있는 아이템을 가져온다
         selectedItem = slot.itemData;   // selectedItem 변수에 아이템 정보 저장
-        selectedItemIndex = index;
+        selectedItemIndex = index;  /// 선택한 인덱스
+
 
         selectedItemName.text = selectedItem.name;
         selectedItemDescription.text = selectedItem.description;
-
-        // text에 스탯을 넣어야하는데, 모든 아이템에 스탯이 있는 것이 아니므로 일단 비운다
-        //selectedItemStatName.text = string.Empty;
-        //selectedItemStatValue.text = string.Empty;
-
 
         /// 자료형을 비교하는 방법을 연습
         /// BaseItemDataSO로 저장이 되어있지만, 이건 업캐스팅으로 실제 저장된 것은
@@ -292,26 +288,96 @@ public class GameUI : BaseUI
     }
 
     // 버튼 이벤트 함수: 사용하기
-    //public void OnUseButton()
-    //{
-    //    // 아이템 type이 consumable일 때만 가능하다
-    //    if (selectedItem.GetType() == typeof(FoodDataSO))
-    //    {
-    //        for (int i = 0; i < selectedItem.consumables.Length; i++)
-    //        {
-    //            switch (selectedItem.consumables[i].type)
-    //            {
-    //                case ConsumableType.Health:
-    //                    condition.Heal(selectedItem.consumables[i].value);
-    //                    break;
-    //                case ConsumableType.Hunger:
-    //                    condition.Eat(selectedItem.consumables[i].value);
-    //                    break;
-    //            }
-    //        }
-    //        RemoveSelctedItem();
-    //    }
-    //}
+    public void OnUseButton()
+    {
+        // 아이템 type이 consumable일 때만 가능하다
+        if (selectedItem is FoodDataSO)
+        {
+            // FoodDataSO에 실제로 저장된 것이 HealincgFood이든, CureFoodDataSO이든
+            // UseItem을 호출하면, 내부에서 알아서 다른 동작을 한다(다형성)
+            // 하지만 FoodDataSO는 멤버변수이고 이걸로 Food 클래스를 가져와서 UseItem을 호출해야한다
+            //... 제네릭이 아니니까 리플렉션도 할 수없다
+            // FoodDataSO에 있는 실제 자료형 HealincgFood이든, CureFoodDataSO               
+
+            // 그런데.. scriptable object가 프리팹을 변수로 가지고 있다.
+            // 이걸 가져와서 어떻게 하면 될거같은데
+            GameObject prefab = selectedItem.prefab;
+            if (prefab != null)
+            {
+                // 프리팹에서 BaseItem을 상속받는 컴포넌트 가져오기
+                var baseItemComponent = prefab.GetComponent<BaseItem>();
+
+                if (baseItemComponent != null)
+                {
+                    // HealingFood 또는 CureFood로 형변환하여 UseItem 호출
+                    if (baseItemComponent is HealingFood healingFood)
+                    {
+                        Debug.Log("HealingFood로 형변환 성공");
+                        healingFood.UseItem();
+                    }
+                    else if (baseItemComponent is CureFood cureFood)
+                    {
+                        Debug.Log("CureFood로 형변환 성공");
+                        cureFood.UseItem();
+                    }
+                    else
+                    {
+                        Debug.LogWarning("프리팹에 HealingFood 또는 CureFood가 없습니다.");
+                    }
+                    /// 사용한 아이템 삭제
+                    /// 아이템 매니저에서 itemPool에서 현재 아이템을 검색하고 Remove                
+                    /// itemParentTr에서 검색하고, 삭제한다
+
+                    // itemParentTr의 자식 오브젝트들 중에서 selectedItem.prefab과 동일한 프리팹을 검색하여 삭제
+                    foreach (Transform child in itemManager.itemParentTr)
+                    {
+                        if (child.gameObject.name == selectedItem.prefab.name) // 이름으로 비교하여 동일한 프리팹 확인
+                        {
+                            Debug.Log($"아이템 {child.gameObject.name} 삭제");
+                            Destroy(child.gameObject); // 해당 오브젝트 삭제
+                            break; // 삭제했으므로 루프 종료
+                        }
+                    }
+
+                    // ItemManager를 통해 아이템을 완전히 제거
+                    // ItemManager를 통해 아이템 제거
+                    itemManager.RemoveItem(baseItemComponent);
+                }
+                // 아이템 슬롯에서 데이터 제거
+                RemoveSelctedItem();
+            }
+        }
+
+        void RemoveSelctedItem()
+        {
+            // UI 업데이트를 위해 정보를 갱신
+            ItemSlot slot = inventorySlots[selectedItemIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
+
+            slot.quantity--;
+            if (slot.quantity <= 0)
+            {
+                selectedItem = null;
+                slot.itemData = null;   // 슬롯에서도 아이템 제거해라
+                selectedItemIndex = -1;
+                ClearSelectedItemWindow();
+            }
+            UpdateUI(); // UI 업데이트
+        }
+        // 아이템을 클릭하면 표시되는 정보 초기화
+        void ClearSelectedItemWindow()
+        {
+            selectedItemName.text = string.Empty;
+            selectedItemDescription.text = string.Empty;
+            //selectedItemStatName.text = string.Empty;
+            //selectedItemStatValue.text = string.Empty;
+
+            useButton.SetActive(false);
+            equipButton.SetActive(false);
+            unEquipButton.SetActive(false);
+            dropButton.SetActive(false);
+        }
+    }
+
 
     // 버튼 이벤트 함수: 장착
     public void OnEquipButton()
@@ -361,4 +427,16 @@ public class GameUI : BaseUI
         hpIndicator.color = new Color(1 - curhp / maxHp, curhp / maxHp, 0);
     }
 
+    // 게임 재시작할 경우 인벤토리 비우기
+    public void ClearInventory()
+    {
+        // 모든 슬롯을 조사하여, 슬롯에 데이터가 있으면 비운다
+        for (int i = 0; i < inventorySlots.Length; i++)
+        {
+            ItemSlot slot = inventorySlots[i].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
+
+            if (slot.itemData != null)
+                slot.Clear();
+        }
+    }
 }

@@ -10,4 +10,9 @@ public class CureFood : Food
     {
         return cureFoodData;
     }
+
+    public override void UseItem()
+    {
+        throw new System.NotImplementedException();
+    }
 }

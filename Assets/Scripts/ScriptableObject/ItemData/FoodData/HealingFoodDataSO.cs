@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewHealingFood", menuName = "Items/Food/HealingFood")]
 public class HealingFoodDataSO : FoodDataSO
 {
-    public float hp;    // 체력회복량
+    public float value;    // 체력회복량
 }

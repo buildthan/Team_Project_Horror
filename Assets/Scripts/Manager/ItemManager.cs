@@ -13,7 +13,7 @@ public class ItemManager : MonoBehaviour
 {
     // 아이템 종류별로 다른 pool을 적용
     // 검색속도를 줄이기 위해 Dictionary 사용
-    //public Dictionary<System.Type, List<BaseItemDataSO>> itemPool; // 비활성화된 아이템 저장 (오브젝트 풀링)
+    //public Dictionary<System.Type, List<BaseItemDataSO>> itemPool; // 비활성화 후 아이템 저장
     /// BaseItemDataSO은 씬 내에서 활성화, 비활성화가 불가능하다
     public Dictionary<System.Type, List<BaseItem>> itemPool; // 비활성화된 아이템 저장 (오브젝트 풀링)
     public List<BaseItem> equippedItems; // 장착한 아이템 리스트
@@ -120,6 +120,60 @@ public class ItemManager : MonoBehaviour
         {
             equippedItems.Remove(item);
             ReturnItemToPool(item); // 해제된 아이템을 풀로 반환
+        }
+    }
+
+
+    // 사용한 아이템 삭제
+    public void RemoveItem(BaseItem item)
+    {
+        if (item == null)
+        {
+            Debug.LogWarning("삭제하려는 아이템이 null입니다.");
+            return;
+        }
+
+        System.Type itemType = item.GetType(); // 아이템의 실제 타입 가져오기
+
+        // itemPool에서 해당 타입의 리스트가 있는지 확인
+        if (itemPool.ContainsKey(itemType))
+        {
+            // 리스트에서 해당 아이템 검색
+            List<BaseItem> itemList = itemPool[itemType];
+
+            /// itemList.Contains(item)는 아이템의 이름과 자료형만 같다고 해서 true를 리턴하지 않는다
+            /// 같은 것을 참조하고 있어야 한다
+            //if (itemList.Contains(item))
+            //{
+            //    itemList.Remove(item); // 리스트에서 아이템 제거
+            //    Debug.Log($"아이템 {item.name}이 itemPool에서 제거되었습니다.");
+            //}
+
+
+            // 이름과 자료형이 같은 아이템 찾기
+            BaseItem targetItem = null;
+            foreach (BaseItem listItem in itemList)
+            {
+                if (listItem.name == item.name && listItem.GetType() == item.GetType())
+                {
+                    targetItem = listItem;
+                    break;
+                }
+            }
+
+            if (targetItem != null)
+            {
+                itemList.Remove(targetItem); // 리스트에서 아이템 제거
+                Debug.Log($"아이템 {targetItem.name}이 itemPool에서 제거되었습니다.");
+            }
+            else
+            {
+                Debug.LogWarning($"아이템 {item.name}이 itemPool에 존재하지 않습니다.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"itemPool에 {itemType.Name} 타입의 리스트가 존재하지 않습니다.");
         }
     }
 }
