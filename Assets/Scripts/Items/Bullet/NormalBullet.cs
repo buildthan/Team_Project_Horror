@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NormalBullet : Bullet
 {
-    public NormalBulletDataSO normalBulletDataSO;
+    public NormalBulletDataSO bulletDataSO;
 
     public override void Activate(Vector3 startPosition, Vector3 direction)
     {
@@ -16,9 +16,14 @@ public class NormalBullet : Bullet
         Debug.Log("NormalBullet activated and flying in direction: " + direction);
     }
 
+    public override BaseItemDataSO GetItemData()
+    {
+        return bulletDataSO; /// 부모 타입(BaseItemDataSO)으로 반환(업캐스팅)
+    }
+
     public override void OnHit(Collider collider)
     {
-        normalBulletDataSO.id = 1;
+        bulletDataSO.id = 1;
 
 
 

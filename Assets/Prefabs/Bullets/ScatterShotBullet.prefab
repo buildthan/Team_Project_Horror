@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5825039788899576726}
   - component: {fileID: 3153957640537909435}
   - component: {fileID: 4967356033278465256}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SM_Bullet_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4614657316176177207}
   - component: {fileID: 4307792578551046586}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ScatterShotBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,5 +150,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe8e0779c0150fe4187e109d3bba6235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseItemData: {fileID: 0}
-  scatterBulletData: {fileID: 11400000, guid: fdd661f33e10aff45814ea90ba8db2a0, type: 2}
+  bulletDataSO: {fileID: 11400000, guid: fdd661f33e10aff45814ea90ba8db2a0, type: 2}

@@ -159,7 +159,7 @@ public class Monster : MonoBehaviour
             if (Time.time - lastAttack > mobData.attackRate)
             {
                 lastAttack = Time.time;
-                CharacterManager.Instance.Player.condition.TakeDamage(attack);
+                //CharacterManager.Instance.Player.controller.GetComponent<IDamagable>().TakePhysicalDamage(damage);
                 foreach (Animator anim in animator)
                 {
                     anim.speed = 1;

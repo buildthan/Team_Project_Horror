@@ -213,8 +213,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db0c940271ed5a64da68d8fe33590cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemPrefab: {fileID: 0}
+  itemData: {fileID: 0}
   icon: {fileID: 8604138635893759361}
+  quatityText: {fileID: 8287238575711080136}
+  inventory: {fileID: 0}
+  index: 0
+  equipped: 0
+  quantity: 0
 --- !u!114 &7527352259074098830
 MonoBehaviour:
   m_ObjectHideFlags: 0
