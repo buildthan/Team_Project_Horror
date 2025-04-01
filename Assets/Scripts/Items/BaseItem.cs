@@ -47,7 +47,7 @@ public abstract class BaseItem : MonoBehaviour, IInteractable
         /// 자식 클래스의 데이터를 부모 타입으로 가져옴
         BaseItemDataSO data = GetItemData();
         CharacterManager.Instance.Player.BaseItemData = data;   // 플레이어의 itemData에 대입
-        CharacterManager.Instance.Player.addItem?.Invoke(); // addItem에 구독되어있는 함수가 있으면 실행
+        CharacterManager.Instance.Player.addItem?.Invoke(this); // addItem에 구독되어있는 함수가 있으면 실행
         Destroy(gameObject);    // 인벤토리로 이동한 아이템은 씬에서 삭제
     }
 
