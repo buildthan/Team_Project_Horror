@@ -47,8 +47,18 @@ public abstract class BaseItem : MonoBehaviour, IInteractable
         /// 자식 클래스의 데이터를 부모 타입으로 가져옴
         BaseItemDataSO data = GetItemData();
         CharacterManager.Instance.Player.BaseItemData = data;   // 플레이어의 itemData에 대입
-        CharacterManager.Instance.Player.addItem?.Invoke(); // addItem에 구독되어있는 함수가 있으면 실행
-        Destroy(gameObject);    // 인벤토리로 이동한 아이템은 씬에서 삭제
+
+        // gameUI의 AddItem이 호출되어 아이템을 추가했다
+        // 원래라면 AddItem에서 오브젝트 풀링을 적용하는게 좋겠지만... 
+        // BaseItem에 접근을 할 수 없다... 매개변수를 추가할까
+        CharacterManager.Instance.Player.addItem?.Invoke(this); // addItem에 구독되어있는 함수가 있으면 실행
+        /// 이 클래스가 추상클래스라서 안될 줄 알았지만
+        /// this는 원래 추상클래스의 객체가 아니므로 가능하다
+        /// 단지 추상클래스의 자료형으로 업캐스팅 했을 뿐이다
+
+        /// 그러면 여기서 오브젝트풀링을 안해도된다
+
+        //Destroy(gameObject);    // 인벤토리로 이동한 아이템은 씬에서 삭제
     }
 
 }

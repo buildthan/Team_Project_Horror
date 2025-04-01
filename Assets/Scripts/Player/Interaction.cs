@@ -28,10 +28,13 @@ public class Interaction : MonoBehaviour
     public TextMeshProUGUI promptText;  /// 일단 분리하지는 않지만, 개인과제할때는 UI를 분리해서 drag and drop 안하고 사용하는 방법을 찾아서 리팩토링 해봐라
     private Camera camera;  // 카메라
 
+    private PlayerController controller;
+
     void Start()
     {
         camera = Camera.main;
         Debug.Log("[Start] Interaction 초기화 완료");
+        controller = GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -113,23 +116,37 @@ public class Interaction : MonoBehaviour
         {
             Debug.Log("[Input] 우클릭 입력 감지됨");
 
-            if (curDamageable != null && currentWeapon != null)
+            if (currentWeapon != null && currentWeapon.CanFire())
             {
-                if (currentWeapon.CanFire())  // 연사 속도 체크
+                currentWeapon.Fire(); //  발사 처리 먼저
+
+                // 총마다 다른 반동값 적용 (weaponData에서 가져옴)
+                if (currentWeapon is RangedWeapon ranged)
+                {
+                    controller.ApplyRecoil(
+                        ranged.weaponData.recoilUp,
+                        ranged.weaponData.recoilSide
+                    );
+
+                    GunView gunView = currentWeapon.GetComponentInChildren<GunView>();
+                    if (gunView != null)
+                        gunView.PlayRecoil();
+                }
+
+                if (curDamageable != null)
                 {
                     int damage = currentWeapon.GetDamage();
                     Debug.Log($"[Attack] {damage} 데미지 전달 → 대상: {curDamageable}");
-                    currentWeapon.Fire(); // 마지막 발사 시간 갱신
                     curDamageable.TakeDamage(damage);
                 }
                 else
                 {
-                    Debug.Log("[Attack] 쿨타임 중입니다. 발사 불가");
+                    Debug.Log("[Attack] 발사했지만 맞춘 대상 없음");
                 }
             }
             else
             {
-                Debug.Log("[Input] 공격 실패: 대상 또는 무기 없음");
+                Debug.Log("[Attack] 무기 없음 or 쿨타임 중");
             }
         }
     }

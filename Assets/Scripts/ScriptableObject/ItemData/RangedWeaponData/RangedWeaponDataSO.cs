@@ -12,4 +12,8 @@ public class RangedWeaponDataSO : WeaponDataSO
     public float range;         // 사거리
     public float fireRate;      // 연사속도(실제 공격속도)
     public float reloadTime;    // 재장전 시간
+
+    [Header("Recoil Settings")]
+    public float recoilUp = 0.7f;     // 위로 튀는 정도
+    public float recoilSide = 0.1f;   // 좌우 흔들림 정도
 }
