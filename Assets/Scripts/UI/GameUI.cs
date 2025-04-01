@@ -72,6 +72,7 @@ public class GameUI : BaseUI
             inventorySlots[i] = Instantiate(inventorySlotPrefab, inventoryContent);
             inventorySlots[i].GetComponent<ItemSlot>().index = i;
         }
+        ClearSelectedItemWindow();
     }
     public void Update()
     {
@@ -185,11 +186,36 @@ public class GameUI : BaseUI
     // 아이템 버리기
     void ThrowItem(BaseItemDataSO data)
     {
+        ItemSlot slot = inventorySlots[selectedItemIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
+        selectedItem = slot.itemData;   // selectedItem 변수에 아이템 정보 저장
+
         // 미리 저장한 프리팹 리소스를 이용하여 인스턴스를 생성
         Instantiate(data.prefab, dropPosition.position, Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360));
 
         /// 해당 오브젝트를 itemPool에서 검색해서 삭제 
+        GameObject prefab = selectedItem.prefab;
+        if (prefab != null)
+        {
+            // 프리팹에서 BaseItem을 상속받는 컴포넌트 가져오기
+            var baseItemComponent = prefab.GetComponent<BaseItem>();
 
+            if (baseItemComponent != null)
+            {
+                // itemParentTr의 자식 오브젝트들 중에서 selectedItem.prefab과 동일한 프리팹을 검색하여 삭제
+                foreach (Transform child in itemManager.itemParentTr)
+                {
+                    if (child.gameObject.name == selectedItem.prefab.name) // 이름으로 비교하여 동일한 프리팹 확인
+                    {
+                        Debug.Log($"아이템 {child.gameObject.name} 삭제");
+                        Destroy(child.gameObject); // 해당 오브젝트 삭제
+                        break; // 삭제했으므로 루프 종료
+                    }
+                }
+                // ItemManager를 통해 아이템을 완전히 제거
+                // ItemManager를 통해 아이템 제거
+                itemManager.RemoveItem(baseItemComponent);
+            }
+        }
     }
 
 
@@ -339,7 +365,6 @@ public class GameUI : BaseUI
                             break; // 삭제했으므로 루프 종료
                         }
                     }
-
                     // ItemManager를 통해 아이템을 완전히 제거
                     // ItemManager를 통해 아이템 제거
                     itemManager.RemoveItem(baseItemComponent);
