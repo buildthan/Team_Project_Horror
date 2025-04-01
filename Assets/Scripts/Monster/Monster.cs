@@ -17,13 +17,13 @@ public class Monster : MonoBehaviour
 
     public MonsterData mobData;
     public bool isDie = false;
-    private float hp;
+    [SerializeField] private float hp;
     private float attack;
     private float walkSpeed;
     private float runSpeed;
     private float playerDistance;
     private bool isFind;
-
+    [SerializeField]private SkinnedMeshRenderer meshRenderer;
     [Header("Monster setting")]
     public float lastAttack;
     
@@ -250,12 +250,20 @@ public class Monster : MonoBehaviour
     public void TakeDamage(int damage) //피격 시
     {
         hp -= damage;
+
         if (hp <= 0)
         {
             StartCoroutine(Die());
         }
+        StartCoroutine(ChangeColor());
     }
 
+    IEnumerator ChangeColor()
+    {
+        meshRenderer.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        meshRenderer.material.color = Color.white;
+    }
     void OnDrawGizmos() //Scene에서 시야 범위 출력
     {
         // 시야 범위 그리기

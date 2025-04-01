@@ -74,6 +74,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mobData: {fileID: 11400000, guid: 9fbc138e297e31d48905f00ecd581fbd, type: 2}
   isDie: 0
+  meshRenderer: {fileID: 1480398648048067974}
   lastAttack: 0
 --- !u!65 &4470881597978850021
 BoxCollider:
@@ -218,7 +219,7 @@ Animator:
   m_GameObject: {fileID: 1075155284250609029}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 355502ed147ce0f44b33d9c7ab1dca06, type: 2}
+  m_Controller: {fileID: 9100000, guid: d13137caf62165e41942d358f6b91b9e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -339,7 +340,7 @@ Animator:
   m_GameObject: {fileID: 6862197506936745565}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 355502ed147ce0f44b33d9c7ab1dca06, type: 2}
+  m_Controller: {fileID: 9100000, guid: d13137caf62165e41942d358f6b91b9e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

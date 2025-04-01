@@ -1360,6 +1360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mobData: {fileID: 11400000, guid: 8f8fdf23e30fb024a8eb68bb81d6f9b5, type: 2}
   isDie: 0
+  meshRenderer: {fileID: 1279104890002115207}
   lastAttack: 0
 --- !u!65 &5630424396670884937
 BoxCollider:
