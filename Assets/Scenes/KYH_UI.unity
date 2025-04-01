@@ -33354,8 +33354,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Item Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4965e23b0cfde074eb859b6e441493b7, type: 2}
+  m_sharedMaterial: {fileID: -1327704977301161484, guid: 4965e23b0cfde074eb859b6e441493b7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -33418,7 +33418,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &4487263834968019448
@@ -34503,8 +34503,8 @@ MonoBehaviour:
 
     Description'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 4965e23b0cfde074eb859b6e441493b7, type: 2}
+  m_sharedMaterial: {fileID: -1327704977301161484, guid: 4965e23b0cfde074eb859b6e441493b7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -34567,7 +34567,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &7494997203093550230
@@ -34621,8 +34621,8 @@ MonoBehaviour:
   inventorySlotPrefab: {fileID: 4232352999653026479, guid: 1c92a78fbc9c84c46b1ce818a9b96440, type: 3}
   crosshair: {fileID: 189230323021093492}
   dropPosition: {fileID: 0}
-  selectedItemName: {fileID: 0}
-  selectedItemDescription: {fileID: 0}
+  selectedItemName: {fileID: 4467793446176884344}
+  selectedItemDescription: {fileID: 7464780879449876301}
   selectedItemStatName: {fileID: 0}
   selectedItemStatValue: {fileID: 0}
   useButton: {fileID: 0}
