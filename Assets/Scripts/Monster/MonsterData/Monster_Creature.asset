@@ -16,9 +16,10 @@ MonoBehaviour:
   attack: 1
   walkSpeed: 3
   runSpeed: 3
-  detectRange: 6
-  attackRate: 1
-  attackRange: 3
+  detectRange: 8
+  attackRate: 3
+  attackRange: 6
+  attackSpeed: 1
   sight: 360
   minWanderWaitTime: 1
   maxWanderWaitTime: 3

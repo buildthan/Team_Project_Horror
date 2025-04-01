@@ -17,12 +17,13 @@ public class Monster : MonoBehaviour
 
     public MonsterData mobData;
     public bool isDie = false;
-    private float hp;
+    [SerializeField] private float hp;
     private float attack;
     private float walkSpeed;
     private float runSpeed;
     private float playerDistance;
-
+    private bool isFind;
+    [SerializeField]private SkinnedMeshRenderer meshRenderer;
     [Header("Monster setting")]
     public float lastAttack;
     
@@ -114,8 +115,9 @@ public class Monster : MonoBehaviour
             Invoke("WanderToNewLocation", Random.Range(mobData.minWanderWaitTime, mobData.maxWanderWaitTime));
         }
        
-        if (playerDistance < mobData.detectRange)
+        if (!isFind && playerDistance < mobData.detectRange)
         {
+            isFind = true;
             SetState(MonsterState.Find);
         }
  /**/    }
@@ -147,12 +149,28 @@ public class Monster : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         SetState(MonsterState.Attacking);
+        ForceAttack();
+    }
+    void ForceAttack()
+    {
+        if (playerDistance <= mobData.attackRange && IsPlayerInView())
+        {
+            agent.isStopped = true; // 공격 시 멈추기
+            foreach (Animator anim in animator)
+            {
+                anim.SetBool("Move", false);
+                anim.SetTrigger("Attack"); // 공격 애니메이션 실행
+            }
+            lastAttack = Time.time;
+            CharacterManager.Instance.Player.condition.TakeDamage(attack);
+        }
     }
     void AttackingUpdate() //전투시
     {
         if (playerDistance <= mobData.attackRange && IsPlayerInView())
         {
             agent.isStopped = true;
+            agent.SetDestination(transform.position);
             foreach (Animator anim in animator)
             {
                 anim.SetBool("Move",false);
@@ -163,16 +181,21 @@ public class Monster : MonoBehaviour
                 //CharacterManager.Instance.Player.controller.GetComponent<IDamagable>().TakePhysicalDamage(damage);
                 foreach (Animator anim in animator)
                 {
-                    anim.speed = 1;
+                    anim.speed = mobData.attackSpeed;
                     anim.SetTrigger("Attack");
                 }
             }
         }
         else
         {
+            foreach (Animator anim in animator)
+            {
+                anim.SetBool("Move", true);
+            }
             if (playerDistance <= mobData.detectRange)
             {
                 agent.isStopped = false;
+
                 NavMeshPath path = new NavMeshPath();
                 if (agent.CalculatePath(CharacterManager.Instance.Player.transform.position, path))
                 {
@@ -186,12 +209,35 @@ public class Monster : MonoBehaviour
             }
             else
             {
-                agent.SetDestination(transform.position);
-                agent.isStopped = true;
-                SetState(MonsterState.Walk);
+                StartCoroutine(LostTarget());
+                /*   agent.SetDestination(transform.position);
+                   agent.isStopped = true;
+                   isFind = false;
+                   SetState(MonsterState.Walk);
+               }
+               SetState(MonsterState.Walk);*/
             }
-            SetState(MonsterState.Walk);
         }
+    }
+    IEnumerator LostTarget()
+    {
+        float chaseTime = 3f; // 플레이어가 사라진 후 추가로 3초 동안 추격
+        float elapsedTime = 0f;
+
+        while (elapsedTime < chaseTime)
+        {
+            if (playerDistance <= mobData.detectRange) // 다시 감지 범위 안에 들어오면 추격 계속
+            {
+                yield break;
+            }
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // 플레이어가 사라졌으므로 다시 탐색 상태로 돌아감
+        isFind = false; // 다시 감지할 수 있도록 초기화
+        agent.isStopped = true;
+        SetState(MonsterState.Walk);
     }
 
     bool IsPlayerInView() //플레이어가 시야 안에 있는 지
@@ -204,12 +250,20 @@ public class Monster : MonoBehaviour
     public void TakeDamage(int damage) //피격 시
     {
         hp -= damage;
+
         if (hp <= 0)
         {
             StartCoroutine(Die());
         }
+        StartCoroutine(ChangeColor());
     }
 
+    IEnumerator ChangeColor()
+    {
+        meshRenderer.material.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        meshRenderer.material.color = Color.white;
+    }
     void OnDrawGizmos() //Scene에서 시야 범위 출력
     {
         // 시야 범위 그리기
