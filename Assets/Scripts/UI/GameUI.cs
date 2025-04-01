@@ -279,6 +279,8 @@ public class GameUI : BaseUI
     // 버튼 이벤트 함수: 장착
     public void OnEquipButton()
     {
+        uiManager.PlayUIClickAudio();
+
         ItemSlot slot = inventorySlots[curEquipIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
 
         if (slot.equipped)
@@ -310,6 +312,8 @@ public class GameUI : BaseUI
     // 버튼 이벤트 함수: 해제
     public void OnUpEquipButton()
     {
+        uiManager.PlayUIClickAudio();
+
         UnEquip(selectedItemIndex);
     }
 
