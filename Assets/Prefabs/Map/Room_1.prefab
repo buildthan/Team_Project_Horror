@@ -3413,7 +3413,8 @@ GameObject:
   - component: {fileID: 943367118209621268}
   - component: {fileID: 5375474623868921446}
   - component: {fileID: 3452240504176392486}
-  - component: {fileID: 2599875265857796213}
+  - component: {fileID: 8278940972362380953}
+  - component: {fileID: 5055376274641812663}
   m_Layer: 0
   m_Name: DoorD_V2_Right
   m_TagString: Untagged
@@ -3486,8 +3487,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2599875265857796213
-MeshCollider:
+--- !u!65 &8278940972362380953
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3501,13 +3502,26 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300006, guid: cc8dc8258c356a14b9bf02775a033c9a, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.948614, y: 2.098418, z: 0.15871}
+  m_Center: {x: 0.47505206, y: 1.0707273, z: 0.059525765}
+--- !u!114 &5055376274641812663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4455272990544484967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73354510ac1702e4e8bdcf1eaec82e07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corridor: {fileID: 2870045403927127740, guid: 7d16ce22409bef1449aed02936fc7728, type: 3}
+  isPlayerNear: 0
 --- !u!1 &4495346309533057205
 GameObject:
   m_ObjectHideFlags: 0
@@ -6897,7 +6911,8 @@ GameObject:
   - component: {fileID: 5735568091729177415}
   - component: {fileID: 1310397656336405877}
   - component: {fileID: 5573265797464912457}
-  - component: {fileID: 667029003378174776}
+  - component: {fileID: 6355919250722005044}
+  - component: {fileID: 3220821868764652881}
   m_Layer: 0
   m_Name: DoorD_V2_Left
   m_TagString: Untagged
@@ -6970,8 +6985,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &667029003378174776
-MeshCollider:
+--- !u!65 &6355919250722005044
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6985,13 +7000,26 @@ MeshCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: cc8dc8258c356a14b9bf02775a033c9a, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.948614, y: 2.098418, z: 0.15871}
+  m_Center: {x: 0.47858095, y: 1.0707273, z: 0.059526823}
+--- !u!114 &3220821868764652881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8515181050662588159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73354510ac1702e4e8bdcf1eaec82e07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  corridor: {fileID: 2870045403927127740, guid: 7d16ce22409bef1449aed02936fc7728, type: 3}
+  isPlayerNear: 0
 --- !u!1 &8670858089117350488
 GameObject:
   m_ObjectHideFlags: 0

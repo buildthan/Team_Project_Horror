@@ -10,7 +10,7 @@ public class RoomManager : MonoBehaviour
     public void SpawnNextRoom()
     {
         if (currentRoom != null)
-            Destroy(currentRoom);
+            Destroy(currentRoom);  // 현재 방 삭제
 
         GameObject randomRoom = roomPrefabs[Random.Range(0, roomPrefabs.Length)];
         currentRoom = Instantiate(randomRoom, roomSpawnPoint.position, Quaternion.identity);
