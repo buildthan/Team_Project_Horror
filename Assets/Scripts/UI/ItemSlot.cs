@@ -20,7 +20,7 @@ public class ItemSlot : MonoBehaviour
     public Image icon; // 자식의 icon을 연결
     public TextMeshProUGUI quatityText;  // 수량표시 Text
 
-    public GameUI gameUI;   // UI 인벤토리 정보
+    public GameUI inventory;   // UI 인벤토리 정보
 
     public int index;   // 몇번째 슬롯인가?
     public bool equipped;   // 장착했는가?
@@ -32,14 +32,13 @@ public class ItemSlot : MonoBehaviour
 
     void Start()
     {
-        gameUI = transform.parent.parent.parent.parent.parent.parent.GetComponent<GameUI>();
+        inventory = transform.parent.parent.parent.parent.parent.parent.GetComponent<GameUI>();
     }
 
     public void Set()
     {
         icon.gameObject.SetActive(true);
         icon.sprite = itemData.icon;
-
         quatityText.text = quantity > 1 ? quantity.ToString() : string.Empty;   // 0이면 표시안하고 1 이상만 표시
     }
     // 슬롯에서 아이템을 비우는 경우(버리거나, 사용을 했거나) 자동 호출
@@ -54,6 +53,6 @@ public class ItemSlot : MonoBehaviour
     public void OnClickButton()
     {
         // 인벤토리의 SelectItem 호출, 현재 슬롯의 인덱스만 전달.
-        gameUI.SelectItem(index);
+        inventory.SelectItem(index);
     }
 }
