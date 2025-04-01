@@ -4,8 +4,6 @@ using UnityEngine;
 
 // bullet은 weapon이 아니다
 // 총알 "하나" 객체를 생성
-[CreateAssetMenu(fileName = "NewBullet", menuName = "Items/Bullet")]
-
 public class BulletDataSO : BaseItemDataSO
 {
     [Header("Common Bullet Info")]

@@ -26,7 +26,7 @@ public class BaseItemDataSO : ScriptableObject
 
     // 같은타입인지로 비교하면 상관이 없다..
 
-    public string name;
+    public string itemName;
     public string description;
     public Sprite icon;
     public GameObject prefab;/// 프리팹 정보(저장해두어야, 나중에 검색하지 않고 이를 이용하여 인스턴스를 생성)
