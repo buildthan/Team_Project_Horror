@@ -127,9 +127,16 @@ MonoBehaviour:
   gunSpawnPoints:
   - {fileID: 8504277565187684963}
   - {fileID: 2158371331152531511}
-  itemPrefabs: []
-  gunPrefabs: []
-  ammoPrefabs: []
+  itemPrefabs:
+  - {fileID: 8419464344843062684, guid: f9fd90dfc0646074599f880ce6ac9187, type: 3}
+  gunPrefabs:
+  - {fileID: 2575439267577512613, guid: b48bde288ee0cc74897c866ac8ecb19e, type: 3}
+  - {fileID: 2549157915001705656, guid: 45d5070344a4589479f3480d8cf44e41, type: 3}
+  - {fileID: 8982043952419070114, guid: 6c833b3b2b63a504db855430051e56f5, type: 3}
+  ammoPrefabs:
+  - {fileID: 5476727923147518880, guid: d41866c376c3d5b4d9fcddfe0bc2c53e, type: 3}
+  - {fileID: 5622086259340507907, guid: e149686616a124b4dad7eb884fcf6ee4, type: 3}
+  - {fileID: 4800462052694964848, guid: 69a51a7475ca79841a55479364c890e6, type: 3}
   itemSpawnChance: 0.5
 --- !u!1 &1200269771398523082
 GameObject:
