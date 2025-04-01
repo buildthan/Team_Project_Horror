@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: Shotgun
   m_EditorClassIdentifier: 
   id: 0
-  name: "\uC0B0\uD0C4\uCD1D"
-  description: "\uC0B0\uD0C4\uCD1D \uD0C4\uD658\uC744 \uC0AC\uC6A9\uD558\uB294 \uC0B0\uD0C4\uCD1D.
+  itemName: "\uC0F7\uAC74"
+  description: "\uC0F7\uAC74 \uD0C4\uD658\uC744 \uC0AC\uC6A9\uD558\uB294 \uCD1D.
     \uC5F0\uC0AC\uC18D\uB3C4\uB294 \uB290\uB9AC\uB2E4."
   icon: {fileID: 674393700, guid: cecbc1e21bfd4654cace7246a1733982, type: 3}
   prefab: {fileID: 2549157915001705656, guid: 45d5070344a4589479f3480d8cf44e41, type: 3}
   canStack: 0
   maxStackAmount: 0
+  lastFireTime: 12.403545
+  damage: 60
   bulletType: {fileID: 0}
-  range: 0
+  range: 10
   fireRate: 3
   reloadTime: 1
+  recoilUp: 2.5
+  recoilSide: 0.4

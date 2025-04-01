@@ -12,7 +12,14 @@ public class MeleeWeapon : Weapon
     }
 
 
-    public virtual void Attack(Transform origin)
+
+    public override bool CanFire()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    // 실제로는 Attack이다
+    public override void Fire()
     {
         //Collider[] hitEnemies = Physics.OverlapSphere(origin.position, 1.5f);
         //foreach (Collider enemy in hitEnemies)
@@ -22,5 +29,10 @@ public class MeleeWeapon : Weapon
         //        enemy.GetComponent<Enemy>().TakeDamage(meleePower);
         //    }
         //}
+    }
+
+    public override int GetDamage()
+    {
+        throw new System.NotImplementedException();
     }
 }

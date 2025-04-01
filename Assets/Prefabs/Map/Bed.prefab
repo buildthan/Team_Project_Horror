@@ -401,7 +401,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemSpawnPoints:
   - {fileID: 1976740798744088731}
+  gunSpawnPoints:
   - {fileID: 2027809124174554775}
+  - {fileID: 2904851475684444953}
+  itemPrefabs: []
+  gunPrefabs: []
+  ammoPrefabs: []
+  itemSpawnChance: 0.5
 --- !u!1 &7113164377826294690
 GameObject:
   m_ObjectHideFlags: 0

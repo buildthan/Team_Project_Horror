@@ -23,8 +23,8 @@ public class GameUI : BaseUI
     [Header("Selected Item")]
     public TextMeshProUGUI selectedItemName;    // 선택아이템의 이름
     public TextMeshProUGUI selectedItemDescription; // 설명
-    public TextMeshProUGUI selectedItemStatName;    // 스탯
-    public TextMeshProUGUI selectedItemStatValue;   // 값
+    //public TextMeshProUGUI selectedItemStatName;    // 스탯
+    //public TextMeshProUGUI selectedItemStatValue;   // 값
     /// Button이지만, 활성화 비활성화만 해줄 것이므로 GameObject로 들고 있는 것이 편하다
     public GameObject useButton;    // 사용버튼
     public GameObject equipButton;  // 장착버튼
@@ -65,6 +65,7 @@ public class GameUI : BaseUI
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             inventorySlots[i] = Instantiate(inventorySlotPrefab, inventoryContent);
+            inventorySlots[i].GetComponent<ItemSlot>().index = i;
         }
     }
     public void Update()
@@ -239,8 +240,8 @@ public class GameUI : BaseUI
         selectedItemDescription.text = selectedItem.description;
 
         // text에 스탯을 넣어야하는데, 모든 아이템에 스탯이 있는 것이 아니므로 일단 비운다
-        selectedItemStatName.text = string.Empty;
-        selectedItemStatValue.text = string.Empty;
+        //selectedItemStatName.text = string.Empty;
+        //selectedItemStatValue.text = string.Empty;
 
 
         /// 자료형을 비교하는 방법을 연습
@@ -248,8 +249,8 @@ public class GameUI : BaseUI
         /// FoodDataSO, WeaponDataSO, BulletDataSO 중 하나
         /// 해당 자료형인 아이템인 경우에 
         useButton.SetActive(selectedItem.GetType() == typeof(FoodDataSO));  // 선택한 아이템의 type이 consumable일때 사용버튼 활성화
-        equipButton.SetActive(selectedItem.GetType() == typeof(WeaponDataSO) && !slot.equipped);   /// 선택한 아이템의 type이 Equipable이고, 장착하지 않았다면, 장착버튼 활성화
-        unEquipButton.SetActive(selectedItem.GetType() == typeof(WeaponDataSO) && slot.equipped);  /// 선택한 아이템의 type이 Equipable이고, 장착했다면, 해제버튼 활성화
+        equipButton.SetActive(selectedItem.GetType() == typeof(RangedWeaponDataSO) && !slot.equipped);   /// 선택한 아이템의 type이 Equipable이고, 장착하지 않았다면, 장착버튼 활성화
+        unEquipButton.SetActive(selectedItem.GetType() == typeof(RangedWeaponDataSO) && slot.equipped);  /// 선택한 아이템의 type이 Equipable이고, 장착했다면, 해제버튼 활성화
         dropButton.SetActive(true); // 버리기 버튼은 활성화
     }
 

@@ -183,5 +183,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2156c529ef3594e93758607e584c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSpawnPoints:
+  itemSpawnPoints: []
+  gunSpawnPoints:
   - {fileID: 5786972988483738989}
+  - {fileID: 7848155197055292930}
+  itemPrefabs: []
+  gunPrefabs: []
+  ammoPrefabs: []
+  itemSpawnChance: 0.5

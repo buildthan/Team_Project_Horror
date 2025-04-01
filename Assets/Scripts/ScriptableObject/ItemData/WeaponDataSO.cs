@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WeaponDataSO : BaseItemDataSO
 {
+    public int damage;
+
 }
 
 

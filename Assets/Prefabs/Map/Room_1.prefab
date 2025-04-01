@@ -1416,6 +1416,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3962434311017561868}
+  - component: {fileID: 279290062694799736}
   m_Layer: 0
   m_Name: Room_1
   m_TagString: Untagged
@@ -1442,6 +1443,37 @@ Transform:
   - {fileID: 5754379780046892120}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &279290062694799736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303822737955382972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f170631e95a7264daa9994c8b36c0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectSpawnPoints:
+  - {fileID: 4211879120495042256}
+  - {fileID: 3348654184082450755}
+  - {fileID: 8941343930754917269}
+  - {fileID: 7210709976328087717}
+  - {fileID: 313957216904514375}
+  - {fileID: 6376584999071001952}
+  objectPrefabs:
+  - {fileID: 6528823338486636184, guid: f6081f35db5f0b54f93166b22640e036, type: 3}
+  - {fileID: 8793502842590528533, guid: 38338bd439731374d8074f80fac92708, type: 3}
+  - {fileID: 5052611745081999671, guid: 367622d90bd4ce34da9ff4f92d8a3b18, type: 3}
+  keySpawnPoints:
+  - {fileID: 7519887267210412430}
+  - {fileID: 7058846767032523463}
+  - {fileID: 4417673955401707623}
+  - {fileID: 7748446288447572567}
+  - {fileID: 5235309718956788659}
+  - {fileID: 6491354290412030553}
+  keyPrefab: {fileID: 0}
 --- !u!1 &1314160998084806453
 GameObject:
   m_ObjectHideFlags: 0
