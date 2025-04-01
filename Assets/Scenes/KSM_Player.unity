@@ -431,7 +431,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 183
+    m_Bits: 439
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -735,6 +735,7 @@ MonoBehaviour:
   regenDelay: 2
   maxHealth: 100
   currentHealth: 0
+  damageCooldown: 1
 --- !u!95 &1326117194
 Animator:
   serializedVersion: 5
