@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.HID;
 
 // 카메라에서 ray를 쏜다
 public class Interaction : MonoBehaviour
@@ -55,6 +56,9 @@ public class Interaction : MonoBehaviour
                 Debug.Log("[Raycast] Hit 감지됨: " + hit.collider.name);
                 if (hit.collider.gameObject != curInteractGameObject)   // ray에 충돌한 게임오브젝트가 현재 상호작용하는 게임오브젝트가 아니라면
                 {
+
+                    Debug.Log(hit.collider.gameObject);
+
                     Debug.Log(hit.collider.gameObject);
                     curInteractGameObject = hit.collider.gameObject;    // 새로운 정보로 바꿔
                     curInteractable = hit.collider.GetComponent<IInteractable>();       /// ★검출된 정보를 인터페이스로 캐싱
@@ -87,6 +91,8 @@ public class Interaction : MonoBehaviour
         /// E를 눌렀을 때, aim이 아이템을 바라보고 있을 때(인터페이스로 캐싱하고 있는 정보가 있을 때)
         if (context.phase == InputActionPhase.Started /*&& curInteractable != null*/)
         {
+            //Debug.Log($"상호작용하는 오브젝트의 ID: {curInteractGameObject.GetInstanceID()}");
+
             curInteractable.OnInteract();   // 상호작용 끝나고 인벤토리로 이동한 아이템은 Destroy까지 해준다
             // 상호작용을 끝냈으니 모두 null, 비활성화
             curInteractGameObject = null;
