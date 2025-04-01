@@ -23,9 +23,12 @@ public class Loading : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.5f); // 1초 대기
         op.allowSceneActivation = true; // 로딩된 Scene 실행.
 
-        
-        UIManager.Instance.ChangeState(UIState.Game);
-
-        //CharacterManager.Instance.Player.addItem += AddItem;  // delegate에 함수 등록
+        if (name == "ISG_Item")
+        {
+            UIManager.Instance.ChangeState(UIState.Game);
+        }else if (name == "KYH_UI")
+        {
+            UIManager.Instance.ChangeState(UIState.Title);
+        }
     }
 }

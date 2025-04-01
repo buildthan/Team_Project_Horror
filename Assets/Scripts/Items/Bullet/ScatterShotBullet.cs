@@ -9,7 +9,12 @@ public class ScatterShotBullet : Bullet
     /// </summary>
     //public int scatterCount;   // 퍼지는 탄환 개수
     //public float spreadAngle;  // 탄환이 퍼지는 각도 범위
-    public ScatterShotBulletDataSO scatterBulletData;
+    public ScatterShotBulletDataSO bulletDataSO;
+
+    public override BaseItemDataSO GetItemData()
+    {
+        return bulletDataSO; /// 부모 타입(BaseItemDataSO)으로 반환(업캐스팅)
+    }
 
 
 

@@ -8,6 +8,9 @@ public enum UIState
     Title,
     Game,
     Option,
+    GameOver,
+    Pause,
+    PauseSetting,
 
     Nothing
 }
@@ -22,6 +25,11 @@ public class UIManager : MonoBehaviour
     TitleUI titleUI = null;
     public GameUI gameUI = null;
     OptionUI optionUI = null;
+    GameOverUI gameOverUI = null;
+    PauseUI pauseUI = null;
+    PauseSettingUI pauseSettingUI = null;
+
+    public DamageIndicator damageIndicator = null; //유니티에서 할당
 
     static UIManager instance;
 
@@ -59,6 +67,12 @@ public class UIManager : MonoBehaviour
         gameUI?.Init(this);
         optionUI = GetComponentInChildren<OptionUI>(true);
         optionUI?.Init(this);
+        gameOverUI = GetComponentInChildren<GameOverUI>(true);
+        gameOverUI?.Init(this);
+        pauseUI = GetComponentInChildren<PauseUI>(true);
+        pauseUI?.Init(this);
+        pauseSettingUI = GetComponentInChildren<PauseSettingUI>(true);
+        pauseSettingUI?.Init(this);
 
 
         ChangeState(UIState.Title);
@@ -70,6 +84,32 @@ public class UIManager : MonoBehaviour
         titleUI?.SetActive(currentState);
         gameUI?.SetActive(currentState);
         optionUI?.SetActive(currentState);
+        gameOverUI?.SetActive(currentState);
+        pauseUI?.SetActive(currentState);
+        pauseSettingUI?.SetActive(currentState);
+    }
+
+    public void Update() //테스트용. 나중에 플레이어에서 수정할 것.
+    {
+        if(Input.GetKeyDown(KeyCode.V) && currentState == UIState.Game)
+        {
+            InvokeGameOverUI(); //죽었을 때 해당 UI 띄우기
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePauseUI(); //패스키 할당용
+        }
+
+        if (Input.GetKeyDown(KeyCode.B) && currentState == UIState.Game)
+        {
+            GetDamagedUI(); //데미지 입었을 때 해당 UI 작동
+        }
+    }
+
+    public void PlayUIClickAudio()
+    {
+        SoundManager.Instance.PlaySFX("SFX_UI_Button_Keyboard_Space_Thick_1", transform.position);
     }
 
 
@@ -85,6 +125,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickOption()
     {
+        optionUI.bgmSlider.value = SoundManager.Instance.bgmVolume;
+        optionUI.sfxSlider.value = SoundManager.Instance.sfxVolume;
         ChangeState(UIState.Option);
     }
 
@@ -103,5 +145,76 @@ public class UIManager : MonoBehaviour
     public void OnClickTitleOptionBack()
     {
         ChangeState(UIState.Title);
+    }
+
+    //GameOver 내부
+
+    public void InvokeGameOverUI() //게임오버 UI 발동
+    {
+        CharacterManager.Instance.Player.controller.ToggleCursor(true);
+        ChangeState(UIState.GameOver);
+        Time.timeScale = 0f;
+    }
+    public void OnClickGameOverTitle() //게임오버씬에서 타이틀로 이동 클릭
+    {
+        Time.timeScale = 1f;
+        nextSceneName = "KYH_UI"; //로딩이 끝나면 이동할 씬 이름
+        ChangeState(UIState.Nothing);
+        SceneManager.LoadScene("KYH_UI_LoadingScene");
+    }
+
+    //Pause 내부
+
+    public void TogglePauseUI()
+    {
+        if (currentState == UIState.Pause) //패스 화면이 켜져있는 경우 꺼주고
+        {
+            PlayUIClickAudio();
+            CharacterManager.Instance.Player.controller.ToggleCursor(false);
+            ChangeState(UIState.Game);
+            Time.timeScale = 1f;
+        }
+        else if(currentState == UIState.Game) //패스 화면이 꺼져있는 경우 켜준다.
+        {
+            PlayUIClickAudio();
+            CharacterManager.Instance.Player.controller.ToggleCursor(true);
+            ChangeState(UIState.Pause);
+            Time.timeScale = 0f;
+        }
+    }
+
+    public void OnClickPauseBack()
+    {
+        CharacterManager.Instance.Player.controller.ToggleCursor(false);
+        ChangeState(UIState.Game);
+        Time.timeScale = 1f;
+    }
+
+    public void OnClickPauseSetting()
+    {
+        pauseSettingUI.bgmSlider.value = SoundManager.Instance.bgmVolume;
+        pauseSettingUI.sfxSlider.value = SoundManager.Instance.sfxVolume;
+        ChangeState(UIState.PauseSetting);
+    }
+
+    public void OnClickPauseTitle()
+    {
+        Time.timeScale = 1f;
+        nextSceneName = "KYH_UI"; //로딩이 끝나면 이동할 씬 이름
+        ChangeState(UIState.Nothing);
+        SceneManager.LoadScene("KYH_UI_LoadingScene");
+    }
+
+    //PauseSetting내부
+    public void OnClickPauseSettingBack()
+    {
+        ChangeState(UIState.Pause);
+    }
+
+    //Game내부
+
+    public void GetDamagedUI() //데미지 받았을 때 ui 처리
+    {
+        damageIndicator.Flash();
     }
 }

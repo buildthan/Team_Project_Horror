@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
         //인벤토리 접근용
         inventory += UIManager.Instance.gameUI.Toggle;
-        UIManager.Instance.gameUI.dropPosition = CharacterManager.Instance.Player.dropPosition;
+        //UIManager.Instance.gameUI.dropPosition = CharacterManager.Instance.Player.dropPosition;
     }
 
     private void FixedUpdate()

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public abstract class Bullet : BaseItem
 {
-
     /// <summary>
     /// 현실에서는 총알을 발사하면 실제로는 총알이 상대방을 공격하지만
     /// FPS에서는 raycast를 이용해 총에서 빛을 쏘아 닿으면 즉시 공격처리를 한다
