@@ -24,8 +24,9 @@ public class Player : MonoBehaviour
 
         addItem += UIManager.Instance.gameUI.AddItem;  // delegate에 함수 등록
 
-        ///// 처음 씬에는 플레이어가 없기 때문에 Null이 생기는 문제.
+        /// 처음 씬에는 플레이어가 없기 때문에 Null이 생기는 문제.
         CharacterManager.Instance.Player = this;
+        UIManager.Instance.gameUI.dropPosition = dropPosition;
     }
 
     //private void Start()

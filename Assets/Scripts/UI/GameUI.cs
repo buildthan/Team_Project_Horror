@@ -254,14 +254,15 @@ public class GameUI : BaseUI
         if (slot.itemData == null)
         {
             // 비어있는 슬롯을 선택하면 모든 버튼 비활성화
-            useButton.SetActive(false);
-            equipButton.SetActive(false);
-            unEquipButton.SetActive(false);
-            dropButton.SetActive(false);
+            //useButton.SetActive(false);
+            //equipButton.SetActive(false);
+            //unEquipButton.SetActive(false);
+            //dropButton.SetActive(false);
 
-            selectedItemName.text = "";
-            selectedItemDescription.text = "";
+            //selectedItemName.text = "";
+            //selectedItemDescription.text = "";
 
+            ClearSelectedItemWindow();
             return;  // 슬롯에 아이템이 없다면 리턴
         }
         // 배열에 접근해서 해당 인덱스에 있는 아이템을 가져온다
@@ -376,6 +377,45 @@ public class GameUI : BaseUI
             unEquipButton.SetActive(false);
             dropButton.SetActive(false);
         }
+    }
+
+    // 버튼 이벤트 함수: 버리기
+    public void OnDropButton()
+    {
+        ThrowItem(selectedItem);   // 선택된 아이템 버린다
+        RemoveSelctedItem();
+    }
+    // 아이템을 버린 다음에도 UI 업데이트는 해야한다
+    void RemoveSelctedItem()
+    {
+        // UI 업데이트를 위해 정보를 갱신
+        ItemSlot slot = inventorySlots[selectedItemIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
+
+        // UI 업데이트를 위해 정보를 갱신
+        slot.quantity--;
+        if (slot.quantity <= 0)
+        {
+            selectedItem = null;
+            slot.itemData = null;   // 슬롯에서도 아이템 제거해라
+            selectedItemIndex = -1;
+            ClearSelectedItemWindow();
+        }
+        UpdateUI(); // UI 업데이트
+    }
+
+    // 아이템을 클릭하면 표시되는 정보 초기화
+    void ClearSelectedItemWindow()
+    {
+
+        selectedItemName.text = string.Empty;
+        selectedItemDescription.text = string.Empty;
+        //selectedItemStatName.text = string.Empty;
+        //selectedItemStatValue.text = string.Empty;
+
+        useButton.SetActive(false);
+        equipButton.SetActive(false);
+        unEquipButton.SetActive(false);
+        dropButton.SetActive(false);
     }
 
 
