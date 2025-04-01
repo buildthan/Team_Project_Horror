@@ -29,6 +29,8 @@ public class UIManager : MonoBehaviour
     PauseUI pauseUI = null;
     PauseSettingUI pauseSettingUI = null;
 
+    public DamageIndicator damageIndicator = null; //유니티에서 할당
+
     static UIManager instance;
 
     public static UIManager Instance //싱글톤 선언
@@ -91,12 +93,17 @@ public class UIManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.V) && currentState == UIState.Game)
         {
-            InvokeGameOverUI();
+            InvokeGameOverUI(); //죽었을 때 해당 UI 띄우기
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TogglePauseUI();
+            TogglePauseUI(); //패스키 할당용
+        }
+
+        if (Input.GetKeyDown(KeyCode.B) && currentState == UIState.Game)
+        {
+            GetDamagedUI(); //데미지 입었을 때 해당 UI 작동
         }
     }
 
@@ -204,4 +211,10 @@ public class UIManager : MonoBehaviour
         ChangeState(UIState.Pause);
     }
 
+    //Game내부
+
+    public void GetDamagedUI() //데미지 받았을 때 ui 처리
+    {
+        damageIndicator.Flash();
+    }
 }
