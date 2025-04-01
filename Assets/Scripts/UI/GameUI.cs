@@ -185,8 +185,10 @@ public class GameUI : BaseUI
     // 아이템 버리기
     void ThrowItem(BaseItemDataSO data)
     {
-        /// 다시 검색하지 않고, 미리 저장한 프리팹 리소스를 이용하여 인스턴스를 생성
-        Instantiate(data.prefab, dropPosition.position, Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360));
+        /// itemPool에서 검색해서 들고와야한다 미리 저장한 프리팹 리소스를 이용하여 인스턴스를 생성
+        /// Instantiate(data.prefab, dropPosition.position, Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360));
+        
+
     }
 
 
@@ -248,7 +250,19 @@ public class GameUI : BaseUI
 
         ItemSlot slot = inventorySlots[index].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
 
-        if (slot.itemData == null) return;  // 슬롯에 아이템이 없다면 리턴
+        if (slot.itemData == null)
+        {
+            // 비어있는 슬롯을 선택하면 모든 버튼 활성화
+            useButton.SetActive(true);
+            equipButton.SetActive(true);
+            unEquipButton.SetActive(true);
+            dropButton.SetActive(true);
+            selectedItemName.text = "";
+            selectedItemDescription.text = "";
+
+            return;  // 슬롯에 아이템이 없다면 리턴
+        }
+
 
         // 배열에 접근해서 해당 인덱스에 있는 아이템을 가져온다
         selectedItem = slot.itemData;   // selectedItem 변수에 아이템 정보 저장
@@ -265,10 +279,15 @@ public class GameUI : BaseUI
         /// 자료형을 비교하는 방법을 연습
         /// BaseItemDataSO로 저장이 되어있지만, 이건 업캐스팅으로 실제 저장된 것은
         /// FoodDataSO, WeaponDataSO, BulletDataSO 중 하나
-        /// 해당 자료형인 아이템인 경우에 
-        useButton.SetActive(selectedItem.GetType() == typeof(FoodDataSO));  // 선택한 아이템의 type이 consumable일때 사용버튼 활성화
-        equipButton.SetActive(selectedItem.GetType() == typeof(RangedWeaponDataSO) && !slot.equipped);   /// 선택한 아이템의 type이 Equipable이고, 장착하지 않았다면, 장착버튼 활성화
-        unEquipButton.SetActive(selectedItem.GetType() == typeof(RangedWeaponDataSO) && slot.equipped);  /// 선택한 아이템의 type이 Equipable이고, 장착했다면, 해제버튼 활성화
+        /// GetType은 정확한 자료형 비교만 가능하다
+        //useButton.SetActive(selectedItem.GetType() == typeof(FoodDataSO));  // 선택한 아이템의 type이 FoodDataSO일 때 사용버튼 활성화
+        //equipButton.SetActive(selectedItem.GetType() == typeof(RangedWeaponDataSO) && !slot.equipped);   /// 선택한 아이템의 type이 RangedWeaponDataSO이고, 장착하지 않았다면, 장착버튼 활성화
+        //unEquipButton.SetActive(selectedItem.GetType() == typeof(RangedWeaponDataSO) && slot.equipped);  /// 선택한 아이템의 type이 RangedWeaponDataSO이고, 장착했다면, 해제버튼 활성화
+
+        /// 이렇게 하면 부모로 바꿀 수 있는 경우에도 true다
+        useButton.SetActive(selectedItem is FoodDataSO);
+        equipButton.SetActive(selectedItem is WeaponDataSO && !slot.equipped);
+        unEquipButton.SetActive(selectedItem is WeaponDataSO && slot.equipped);
         dropButton.SetActive(true); // 버리기 버튼은 활성화
     }
 
@@ -339,7 +358,7 @@ public class GameUI : BaseUI
     //플레이어 HP 정보 업데이트용
     public void UpdatePlayerHpIndicator(float curhp, float maxHp) //플레이어의 현재 체력과 최대 체력을 받아옴
     {
-        hpIndicator.color = new Color(1- curhp / maxHp, curhp/maxHp,0);
+        hpIndicator.color = new Color(1 - curhp / maxHp, curhp / maxHp, 0);
     }
-    
+
 }
