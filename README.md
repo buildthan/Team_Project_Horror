@@ -40,6 +40,10 @@
 ---
 ![image](https://github.com/user-attachments/assets/1ee128d7-5b7d-41a7-a9d7-c7b3c808ad1c)
 
+무기 장착씬
+---
+![Team_Project_Horror - GameScene - Windows, Mac, Linux - Unity 2022 3 17f1 _DX11_ 2025-04-02 오후 7_55_46](https://github.com/user-attachments/assets/974d28c2-a200-4798-bf30-c261444618f4)
+
 적캐릭터 구현  
 ---
 ![Team_Project_Horror - GameScene - Windows, Mac, Linux - Unity 2022 3 17f1 _DX11_ 2025-04-02 오후 7_52_52](https://github.com/user-attachments/assets/96545fbd-71a3-4907-897f-007e2a765031)
