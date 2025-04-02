@@ -20,8 +20,7 @@ MonoBehaviour:
   prefab: {fileID: 2575439267577512613, guid: b48bde288ee0cc74897c866ac8ecb19e, type: 3}
   canStack: 0
   maxStackAmount: 0
-  lastFireTime: 29.278946
-  damage: 1
+  damage: 15
   bulletType: {fileID: 0}
   range: 10
   fireRate: 0.1
