@@ -20,7 +20,7 @@ public class ObjectSpawner : MonoBehaviour
         SpawnKey();
     }
 
-    void SpawnObjects()
+    private void SpawnObjects()
     {
         int spawnCount = Random.Range(3, 5);
         List<Transform> availablePoints = objectSpawnPoints.ToList();
@@ -36,7 +36,7 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
-    void SpawnKey()
+    private void SpawnKey()
     {
         Transform point = keySpawnPoints[Random.Range(0, keySpawnPoints.Length)];
         spawnedKey = Instantiate(keyPrefab, point.position, Quaternion.identity);

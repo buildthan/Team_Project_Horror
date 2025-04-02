@@ -123,37 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &336586625
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 336586626}
-  m_Layer: 0
-  m_Name: RoomSpawnPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &336586626
+--- !u!4 &620348797 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 846080164620582434, guid: 7d16ce22409bef1449aed02936fc7728, type: 3}
+  m_PrefabInstance: {fileID: 3081263544147112869}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336586625}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.36, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2097424683}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1288673894
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +160,8 @@ MonoBehaviour:
   roomPrefabs:
   - {fileID: 1303822737955382972, guid: c04165a91eecd91428e3c2ffae20f778, type: 3}
   - {fileID: 7910389523494383015, guid: 87c7d2ee79921ba47b107a69c3debc1c, type: 3}
-  roomSpawnPoint: {fileID: 0}
+  roomSpawnPoint: {fileID: 620348797}
+  corridor: {fileID: 2870045403927127740, guid: 7d16ce22409bef1449aed02936fc7728, type: 3}
 --- !u!4 &1288673896
 Transform:
   m_ObjectHideFlags: 0
@@ -296,11 +271,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!4 &2097424683 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 786331686575334563, guid: 7d16ce22409bef1449aed02936fc7728, type: 3}
-  m_PrefabInstance: {fileID: 3081263544147112869}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2133243852
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,10 +421,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 786331686575334563, guid: 7d16ce22409bef1449aed02936fc7728, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 336586626}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d16ce22409bef1449aed02936fc7728, type: 3}
 --- !u!1660057539 &9223372036854775807

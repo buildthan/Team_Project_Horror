@@ -156,6 +156,7 @@ MonoBehaviour:
   - {fileID: 1303822737955382972, guid: c04165a91eecd91428e3c2ffae20f778, type: 3}
   - {fileID: 7910389523494383015, guid: 87c7d2ee79921ba47b107a69c3debc1c, type: 3}
   roomSpawnPoint: {fileID: 2413711366516460935}
+  corridor: {fileID: 943130051596932377}
 --- !u!4 &1288673896
 Transform:
   m_ObjectHideFlags: 0
@@ -1495,6 +1496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  interaction: {fileID: 0}
   BaseItemData: {fileID: 0}
   dropPosition: {fileID: 0}
   weaponPosition: {fileID: 0}

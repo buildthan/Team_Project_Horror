@@ -6,18 +6,17 @@ public class RoomManager : MonoBehaviour
     public GameObject[] roomPrefabs;
     public Transform roomSpawnPoint;  // 복도 끝
     private GameObject currentRoom;
-    public NavMeshBaker baker;
-    private void Start()
-    {
-        SpawnNextRoom();
-    }
+    public GameObject corridor;
+
     public void SpawnNextRoom()
     {
         if (currentRoom != null)
             Destroy(currentRoom);  // 현재 방 삭제
 
+        if (corridor != null)
+            corridor.SetActive(false);
+
         GameObject randomRoom = roomPrefabs[Random.Range(0, roomPrefabs.Length)];
-        currentRoom = Instantiate(randomRoom, roomSpawnPoint.position, Quaternion.identity);
-        baker.MapBake(currentRoom);
+        currentRoom = Instantiate(randomRoom, roomSpawnPoint.position, roomSpawnPoint.rotation);
     }
 }
