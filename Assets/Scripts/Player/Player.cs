@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
 
     public Transform dropPosition;  // 드랍할 위치
 
+    public Transform weaponPosition;    // 무기 장착 위치
 
     private void Awake()
     {

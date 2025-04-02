@@ -39,7 +39,11 @@ public class ItemManager : MonoBehaviour
     public T GetEnableItemFromPool<T>(T item) where T : BaseItem/*, new()*/
     {
         // 어떤 아이템을 가져와야하는지 매개변수로 받아야한다
-        System.Type type = typeof(T);
+        //System.Type type = typeof(T);
+        /// type이 BaseItem으로 넘어온다. 이걸 실형식으로 바꿔야한다
+        System.Type type = item.GetType();
+        Debug.Log($"런타임 자료형: {type.Name}");
+
 
         // Dictionary에서 T를 키로 하는 List에서 검색
         // 있을 수 없는 일이지만, key에 해당하는 List가없다면
@@ -64,7 +68,13 @@ public class ItemManager : MonoBehaviour
                     BaseItem[] childItems = itemParentTr.GetComponentsInChildren<BaseItem>(true);
                     foreach (var child in childItems)
                     {
-                        if (child.GetType() == type && child.name == enableItem.name)
+                        // 이것도 (Clone)붙는 경우를 대비해야할 것 같다
+                        string childName = child.gameObject.name.Replace("(Clone)", "").Trim();
+                        string prefabName = enableItem.name.Replace("(Clone)", "").Trim();
+
+
+                        //if (child.GetType() == type && child.name == enableItem.name)
+                        if (child.GetType() == type && childName == prefabName)
                         {
                             child.gameObject.SetActive(true);
                             itemPool[type].RemoveAt(i);
@@ -110,14 +120,21 @@ public class ItemManager : MonoBehaviour
         // item을 itemPool에서 검색해서 가져온다
         // 풀에서 꺼내 활성화
         BaseItem equipItem = GetEnableItemFromPool(item);
+        // 혹시 여기도 (Clone)이름 붙으면 문제가 생길 것을 대비하여 제거
+        equipItem.name = item.name; // (Clone) 제거
 
-        if (!equippedItems.Contains(item))
+        if (!equippedItems.Contains(equipItem))
         {
-            equippedItems.Add(item);
+            equippedItems.Add(equipItem);
+            /// 처음 장착할때만 여기로 위치를 맞추면, 버릴때 제외하고 팔에 붙어서 활성화 비활성화만 바꾼다
 
             // 부모를 플레이어의 오른팔로 바꾼다
+            equipItem.transform.SetParent(CharacterManager.Instance.Player.weaponPosition);
+            equipItem.transform.localPosition = Vector3.zero;    // 로컬pos (0,0,0)
+            equipItem.transform.localRotation = Quaternion.identity;   // 회전각 (0,0,0)
 
-            item.gameObject.SetActive(true);
+            equipItem.gameObject.SetActive(true);
+
         }
     }
     /// <summary>

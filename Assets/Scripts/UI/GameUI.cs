@@ -183,7 +183,7 @@ public class GameUI : BaseUI
         ThrowItem(data);
         CharacterManager.Instance.Player.BaseItemData = null;   // 데이터 초기화(일 끝냈으면 비워라)
     }
-    // 아이템 버리기
+    /// 아이템 버리기(월드에 오브젝트를 생성(실제로는 비활성화한 오브젝트를 밖에다가 놓는 것)하는 점에서 Equip과 로직이 유사하다)
     void ThrowItem(BaseItemDataSO data)
     {
         ItemSlot slot = inventorySlots[selectedItemIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
@@ -456,11 +456,15 @@ public class GameUI : BaseUI
 
     #region 장착
     // 버튼 이벤트 함수: 장착
+    //
     public void OnEquipButton()
     {
         uiManager.PlayUIClickAudio();
 
-        ItemSlot slot = inventorySlots[curEquipIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
+        // selectedItemIndex의 인덱스를 갱신해야한다
+        // 마지막에 선택한 인덱스가 남아있지 않겠어?
+        ItemSlot slot = inventorySlots[selectedItemIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
+
 
         if (slot.equipped)
         {
@@ -469,9 +473,36 @@ public class GameUI : BaseUI
         }
 
         slot.equipped = true;   // 장착
+
         curEquipIndex = selectedItemIndex;
-        //itemManager.EquipItem();
-        
+
+        // slot.itemData가 가지고 있는 프리팹을 매개변수로 보내야지
+        GameObject prefab = slot.itemData.prefab;
+
+        if (prefab != null)
+        {
+            // 프리팹에서 BaseItem을 상속받는 컴포넌트 가져오기
+            var baseItemComponent = prefab.GetComponent<BaseItem>();
+            {
+                if (baseItemComponent != null)
+                {
+                    // itemParentTr의 자식 오브젝트들 중에서 selectedItem.prefab과 동일한 프리팹을 검색하여 삭제
+                    foreach (Transform child in itemManager.itemParentTr)
+                    {
+                        /// 이름에 Sniper(Clone)처럼 있으면 (Clone)은 이름에서 제거해야한다
+                        // (Clone) 제거 후 비교
+                        string childName = child.gameObject.name.Replace("(Clone)", "").Trim();
+                        string prefabName = selectedItem.prefab.name.Replace("(Clone)", "").Trim();
+
+                        if (childName == prefabName) // 이름으로 비교하여 동일한 프리팹 확인
+                        {
+                            itemManager.EquipItem(baseItemComponent);
+                        }
+                    }
+                }
+            }
+        }
+
         //CharacterManager.Instance.Player.equip.EquipNew(selectedItem);
 
         // 장착할때는 아이템의 부모를 오른팔로 바꾼다
