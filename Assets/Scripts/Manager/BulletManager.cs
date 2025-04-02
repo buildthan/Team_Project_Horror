@@ -40,8 +40,8 @@ public class BulletManager : MonoBehaviour
     // 무기 장착은 OnUpEquipButton뿐이므로 OnUpEquipButton에서 호출한다
     public void AssignBulletToWeapon(RangedWeapon weapon)
     {
-        RangedWeaponDataSO weaponData = weapon.weaponData;
-        GameObject weaponPrefab = weaponData.prefab;
+        RangedWeaponDataSO weaponData = weapon.weaponData;  // 총
+        GameObject weaponPrefab = weaponData.prefab;    // 총알 정보
 
         int minIndex = -1;
         BaseItemDataSO matchedBulletItem = null;
@@ -50,7 +50,7 @@ public class BulletManager : MonoBehaviour
         // 인벤토리 순회하여 장착된 총에 맞는 총알 찾기
         for (int i = 0; i < slots.Length; i++)
         {
-            //BaseItemDataSO item = slots[i];
+            BaseItemDataSO item = slots[i].GetComponent<ItemSlot>().itemData;
 
             if (item.prefab == weaponPrefab) // 장착된 무기와 같은 프리팹인지 확인
             {
