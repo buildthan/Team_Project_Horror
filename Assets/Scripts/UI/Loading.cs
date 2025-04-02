@@ -29,7 +29,7 @@ public class Loading : MonoBehaviour
         }else if (name == "KYH_UI")
         {
             UIManager.Instance.ChangeState(UIState.Title);
-        }else if(name == "GameScene_자기이름이니셜")
+        }else if(name == "GameScene")
         {
             UIManager.Instance.ChangeState(UIState.Game);
         }
