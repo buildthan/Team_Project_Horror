@@ -92,16 +92,11 @@ public class Monster : MonoBehaviour
                     AttackingUpdate();
                     break;
             }
-            foreach (Animator anim in animator)
-            {
-                anim.SetBool("Move", state != MonsterState.Idle);
-            }
-
-            if (state == MonsterState.Attacking)
+            if (state != MonsterState.Attacking)
             {
                 foreach (Animator anim in animator)
                 {
-                    anim.SetBool("Move", false);
+                    anim.SetBool("Move", state != MonsterState.Idle);
                 }
             }
         }
@@ -120,7 +115,8 @@ public class Monster : MonoBehaviour
             isFind = true;
             SetState(MonsterState.Find);
         }
- /**/    }
+     }
+
     void WanderToNewLocation() //새 목적지 갱신
     {
         if (state != MonsterState.Idle) return;
@@ -149,21 +145,6 @@ public class Monster : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         SetState(MonsterState.Attacking);
-        ForceAttack();
-    }
-    void ForceAttack()
-    {
-        if (playerDistance <= mobData.attackRange && IsPlayerInView())
-        {
-            agent.isStopped = true; // 공격 시 멈추기
-            foreach (Animator anim in animator)
-            {
-                anim.SetBool("Move", false);
-                anim.SetTrigger("Attack"); // 공격 애니메이션 실행
-            }
-            lastAttack = Time.time;
-            CharacterManager.Instance.Player.condition.TakeDamage(attack);
-        }
     }
     void AttackingUpdate() //전투시
     {
@@ -207,37 +188,7 @@ public class Monster : MonoBehaviour
                     agent.isStopped = true;
                 }
             }
-            else
-            {
-                StartCoroutine(LostTarget());
-                /*   agent.SetDestination(transform.position);
-                   agent.isStopped = true;
-                   isFind = false;
-                   SetState(MonsterState.Walk);
-               }
-               SetState(MonsterState.Walk);*/
-            }
         }
-    }
-    IEnumerator LostTarget()
-    {
-        float chaseTime = 3f; // 플레이어가 사라진 후 추가로 3초 동안 추격
-        float elapsedTime = 0f;
-
-        while (elapsedTime < chaseTime)
-        {
-            if (playerDistance <= mobData.detectRange) // 다시 감지 범위 안에 들어오면 추격 계속
-            {
-                yield break;
-            }
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        // 플레이어가 사라졌으므로 다시 탐색 상태로 돌아감
-        isFind = false; // 다시 감지할 수 있도록 초기화
-        agent.isStopped = true;
-        SetState(MonsterState.Walk);
     }
 
     bool IsPlayerInView() //플레이어가 시야 안에 있는 지
@@ -264,6 +215,7 @@ public class Monster : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         meshRenderer.material.color = Color.white;
     }
+
     void OnDrawGizmos() //Scene에서 시야 범위 출력
     {
         // 시야 범위 그리기
