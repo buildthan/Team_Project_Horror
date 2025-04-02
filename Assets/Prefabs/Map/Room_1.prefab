@@ -3414,7 +3414,6 @@ GameObject:
   - component: {fileID: 5375474623868921446}
   - component: {fileID: 3452240504176392486}
   - component: {fileID: 8278940972362380953}
-  - component: {fileID: 5055376274641812663}
   m_Layer: 0
   m_Name: DoorD_V2_Right
   m_TagString: Untagged
@@ -3508,20 +3507,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.3664154, y: 2.0984185, z: 0.7555639}
   m_Center: {x: 0.68395334, y: 1.0707275, z: 0.35795274}
---- !u!114 &5055376274641812663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4455272990544484967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73354510ac1702e4e8bdcf1eaec82e07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  corridor: {fileID: 3059109433690544405, guid: 7d16ce22409bef1449aed02936fc7728, type: 3}
-  isPlayerNear: 0
 --- !u!1 &4495346309533057205
 GameObject:
   m_ObjectHideFlags: 0
@@ -7072,7 +7057,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73354510ac1702e4e8bdcf1eaec82e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  corridor: {fileID: 3059109433690544405, guid: 7d16ce22409bef1449aed02936fc7728, type: 3}
   isPlayerNear: 0
 --- !u!1 &8670858089117350488
 GameObject:

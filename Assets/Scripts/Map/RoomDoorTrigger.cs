@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class RoomDoorTrigger : MonoBehaviour
 {
-    public GameObject corridor;
-
     public bool isPlayerNear = false;
     private bool hasReturned = false;
     
@@ -13,15 +11,21 @@ public class RoomDoorTrigger : MonoBehaviour
         
         if (isPlayerNear && Input.GetKeyDown(KeyCode.E) && !hasReturned)
         {
-            hasReturned = true;
-
             GameObject currentRoom = transform.root.gameObject;
-
+            hasReturned = true;
+            BackCorridor();
             Destroy(currentRoom);
-            corridor.SetActive(true);
-
-            Debug.Log("복도로 돌아감");
         }
+    }
+
+    void BackCorridor()
+    {
+        RoomManager roomManager = FindAnyObjectByType<RoomManager>();
+
+        roomManager.SetActiveCorrider();
+
+
+        Debug.Log("복도로 돌아감");
     }
 
     private void OnTriggerEnter(Collider other)
