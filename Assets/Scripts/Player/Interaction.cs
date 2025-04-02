@@ -45,7 +45,7 @@ public class Interaction : MonoBehaviour
         {
             lastCheckTime = Time.time;
 
-            Debug.Log("[Raycast] 시도 중...");
+            //Debug.Log("[Raycast] 시도 중...");
 
             // 카메라에서 화면 중앙에 ray 발사
             Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));    // 카메라가 찍고 있는 방향이 있기 때문에, 시작점만 정해주면 된다
@@ -56,7 +56,7 @@ public class Interaction : MonoBehaviour
             if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask)) // ray에 검출된 오브젝트가 있다
             {
 
-                Debug.Log("[Raycast] Hit 감지됨: " + hit.collider.name);
+                //Debug.Log("[Raycast] Hit 감지됨: " + hit.collider.name);
                 if (hit.collider.gameObject != curInteractGameObject)   // ray에 충돌한 게임오브젝트가 현재 상호작용하는 게임오브젝트가 아니라면
                 {
 
@@ -78,7 +78,7 @@ public class Interaction : MonoBehaviour
             }
             else // 빈공간에 ray를 쏜 경우
             {
-                Debug.Log("[Raycast] 아무것도 맞지 않음");
+                //Debug.Log("[Raycast] 아무것도 맞지 않음");
                 //Debug.Log("아무것도 없습니다");
                 // 모든 정보를 없애라
                 curInteractGameObject = null;

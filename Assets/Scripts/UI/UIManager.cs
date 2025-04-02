@@ -91,20 +91,12 @@ public class UIManager : MonoBehaviour
 
     public void Update() //테스트용. 나중에 플레이어에서 수정할 것.
     {
-        if(Input.GetKeyDown(KeyCode.V) && currentState == UIState.Game)
-        {
-            InvokeGameOverUI(); //죽었을 때 해당 UI 띄우기
-        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePauseUI(); //패스키 할당용
         }
 
-        if (Input.GetKeyDown(KeyCode.B) && currentState == UIState.Game)
-        {
-            GetDamagedUI(); //데미지 입었을 때 해당 UI 작동
-        }
     }
 
     public void PlayUIClickAudio()
@@ -117,8 +109,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickStart()
     {
-        //nextSceneName = "KYH_UI2"; //로딩이 끝나면 이동할 씬 이름
-        nextSceneName = "ISG_Item"; //로딩이 끝나면 이동할 씬 이름
+        nextSceneName = "GameScene"; //로딩이 끝나면 이동할 씬 이름
         ChangeState(UIState.Nothing); //로딩하는 동안 UI를 모두 꺼준다.
         SceneManager.LoadScene("KYH_UI_LoadingScene");
     }

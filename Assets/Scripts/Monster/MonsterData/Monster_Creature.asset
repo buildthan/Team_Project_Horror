@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Monster_Creature
   m_EditorClassIdentifier: 
   hp: 100
-  attack: 1
+  attack: 30
   walkSpeed: 3
   runSpeed: 3
   detectRange: 8

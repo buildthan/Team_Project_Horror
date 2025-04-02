@@ -8,6 +8,7 @@ public class CorridorDoorTrigger : MonoBehaviour
     {
         if (isPlayerNear && Input.GetKeyDown(KeyCode.E))
         {
+            Debug.Log("작동중");
             RoomManager roomManager = FindAnyObjectByType<RoomManager>();
 
             if (roomManager != null)
