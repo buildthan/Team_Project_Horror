@@ -213,6 +213,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: e8cee024-206b-4dd2-97b4-628a7aec5331
     m_ActionName: Player/Interaction[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 65c7b311-0809-40f4-9c57-1f0cf1c058b6
+    m_ActionName: Player/Attack[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -232,7 +236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
   BaseItemData: {fileID: 0}
-  dropPosition: {fileID: 0}
+  dropPosition: {fileID: 3610505106521875925}
+  weaponPosition: {fileID: 104636955266121786}
 --- !u!114 &5821846224420695411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,6 +282,7 @@ MonoBehaviour:
   regenDelay: 2
   maxHealth: 100
   currentHealth: 0
+  damageCooldown: 1
 --- !u!114 &350575477112905705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -295,6 +301,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1012
   curInteractGameObject: {fileID: 0}
+  attackDamage: 10
+  currentWeapon: {fileID: 0}
   promptText: {fileID: 0}
 --- !u!114 &5940524261121951186
 MonoBehaviour:
@@ -338,6 +346,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6929129973032589194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8259962708411327249
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 104636955266121786}
+  m_Layer: 6
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &104636955266121786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8259962708411327249}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.18890257, y: -0.03662964, z: 0.019492479, w: 0.98111886}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1231782351432404641}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8641978686762821931
 GameObject:
@@ -861,11 +900,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1852576806548013000, guid: 50662ddb0b547da4ba9d8c0027523fb9, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 104636955266121786}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50662ddb0b547da4ba9d8c0027523fb9, type: 3}
 --- !u!4 &1091909821519615618 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 50662ddb0b547da4ba9d8c0027523fb9, type: 3}
+  m_PrefabInstance: {fileID: 625304700686872937}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1231782351432404641 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1852576806548013000, guid: 50662ddb0b547da4ba9d8c0027523fb9, type: 3}
   m_PrefabInstance: {fileID: 625304700686872937}
   m_PrefabAsset: {fileID: 0}

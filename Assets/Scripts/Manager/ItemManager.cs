@@ -36,10 +36,14 @@ public class ItemManager : MonoBehaviour
     /// 슬롯에서 호출이다
     /// 그렇다면.. 슬롯에서 데이터를 가져온 다음 그걸로 아이템을 알아내야겠지?
     /// </summary>
-    public T GetEnableItemFromPool<T>(T item) where T : BaseItem, new()
+    public T GetEnableItemFromPool<T>(T item) where T : BaseItem/*, new()*/
     {
         // 어떤 아이템을 가져와야하는지 매개변수로 받아야한다
-        System.Type type = typeof(T);
+        //System.Type type = typeof(T);
+        /// type이 BaseItem으로 넘어온다. 이걸 실형식으로 바꿔야한다
+        System.Type type = item.GetType();
+        Debug.Log($"런타임 자료형: {type.Name}");
+
 
         // Dictionary에서 T를 키로 하는 List에서 검색
         // 있을 수 없는 일이지만, key에 해당하는 List가없다면
@@ -64,7 +68,13 @@ public class ItemManager : MonoBehaviour
                     BaseItem[] childItems = itemParentTr.GetComponentsInChildren<BaseItem>(true);
                     foreach (var child in childItems)
                     {
-                        if (child.GetType() == type && child.name == enableItem.name)
+                        // 이것도 (Clone)붙는 경우를 대비해야할 것 같다
+                        string childName = child.gameObject.name.Replace("(Clone)", "").Trim();
+                        string prefabName = enableItem.name.Replace("(Clone)", "").Trim();
+
+
+                        //if (child.GetType() == type && child.name == enableItem.name)
+                        if (child.GetType() == type && childName == prefabName)
                         {
                             child.gameObject.SetActive(true);
                             itemPool[type].RemoveAt(i);
@@ -87,7 +97,10 @@ public class ItemManager : MonoBehaviour
     /// </summary>
     public void ReturnItemToPool<T>(T item) where T : BaseItem
     {
-        System.Type type = typeof(T);
+
+        //System.Type type = typeof(T);
+        System.Type type = item.GetType();  // 자식의 자료형도 담는다
+
 
         if (!itemPool.ContainsKey(type))
         {
@@ -105,24 +118,52 @@ public class ItemManager : MonoBehaviour
     /// </summary>
     public void EquipItem(BaseItem item)
     {
-        if (!equippedItems.Contains(item))
+        // 편의를 위해 itemPool에 있는 무기를 equippedItems으로 옮긴다
+
+        // item을 itemPool에서 검색해서 가져온다
+        // 풀에서 꺼내 활성화
+        BaseItem equipItem = GetEnableItemFromPool(item);
+        // 혹시 여기도 (Clone)이름 붙으면 문제가 생길 것을 대비하여 제거
+        equipItem.name = item.name; // (Clone) 제거
+
+        if (!equippedItems.Contains(equipItem))
         {
-            equippedItems.Add(item);
-            item.gameObject.SetActive(true);
+            equippedItems.Add(equipItem);
+            /// 처음 장착할때만 여기로 위치를 맞추면, 버릴때 제외하고 팔에 붙어서 활성화 비활성화만 바꾼다
+
+            // 부모를 플레이어의 오른팔로 바꾼다
+            equipItem.transform.SetParent(CharacterManager.Instance.Player.weaponPosition);
+            equipItem.transform.localPosition = Vector3.zero;    // 로컬pos (0,0,0)
+            equipItem.transform.localRotation = Quaternion.identity;   // 회전각 (0,0,0)
+
+            equipItem.gameObject.SetActive(true);
+
         }
     }
     /// <summary>
     /// 아이템 해제
     /// </summary>
-    public void UnequipItem(BaseItem item)
+    public void UnEquipItem(BaseItem item)
     {
+        // equipItems에 있는 무기를 itemPool으로 옮긴다
+        // 기존의 무기를 해제했다면 위치는 그냥 놔두고 비활성화해도 상관없지만
+        /// 만약 버리는 경우를 대비해 부모를 itemParentTr로 바꿔야 한다
+        /// itemParentTr의 자식들을 검색해서 버릴 아이템을 찾아오기 때문이다
+        /// 
+        /// 버릴 때는 부모를 CharacterManager.Instance.Player.dropPosition으로 바꾸고 버리면 된다
+        
+        // equipItems에서 제거한다 
         if (equippedItems.Contains(item))
         {
             equippedItems.Remove(item);
+            item.gameObject.transform.SetParent(itemParentTr);
+
+            item.gameObject.SetActive(false);  // 아이템 비활성화
+            // 부모 transform은 교체하지 않는다
+
             ReturnItemToPool(item); // 해제된 아이템을 풀로 반환
         }
     }
-
 
     // 사용한 아이템 삭제
     public void RemoveItem(BaseItem item)
@@ -149,12 +190,15 @@ public class ItemManager : MonoBehaviour
             //    Debug.Log($"아이템 {item.name}이 itemPool에서 제거되었습니다.");
             //}
 
-
             // 이름과 자료형이 같은 아이템 찾기
             BaseItem targetItem = null;
             foreach (BaseItem listItem in itemList)
             {
-                if (listItem.name == item.name && listItem.GetType() == item.GetType())
+                string listItemName = listItem.name.Replace("(Clone)", "").Trim();
+                string itemName = item.name.Replace("(Clone)", "").Trim();
+
+                //if (listItem.name == item.name && listItem.GetType() == item.GetType())
+                if (listItemName == itemName && listItem.GetType() == item.GetType()) // 이름으로 비교하여 동일한 프리팹 확인
                 {
                     targetItem = listItem;
                     break;

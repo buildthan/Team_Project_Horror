@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using TMPro;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.UI;
 using static UnityEditor.Timeline.Actions.MenuPriority;
 
@@ -183,7 +185,7 @@ public class GameUI : BaseUI
         ThrowItem(data);
         CharacterManager.Instance.Player.BaseItemData = null;   // 데이터 초기화(일 끝냈으면 비워라)
     }
-    // 아이템 버리기
+    /// 아이템 버리기(월드에 오브젝트를 생성(실제로는 비활성화한 오브젝트를 밖에다가 놓는 것)하는 점에서 Equip과 로직이 유사하다)
     void ThrowItem(BaseItemDataSO data)
     {
         ItemSlot slot = inventorySlots[selectedItemIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
@@ -204,7 +206,12 @@ public class GameUI : BaseUI
                 // itemParentTr의 자식 오브젝트들 중에서 selectedItem.prefab과 동일한 프리팹을 검색하여 삭제
                 foreach (Transform child in itemManager.itemParentTr)
                 {
-                    if (child.gameObject.name == selectedItem.prefab.name) // 이름으로 비교하여 동일한 프리팹 확인
+                    /// 이름에 Sniper(Clone)처럼 있으면 (Clone)은 이름에서 제거해야한다
+                    // (Clone) 제거 후 비교
+                    string childName = child.gameObject.name.Replace("(Clone)", "").Trim();
+                    string prefabName = selectedItem.prefab.name.Replace("(Clone)", "").Trim();
+
+                    if (childName == prefabName) // 이름으로 비교하여 동일한 프리팹 확인
                     {
                         Debug.Log($"아이템 {child.gameObject.name} 삭제");
                         Destroy(child.gameObject); // 해당 오브젝트 삭제
@@ -237,6 +244,7 @@ public class GameUI : BaseUI
         }
     }
 
+    #region 구현 완료
     // 중복할 수 있는 아이템이라면 
     ItemSlot GetItemStack(BaseItemDataSO data)
     {
@@ -267,7 +275,6 @@ public class GameUI : BaseUI
         // 모든 슬롯에 데이터가 있다면
         return null;
     }
-
 
     // ItemSlot 스크립트 먼저 수정
     // 선택한 아이템 정보창에 업데이트 해주는 함수
@@ -358,7 +365,13 @@ public class GameUI : BaseUI
                     // itemParentTr의 자식 오브젝트들 중에서 selectedItem.prefab과 동일한 프리팹을 검색하여 삭제
                     foreach (Transform child in itemManager.itemParentTr)
                     {
-                        if (child.gameObject.name == selectedItem.prefab.name) // 이름으로 비교하여 동일한 프리팹 확인
+                        //if (child.gameObject.name == selectedItem.prefab.name) // 이름으로 비교하여 동일한 프리팹 확인
+                        /// 이름에 Sniper(Clone)처럼 있으면 (Clone)은 이름에서 제거해야한다
+                        // (Clone) 제거 후 비교
+                        string childName = child.gameObject.name.Replace("(Clone)", "").Trim();
+                        string prefabName = selectedItem.prefab.name.Replace("(Clone)", "").Trim();
+
+                        if (childName == prefabName) // 이름으로 비교하여 동일한 프리팹 확인
                         {
                             Debug.Log($"아이템 {child.gameObject.name} 삭제");
                             Destroy(child.gameObject); // 해당 오브젝트 삭제
@@ -431,7 +444,6 @@ public class GameUI : BaseUI
     // 아이템을 클릭하면 표시되는 정보 초기화
     void ClearSelectedItemWindow()
     {
-
         selectedItemName.text = string.Empty;
         selectedItemDescription.text = string.Empty;
         //selectedItemStatName.text = string.Empty;
@@ -442,34 +454,122 @@ public class GameUI : BaseUI
         unEquipButton.SetActive(false);
         dropButton.SetActive(false);
     }
+    #endregion
 
-
+    #region 장착
     // 버튼 이벤트 함수: 장착
+    //
     public void OnEquipButton()
     {
         uiManager.PlayUIClickAudio();
 
-        ItemSlot slot = inventorySlots[curEquipIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
+        // selectedItemIndex의 인덱스를 갱신해야한다
+        // 마지막에 선택한 인덱스가 남아있다
+        ItemSlot slot = inventorySlots[selectedItemIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
 
+        // 선택한 슬롯의 무기가 이미 장착된 상태인지 확인
         if (slot.equipped)
         {
-            // UnEquip
+            // 이미 장착된 경우 아무 작업도 하지 않음
+            Debug.Log("이미 장착된 아이템입니다.");
+            return;
+        }
+
+        // 현재 장착 중인 무기를 해제
+        if (curEquipIndex >= 0) // 현재 장착 중인 아이템이 있는 경우만 실행
+        {
             UnEquip(curEquipIndex);
         }
 
+        // 새로운 무기 장착
         slot.equipped = true;   // 장착
         curEquipIndex = selectedItemIndex;
-        //CharacterManager.Instance.Player.equip.EquipNew(selectedItem);
-        UpdateUI();
+        // slot.itemData가 가지고 있는 프리팹을 매개변수로 보내야지
+        GameObject prefab = slot.itemData.prefab;
 
+        if (prefab != null)
+        {
+            // 프리팹에서 BaseItem을 상속받는 컴포넌트 가져오기
+            var baseItemComponent = prefab.GetComponent<BaseItem>();
+            {
+                if (baseItemComponent != null)
+                {
+                    string prefabName = selectedItem.prefab.name.Replace("(Clone)", "").Trim();
+                    // itemParentTr의 자식 오브젝트들 중에서 selectedItem.prefab과 동일한 프리팹을 검색하여 삭제
+                    foreach (Transform child in itemManager.itemParentTr)
+                    {
+                        /// 이름에 Sniper(Clone)처럼 있으면 (Clone)은 이름에서 제거해야한다
+                        // (Clone) 제거 후 비교
+                        string childName = child.gameObject.name.Replace("(Clone)", "").Trim();
+
+                        if (childName == prefabName) // 이름으로 비교하여 동일한 프리팹 확인
+                        {
+                            itemManager.EquipItem(baseItemComponent);
+                        }
+                    }
+                }
+            }
+        }
+        UpdateUI();
         SelectItem(selectedItemIndex);
     }
+    #endregion
+    #region 해제
     void UnEquip(int index)
     {
+        // 시작할때부터 장착하지 않았다는 전제 하에 
+        // 이전에 장착할때 index가 이미 정해져 있다
+        // OnEquipButton에서 curEquipIndex를 갱신한 뒤 바꾸지 않았으므로 장착한 무기의 인덱스 그대로다
         ItemSlot slot = inventorySlots[index].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
 
-        slot.equipped = false;
-        //CharacterManager.Instance.Player.equip.UnEquip();
+        slot.equipped = false;  // 해제
+
+        // 기존의 무기를 해제했다면 위치는 그냥 놔두고 비활성화
+        // 만약 버리는 경우에만 부모를 CharacterManager.Instance.Player.dropPosition으로 바꾸고 버리면 된다
+        // 하지만, 지금은 버리는게 아니라 무기를 해제할 뿐이므로 비활성화만 한다
+        /// 아이템 매니저의 itemPool에서 무기를 가져와서 비활성화
+        /// 이미 장착하고 있는 무기(itemManager.equippedItems에서 검색)를 비활성화
+
+        /// 아래의 방법으로 itemToUnEquip이 null인데 디버그가 안된다...
+        //BaseItem itemToUnEquip = itemManager.equippedItems.FirstOrDefault(item => item.name == slot.itemData.name);
+        //if (itemToUnEquip != null)
+        //{
+        //    // 아이템 비활성화
+        //    itemManager.UnEquipItem(itemToUnEquip);
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("장착된 아이템을 찾을 수 없습니다.");
+        //}
+
+
+        // 장착된 아이템을 직접 검색하여 비활성화
+        BaseItem itemToUnEquip = null;
+        string prefabName = slot.itemData.prefab.name.Replace("(Clone)", "").Trim();
+        foreach (BaseItem equippedItem in itemManager.equippedItems)
+        {
+            string childName = equippedItem.gameObject.name.Replace("(Clone)", "").Trim();
+
+            if (equippedItem != null && childName == prefabName)
+            {
+                itemToUnEquip = equippedItem;
+                break; // 찾았으면 반복 종료
+            }
+        }
+        if (itemToUnEquip != null)
+        {
+            // 아이템 비활성화
+            itemManager.UnEquipItem(itemToUnEquip);
+        }
+        else
+        {
+            Debug.LogWarning("장착된 아이템을 찾을 수 없습니다.");
+        }
+
+
+
+        /// icon을 swap하지 않는다. 각자 icon은 각자의 슬롯에 있다.        
+
         UpdateUI();
 
         if (selectedItemIndex == index)
@@ -477,14 +577,21 @@ public class GameUI : BaseUI
             SelectItem(selectedItemIndex);
         }
     }
+
     // 버튼 이벤트 함수: 해제
     public void OnUpEquipButton()
     {
+        // selectedItemIndex를 갱신해야한다
+        // 단순 해제만 한다는 것은, 이미 무기가 장착되어있는 인덱스를 가져온다는 뜻이다
+        // curEquipIndex
         uiManager.PlayUIClickAudio();
+        selectedItemIndex = curEquipIndex;  // 현재 선택한 인덱스이므로 갱신(아마 되어있겠지만)
 
         UnEquip(selectedItemIndex);
-    }
 
+        curEquipIndex = -1; // 장착하는 무기가 없으니까
+    }
+    #endregion
 
     //플레이어 HP 정보 업데이트용
     public void UpdatePlayerHpIndicator(float curhp, float maxHp) //플레이어의 현재 체력과 최대 체력을 받아옴
