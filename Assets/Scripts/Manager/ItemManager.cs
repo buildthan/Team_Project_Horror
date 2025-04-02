@@ -18,7 +18,13 @@ public class ItemManager : MonoBehaviour
     public Dictionary<System.Type, List<BaseItem>> itemPool; // 비활성화된 아이템 저장 (오브젝트 풀링)
     public List<BaseItem> equippedItems; // 장착한 아이템 리스트
 
+    /// <summary>
+    /// 무기를 포함하여 플레이어가 먹는 모든 아이템을 여기에 저장하고 있었지만
+    /// 무기는 GunHolder에서 포함하고 시작하여 활성화, 비활성화하는 것으로 바꾸었기 때문에
+    /// Player에 새로 추가한다
+    /// </summary>
     public Transform itemParentTr;  // 플레이어의 아이템을 모으는 parent
+
 
     // Start is called before the first frame update
     void Start()
@@ -131,11 +137,12 @@ public class ItemManager : MonoBehaviour
             equippedItems.Add(equipItem);
             /// 처음 장착할때만 여기로 위치를 맞추면, 버릴때 제외하고 팔에 붙어서 활성화 비활성화만 바꾼다
 
-            // 부모를 플레이어의 오른팔로 바꾼다
+            // 부모를 GunHolder로 바꾼다
             equipItem.transform.SetParent(CharacterManager.Instance.Player.weaponPosition);
             equipItem.transform.localPosition = Vector3.zero;    // 로컬pos (0,0,0)
             equipItem.transform.localRotation = Quaternion.identity;   // 회전각 (0,0,0)
 
+            CharacterManager.Instance.Player.interaction.currentWeapon = equipItem as Weapon;
             equipItem.gameObject.SetActive(true);
 
         }
