@@ -31,7 +31,7 @@ public class Loading : MonoBehaviour
         {
             UIManager.Instance.ChangeState(UIState.Title);
         }
-        else if (name == "GameScene")
+        else if (name == "GameScene_SUE")
         {
             UIManager.Instance.ChangeState(UIState.Game);
         }
