@@ -20,9 +20,5 @@ public class HealingFood : Food
         CharacterManager.Instance.Player.condition.maxHealth
             );
         Debug.Log(CharacterManager.Instance.Player.condition.currentHealth);
-
-        /// 정상적으로 사용한 아이템은 삭제한다
-        
-
     }
 }

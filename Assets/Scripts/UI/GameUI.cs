@@ -78,20 +78,6 @@ public class GameUI : BaseUI
     }
     public void Update()
     {
-        /// 플레이어의 Input System과 연결하는 방식으로 수정
-        //if(Input.GetKeyDown(KeyCode.Tab) && this.gameObject.activeSelf)
-        //{
-        //    if (inventory.activeSelf == false)
-        //    {
-        //        Time.timeScale = 0;
-        //        inventory.SetActive(true);
-        //    }
-        //    else
-        //    {
-        //        Time.timeScale = 1;
-        //        inventory.SetActive(false);
-        //    }
-        //}
     }
 
     protected override UIState GetUIState()
@@ -283,15 +269,6 @@ public class GameUI : BaseUI
 
         if (slot.itemData == null)
         {
-            // 비어있는 슬롯을 선택하면 모든 버튼 비활성화
-            //useButton.SetActive(false);
-            //equipButton.SetActive(false);
-            //unEquipButton.SetActive(false);
-            //dropButton.SetActive(false);
-
-            //selectedItemName.text = "";
-            //selectedItemDescription.text = "";
-
             ClearSelectedItemWindow();
             return;  // 슬롯에 아이템이 없다면 리턴
         }
@@ -377,7 +354,6 @@ public class GameUI : BaseUI
                         }
                     }
                     // ItemManager를 통해 아이템을 완전히 제거
-                    // ItemManager를 통해 아이템 제거
                     itemManager.RemoveItem(baseItemComponent);
                 }
                 // 아이템 슬롯에서 데이터 제거
@@ -493,7 +469,7 @@ public class GameUI : BaseUI
                 if (baseItemComponent != null)
                 {
                     string prefabName = selectedItem.prefab.name.Replace("(Clone)", "").Trim();
-                    // itemParentTr의 자식 오브젝트들 중에서 selectedItem.prefab과 동일한 프리팹을 검색하여 삭제
+                    // itemParentTr의 자식 오브젝트들 중에서 selectedItem.prefab과 동일한 프리팹을 검색
                     foreach (Transform child in itemManager.itemParentTr)
                     {
                         /// 이름에 Sniper(Clone)처럼 있으면 (Clone)은 이름에서 제거해야한다
@@ -503,6 +479,7 @@ public class GameUI : BaseUI
                         if (childName == prefabName) // 이름으로 비교하여 동일한 프리팹 확인
                         {
                             itemManager.EquipItem(baseItemComponent);
+                            bulletManager.LoadBullet(baseItemComponent as RangedWeapon);
                         }
                     }
                 }
