@@ -36,7 +36,7 @@ public class ItemManager : MonoBehaviour
     /// 슬롯에서 호출이다
     /// 그렇다면.. 슬롯에서 데이터를 가져온 다음 그걸로 아이템을 알아내야겠지?
     /// </summary>
-    public T GetEnableItemFromPool<T>(T item) where T : BaseItem, new()
+    public T GetEnableItemFromPool<T>(T item) where T : BaseItem/*, new()*/
     {
         // 어떤 아이템을 가져와야하는지 매개변수로 받아야한다
         System.Type type = typeof(T);
@@ -105,24 +105,36 @@ public class ItemManager : MonoBehaviour
     /// </summary>
     public void EquipItem(BaseItem item)
     {
+        // 편의를 위해 itemPool에 있는 무기를 equippedItems으로 옮긴다
+
+        // item을 itemPool에서 검색해서 가져온다
+        // 풀에서 꺼내 활성화
+        BaseItem equipItem = GetEnableItemFromPool(item);
+
         if (!equippedItems.Contains(item))
         {
             equippedItems.Add(item);
+
+            // 부모를 플레이어의 오른팔로 바꾼다
+
             item.gameObject.SetActive(true);
         }
     }
     /// <summary>
     /// 아이템 해제
     /// </summary>
-    public void UnequipItem(BaseItem item)
+    public void UnEquipItem(BaseItem item)
     {
+        // equipItems에 있는 무기를 itemPool으로 옮긴다
+        // 이때 부모를 
+
+        // equipItems에서 제거한다 
         if (equippedItems.Contains(item))
         {
             equippedItems.Remove(item);
             ReturnItemToPool(item); // 해제된 아이템을 풀로 반환
         }
     }
-
 
     // 사용한 아이템 삭제
     public void RemoveItem(BaseItem item)
@@ -149,12 +161,15 @@ public class ItemManager : MonoBehaviour
             //    Debug.Log($"아이템 {item.name}이 itemPool에서 제거되었습니다.");
             //}
 
-
             // 이름과 자료형이 같은 아이템 찾기
             BaseItem targetItem = null;
             foreach (BaseItem listItem in itemList)
             {
-                if (listItem.name == item.name && listItem.GetType() == item.GetType())
+                string listItemName = listItem.name.Replace("(Clone)", "").Trim();
+                string itemName = item.name.Replace("(Clone)", "").Trim();
+
+                //if (listItem.name == item.name && listItem.GetType() == item.GetType())
+                if (listItemName == itemName && listItem.GetType() == item.GetType()) // 이름으로 비교하여 동일한 프리팹 확인
                 {
                     targetItem = listItem;
                     break;

@@ -204,7 +204,12 @@ public class GameUI : BaseUI
                 // itemParentTr의 자식 오브젝트들 중에서 selectedItem.prefab과 동일한 프리팹을 검색하여 삭제
                 foreach (Transform child in itemManager.itemParentTr)
                 {
-                    if (child.gameObject.name == selectedItem.prefab.name) // 이름으로 비교하여 동일한 프리팹 확인
+                    /// 이름에 Sniper(Clone)처럼 있으면 (Clone)은 이름에서 제거해야한다
+                    // (Clone) 제거 후 비교
+                    string childName = child.gameObject.name.Replace("(Clone)", "").Trim();
+                    string prefabName = selectedItem.prefab.name.Replace("(Clone)", "").Trim();
+
+                    if (childName == prefabName) // 이름으로 비교하여 동일한 프리팹 확인
                     {
                         Debug.Log($"아이템 {child.gameObject.name} 삭제");
                         Destroy(child.gameObject); // 해당 오브젝트 삭제
@@ -237,6 +242,7 @@ public class GameUI : BaseUI
         }
     }
 
+    #region 구현 완료
     // 중복할 수 있는 아이템이라면 
     ItemSlot GetItemStack(BaseItemDataSO data)
     {
@@ -267,7 +273,6 @@ public class GameUI : BaseUI
         // 모든 슬롯에 데이터가 있다면
         return null;
     }
-
 
     // ItemSlot 스크립트 먼저 수정
     // 선택한 아이템 정보창에 업데이트 해주는 함수
@@ -358,7 +363,13 @@ public class GameUI : BaseUI
                     // itemParentTr의 자식 오브젝트들 중에서 selectedItem.prefab과 동일한 프리팹을 검색하여 삭제
                     foreach (Transform child in itemManager.itemParentTr)
                     {
-                        if (child.gameObject.name == selectedItem.prefab.name) // 이름으로 비교하여 동일한 프리팹 확인
+                        //if (child.gameObject.name == selectedItem.prefab.name) // 이름으로 비교하여 동일한 프리팹 확인
+                        /// 이름에 Sniper(Clone)처럼 있으면 (Clone)은 이름에서 제거해야한다
+                        // (Clone) 제거 후 비교
+                        string childName = child.gameObject.name.Replace("(Clone)", "").Trim();
+                        string prefabName = selectedItem.prefab.name.Replace("(Clone)", "").Trim();
+
+                        if (childName == prefabName) // 이름으로 비교하여 동일한 프리팹 확인
                         {
                             Debug.Log($"아이템 {child.gameObject.name} 삭제");
                             Destroy(child.gameObject); // 해당 오브젝트 삭제
@@ -431,7 +442,6 @@ public class GameUI : BaseUI
     // 아이템을 클릭하면 표시되는 정보 초기화
     void ClearSelectedItemWindow()
     {
-
         selectedItemName.text = string.Empty;
         selectedItemDescription.text = string.Empty;
         //selectedItemStatName.text = string.Empty;
@@ -442,8 +452,9 @@ public class GameUI : BaseUI
         unEquipButton.SetActive(false);
         dropButton.SetActive(false);
     }
+    #endregion
 
-
+    #region 장착
     // 버튼 이벤트 함수: 장착
     public void OnEquipButton()
     {
@@ -453,23 +464,36 @@ public class GameUI : BaseUI
 
         if (slot.equipped)
         {
-            // UnEquip
+            // 해제할 때는 아이템의 부모를 itemManager.itemParentTr으로 바꾼다
             UnEquip(curEquipIndex);
         }
 
         slot.equipped = true;   // 장착
         curEquipIndex = selectedItemIndex;
+        //itemManager.EquipItem();
+        
         //CharacterManager.Instance.Player.equip.EquipNew(selectedItem);
+
+        // 장착할때는 아이템의 부모를 오른팔로 바꾼다
+
+
         UpdateUI();
 
         SelectItem(selectedItemIndex);
     }
+    #endregion
+    #region 해제
     void UnEquip(int index)
     {
         ItemSlot slot = inventorySlots[index].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
 
         slot.equipped = false;
         //CharacterManager.Instance.Player.equip.UnEquip();
+
+
+        /// 아이템 매니저의 itemPool에서 무기를 가져와서 비활성화
+        //itemManager.UnEquipItem();
+
         UpdateUI();
 
         if (selectedItemIndex == index)
@@ -477,6 +501,7 @@ public class GameUI : BaseUI
             SelectItem(selectedItemIndex);
         }
     }
+
     // 버튼 이벤트 함수: 해제
     public void OnUpEquipButton()
     {
@@ -484,7 +509,7 @@ public class GameUI : BaseUI
 
         UnEquip(selectedItemIndex);
     }
-
+    #endregion
 
     //플레이어 HP 정보 업데이트용
     public void UpdatePlayerHpIndicator(float curhp, float maxHp) //플레이어의 현재 체력과 최대 체력을 받아옴
