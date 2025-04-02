@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3595435762987427522}
   m_Layer: 0
-  m_Name: GunSpawn
+  m_Name: GunSpawn_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 933405526280629071}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.083, y: 0.493, z: -0}
+  m_LocalPosition: {x: -0.007, y: 0.493, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -97,6 +97,7 @@ Transform:
   m_Children:
   - {fileID: 3808331247680843881}
   - {fileID: 3595435762987427522}
+  - {fileID: 3654199982294372988}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1885331127700103751
@@ -187,6 +188,7 @@ MonoBehaviour:
   - {fileID: 3808331247680843881}
   gunSpawnPoints:
   - {fileID: 3595435762987427522}
+  - {fileID: 3654199982294372988}
   itemPrefabs:
   - {fileID: 8419464344843062684, guid: f9fd90dfc0646074599f880ce6ac9187, type: 3}
   gunPrefabs:
@@ -198,3 +200,34 @@ MonoBehaviour:
   - {fileID: 5622086259340507907, guid: e149686616a124b4dad7eb884fcf6ee4, type: 3}
   - {fileID: 4800462052694964848, guid: 69a51a7475ca79841a55479364c890e6, type: 3}
   itemSpawnChance: 0.5
+--- !u!1 &6827722895890878926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3654199982294372988}
+  m_Layer: 0
+  m_Name: GunSpawn_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3654199982294372988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6827722895890878926}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.083, y: 0.493, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2333167996561737517}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
