@@ -13,7 +13,7 @@ public class RoomManager : MonoBehaviour
         if (currentRoom != null)
             Destroy(currentRoom);  // 현재 방 삭제
 
-        if (corridor != null)
+        if (corridor.activeInHierarchy)
             corridor.SetActive(false);
 
         GameObject randomRoom = roomPrefabs[Random.Range(0, roomPrefabs.Length)];
