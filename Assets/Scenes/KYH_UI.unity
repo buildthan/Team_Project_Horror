@@ -1419,6 +1419,8 @@ MonoBehaviour:
   poolSize: 10
   sfxClips:
   - {fileID: 8300000, guid: 89dc6bbba2ae6c54a9e835dbe6fbf288, type: 3}
+  - {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}
+  - {fileID: 8300000, guid: 245965889d0a183438ef3478b27122c0, type: 3}
 --- !u!4 &474388792
 Transform:
   m_ObjectHideFlags: 0
@@ -34135,7 +34137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4467793446176884344
 MonoBehaviour:
   m_ObjectHideFlags: 0

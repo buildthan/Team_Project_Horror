@@ -101,7 +101,7 @@ public class Interaction : MonoBehaviour
         if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
             //Debug.Log($"상호작용하는 오브젝트의 ID: {curInteractGameObject.GetInstanceID()}");
-
+            SoundManager.Instance.PlaySFX("SFX_UI_Button_Keyboard_Enter_Thick_1", transform.position);
             curInteractable.OnInteract();   // 상호작용 끝나고 인벤토리로 이동한 아이템은 Destroy까지 해준다
             // 상호작용을 끝냈으니 모두 null, 비활성화
             curInteractGameObject = null;
@@ -118,6 +118,7 @@ public class Interaction : MonoBehaviour
 
             if (currentWeapon != null && currentWeapon.CanFire())
             {
+                SoundManager.Instance.PlaySFX("impacter", transform.position);
                 currentWeapon.Fire(); //  발사 처리 먼저
 
                 // 총마다 다른 반동값 적용 (weaponData에서 가져옴)
