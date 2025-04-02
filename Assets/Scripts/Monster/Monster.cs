@@ -12,7 +12,7 @@ public enum MonsterState
     Attacking
 }
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IDamageable
 {
 
     public MonsterData mobData;
