@@ -581,9 +581,15 @@ public class GameUI : BaseUI
     // 버튼 이벤트 함수: 해제
     public void OnUpEquipButton()
     {
+        // selectedItemIndex를 갱신해야한다
+        // 단순 해제만 한다는 것은, 이미 무기가 장착되어있는 인덱스를 가져온다는 뜻이다
+        // curEquipIndex
         uiManager.PlayUIClickAudio();
+        selectedItemIndex = curEquipIndex;  // 현재 선택한 인덱스이므로 갱신(아마 되어있겠지만)
 
         UnEquip(selectedItemIndex);
+
+        curEquipIndex = -1; // 장착하는 무기가 없으니까
     }
     #endregion
 
