@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Monster_Zombie
   m_EditorClassIdentifier: 
   hp: 300
-  attack: 1
+  attack: 10
   walkSpeed: 2
   runSpeed: 2
   detectRange: 10

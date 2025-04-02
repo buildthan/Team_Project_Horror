@@ -49,7 +49,7 @@ public class GameUI : BaseUI
     BaseItemDataSO selectedItem;
     int selectedItemIndex = 0;
     // 장착, 해제
-    private int curEquipIndex;
+    public int curEquipIndex;
 
     /// <summary>
     /// 리플렉션을 사용하기 위해 itemManager를 연결해야한다

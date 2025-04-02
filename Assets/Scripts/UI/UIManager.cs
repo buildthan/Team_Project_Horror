@@ -33,6 +33,8 @@ public class UIManager : MonoBehaviour
 
     static UIManager instance;
 
+    public int score = 0;
+
     public static UIManager Instance //싱글톤 선언
     {
         get
@@ -47,7 +49,7 @@ public class UIManager : MonoBehaviour
 
     private void Awake() //싱글톤 선언
     {
-
+        score = 0;
 
         if (instance == null)
         {
@@ -109,6 +111,8 @@ public class UIManager : MonoBehaviour
 
     public void OnClickStart()
     {
+        score = 0;
+        gameUI.ClearInventory();    // 인벤토리 초기화
         nextSceneName = "GameScene"; //로딩이 끝나면 이동할 씬 이름
         ChangeState(UIState.Nothing); //로딩하는 동안 UI를 모두 꺼준다.
         SceneManager.LoadScene("KYH_UI_LoadingScene");
@@ -142,16 +146,13 @@ public class UIManager : MonoBehaviour
 
     public void InvokeGameOverUI() //게임오버 UI 발동
     {
-        CharacterManager.Instance.Player.controller.ToggleCursor(true);
-        ChangeState(UIState.GameOver);
-        Time.timeScale = 0f;
+        StartCoroutine(GameOver(1.5f));
     }
     public void OnClickGameOverTitle() //게임오버씬에서 타이틀로 이동 클릭
     {
         Time.timeScale = 1f;
         nextSceneName = "KYH_UI"; //로딩이 끝나면 이동할 씬 이름
         ChangeState(UIState.Nothing);
-        gameUI.ClearInventory();    // 인벤토리 초기화
 
         SceneManager.LoadScene("KYH_UI_LoadingScene");
     }
@@ -192,6 +193,12 @@ public class UIManager : MonoBehaviour
 
     public void OnClickPauseTitle()
     {
+        if (gameUI.curEquipIndex != -1)
+        {
+            ItemSlot equipedtSlot = gameUI.inventorySlots[gameUI.curEquipIndex].GetComponent<ItemSlot>();
+            equipedtSlot.Clear();
+        }
+
         Time.timeScale = 1f;
         nextSceneName = "KYH_UI"; //로딩이 끝나면 이동할 씬 이름
         ChangeState(UIState.Nothing);
@@ -209,5 +216,20 @@ public class UIManager : MonoBehaviour
     public void GetDamagedUI() //데미지 받았을 때 ui 처리
     {
         damageIndicator.Flash();
+    }
+
+    IEnumerator GameOver(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        CharacterManager.Instance.Player.controller.ToggleCursor(true);
+        if (gameUI.curEquipIndex != -1)
+        {
+            ItemSlot equipedtSlot = gameUI.inventorySlots[gameUI.curEquipIndex].GetComponent<ItemSlot>();
+            equipedtSlot.Clear();
+        }
+        gameOverUI.scoreText.text = $"Score : {score}";
+        ChangeState(UIState.GameOver);
+        Time.timeScale = 0f;
+
     }
 }

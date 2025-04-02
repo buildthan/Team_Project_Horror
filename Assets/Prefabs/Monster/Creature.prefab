@@ -1724,6 +1724,7 @@ GameObject:
   - component: {fileID: 7998529127932166278}
   - component: {fileID: -8230731736966391102}
   - component: {fileID: 1009609397042552865}
+  - component: {fileID: 2725297041525431090}
   m_Layer: 7
   m_Name: Creature
   m_TagString: Untagged
@@ -1810,6 +1811,27 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &2725297041525431090
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3520684902908954133}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &3583267003740938937
 GameObject:
   m_ObjectHideFlags: 0

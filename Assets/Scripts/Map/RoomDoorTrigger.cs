@@ -20,6 +20,7 @@ public class RoomDoorTrigger : MonoBehaviour
 
     void BackCorridor()
     {
+        UIManager.Instance.score += 1;
         RoomManager roomManager = FindAnyObjectByType<RoomManager>();
 
         roomManager.SetActiveCorrider();
