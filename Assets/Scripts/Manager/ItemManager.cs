@@ -97,7 +97,10 @@ public class ItemManager : MonoBehaviour
     /// </summary>
     public void ReturnItemToPool<T>(T item) where T : BaseItem
     {
-        System.Type type = typeof(T);
+
+        //System.Type type = typeof(T);
+        System.Type type = item.GetType();  // 자식의 자료형도 담는다
+
 
         if (!itemPool.ContainsKey(type))
         {
@@ -143,12 +146,21 @@ public class ItemManager : MonoBehaviour
     public void UnEquipItem(BaseItem item)
     {
         // equipItems에 있는 무기를 itemPool으로 옮긴다
-        // 이때 부모를 
-
+        // 기존의 무기를 해제했다면 위치는 그냥 놔두고 비활성화해도 상관없지만
+        /// 만약 버리는 경우를 대비해 부모를 itemParentTr로 바꿔야 한다
+        /// itemParentTr의 자식들을 검색해서 버릴 아이템을 찾아오기 때문이다
+        /// 
+        /// 버릴 때는 부모를 CharacterManager.Instance.Player.dropPosition으로 바꾸고 버리면 된다
+        
         // equipItems에서 제거한다 
         if (equippedItems.Contains(item))
         {
             equippedItems.Remove(item);
+            item.gameObject.transform.SetParent(itemParentTr);
+
+            item.gameObject.SetActive(false);  // 아이템 비활성화
+            // 부모 transform은 교체하지 않는다
+
             ReturnItemToPool(item); // 해제된 아이템을 풀로 반환
         }
     }
