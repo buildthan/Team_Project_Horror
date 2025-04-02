@@ -3360,6 +3360,7 @@ MonoBehaviour:
   - {fileID: 1303822737955382972, guid: c04165a91eecd91428e3c2ffae20f778, type: 3}
   - {fileID: 7910389523494383015, guid: 87c7d2ee79921ba47b107a69c3debc1c, type: 3}
   roomSpawnPoint: {fileID: 2413711366516460935}
+  corridor: {fileID: 0}
 --- !u!4 &1288673896
 Transform:
   m_ObjectHideFlags: 0
@@ -6848,7 +6849,7 @@ Transform:
   m_GameObject: {fileID: 7122797297846936221}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.57, y: -0.78, z: 0.03}
+  m_LocalPosition: {x: 0.57, y: -0.52, z: 0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

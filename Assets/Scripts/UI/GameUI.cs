@@ -138,6 +138,7 @@ public class GameUI : BaseUI
                 MethodInfo genericMethod = method.MakeGenericMethod(itemType);
                 genericMethod.Invoke(itemManager, new object[] { item });                //
 
+                //
                 // UIUpdate
                 UpdateUI();
 
