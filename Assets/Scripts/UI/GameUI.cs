@@ -480,7 +480,7 @@ public class GameUI : BaseUI
                         if (childName == prefabName) // 이름으로 비교하여 동일한 프리팹 확인
                         {
                             itemManager.EquipItem(baseItemComponent);
-                            bulletManager.LoadBullet(baseItemComponent as RangedWeapon);
+                            //bulletManager.LoadBullet(baseItemComponent as RangedWeapon);
                         }
                     }
                 }

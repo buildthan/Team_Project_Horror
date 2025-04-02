@@ -67,8 +67,11 @@ public class ItemManager : MonoBehaviour
             // itemPool[type]에서 검사해서 해당 아이템을 찾고
             for (int i = 0; i < itemPool[type].Count; i++)
             {
+                // itemPool[type][i].name 에서 (Clone)제거하고 item.name과 비교해야함
+                string tempName = itemPool[type][i].name.Replace("(Clone)", "").Trim();
+
                 /// 테스트 해봐야한다, name이 다를 수 있어
-                if (itemPool[type][i].GetType() == type && itemPool[type][i].name == item.name)
+                if (itemPool[type][i].GetType() == type && tempName == item.name)
                 {
                     enableItem = itemPool[type][i];
                     // 2. itemParentTr의 자식 중에서 같은 아이템 찾기
