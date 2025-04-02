@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 101
   itemName: "\uC11C\uB78D \uC5F4\uC1E0"
-  description: "\uC7A0\uAE34 \uC11C\uB78D\uC744 \uC5F4 \uC218 \uC788\uB294 \uC5F4"
+  description: "\uC7A0\uAE34 \uC11C\uB78D\uC744 \uC5F4 \uC218 \uC788\uB294 \uC5F4\uC1E0\uB2E4."
   icon: {fileID: -576006967, guid: 847f3e08157367e458aec63415b2d664, type: 3}
   prefab: {fileID: 5057664462630370746, guid: b1cbd7c4b2b545a4c824ac67bc6795a1, type: 3}
   canStack: 1

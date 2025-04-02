@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 100
   itemName: "\uC2A4\uD14C\uC774\uC9C0 \uC5F4\uC1E0"
   description: "\uC2A4\uD14C\uC774\uC9C0 \uBB38\uC744 \uC5F4 \uC218 \uC788\uB294
-    \uC5F4"
+    \uC5F4\uC1E0\uB2E4."
   icon: {fileID: 472646816, guid: 05e0567213a58c840a3ea79a4409bdfd, type: 3}
   prefab: {fileID: 1246783851769243074, guid: c20f486cbc1dde0498e62ce711c4e929, type: 3}
   canStack: 1

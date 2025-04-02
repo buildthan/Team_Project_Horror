@@ -191,37 +191,34 @@ public class GameUI : BaseUI
         ItemSlot slot = inventorySlots[selectedItemIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
         selectedItem = slot.itemData;   // selectedItem 변수에 아이템 정보 저장
 
-        // 미리 저장한 프리팹 리소스를 이용하여 인스턴스를 생성
-        Instantiate(data.prefab, dropPosition.position, Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360));
-
-        /// 해당 오브젝트를 itemPool에서 검색해서 삭제 
-        GameObject prefab = selectedItem.prefab;
-        if (prefab != null)
+        // itemParentTr의 자식 중에서 해당 아이템과 일치하는 오브젝트 찾기
+        Transform itemToThrow = null;
+        foreach (Transform child in itemManager.itemParentTr)
         {
-            // 프리팹에서 BaseItem을 상속받는 컴포넌트 가져오기
-            var baseItemComponent = prefab.GetComponent<BaseItem>();
+            string childName = child.gameObject.name.Replace("(Clone)", "").Trim();
+            string prefabName = selectedItem.prefab.name.Replace("(Clone)", "").Trim();
 
-            if (baseItemComponent != null)
+            if (childName == prefabName)
             {
-                // itemParentTr의 자식 오브젝트들 중에서 selectedItem.prefab과 동일한 프리팹을 검색하여 삭제
-                foreach (Transform child in itemManager.itemParentTr)
-                {
-                    /// 이름에 Sniper(Clone)처럼 있으면 (Clone)은 이름에서 제거해야한다
-                    // (Clone) 제거 후 비교
-                    string childName = child.gameObject.name.Replace("(Clone)", "").Trim();
-                    string prefabName = selectedItem.prefab.name.Replace("(Clone)", "").Trim();
-
-                    if (childName == prefabName) // 이름으로 비교하여 동일한 프리팹 확인
-                    {
-                        Debug.Log($"아이템 {child.gameObject.name} 삭제");
-                        Destroy(child.gameObject); // 해당 오브젝트 삭제
-                        break; // 삭제했으므로 루프 종료
-                    }
-                }
-                // ItemManager를 통해 아이템을 완전히 제거
-                // ItemManager를 통해 아이템 제거
-                itemManager.RemoveItem(baseItemComponent);
+                itemToThrow = child;
+                break;
             }
+        }
+        if (itemToThrow != null)
+        {
+            // 아이템을 게임 화면으로 이동
+            itemToThrow.position = dropPosition.position;
+            itemToThrow.rotation = Quaternion.Euler(Vector3.one * UnityEngine.Random.value * 360);
+            itemToThrow.gameObject.SetActive(true);
+
+            // itemPool에서 제거
+            // (Clone)까지 저장되므로, (Clone)까지 같이 비교해야한다
+            itemManager.RemoveItem(itemToThrow.GetComponent<BaseItem>());
+            Debug.Log($"아이템 {itemToThrow.gameObject.name}을(를) 버렸습니다.");
+        }
+        else
+        {
+            Debug.LogWarning("버릴 아이템을 찾을 수 없습니다.");
         }
     }
 
@@ -318,7 +315,8 @@ public class GameUI : BaseUI
         useButton.SetActive(selectedItem is FoodDataSO);
         equipButton.SetActive(selectedItem is WeaponDataSO && !slot.equipped);
         unEquipButton.SetActive(selectedItem is WeaponDataSO && slot.equipped);
-        dropButton.SetActive(true); // 버리기 버튼은 활성화
+        /// 해제버튼이 활성화되어있다는건 아이템을 장착하고있다는 말하고 같다
+        dropButton.SetActive(!(selectedItem is WeaponDataSO && slot.equipped)); // 무기 장착시 버리기 버튼 비활성화
     }
 
     // 버튼 이벤트 함수: 사용하기
@@ -427,7 +425,7 @@ public class GameUI : BaseUI
     void RemoveSelctedItem()
     {
         // UI 업데이트를 위해 정보를 갱신
-        ItemSlot slot = inventorySlots[selectedItemIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
+            ItemSlot slot = inventorySlots[selectedItemIndex].GetComponent<ItemSlot>(); // GameObject에서 ItemSlot 가져오기
 
         // UI 업데이트를 위해 정보를 갱신
         slot.quantity--;

@@ -151,6 +151,8 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1f;
         nextSceneName = "KYH_UI"; //로딩이 끝나면 이동할 씬 이름
         ChangeState(UIState.Nothing);
+        gameUI.ClearInventory();    // 인벤토리 초기화
+
         SceneManager.LoadScene("KYH_UI_LoadingScene");
     }
 
