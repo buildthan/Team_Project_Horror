@@ -30,13 +30,19 @@
 
 로딩씬  
 ---
+![image](https://github.com/user-attachments/assets/6163d783-3c41-4426-8da3-f2ee87e3f1df)
+
 게임씬   
 ---
-아이템 파밍    
----
+![Team_Project_Horror - GameScene - Windows, Mac, Linux - Unity 2022 3 17f1 _DX11_ 2025-04-02 오후 7_51_07](https://github.com/user-attachments/assets/10f6081f-c1f6-4b31-8083-823f4a987721)
+
 인벤토리 UI
 ---
+![image](https://github.com/user-attachments/assets/1ee128d7-5b7d-41a7-a9d7-c7b3c808ad1c)
+
 적캐릭터 구현  
 ---
+![Team_Project_Horror - GameScene - Windows, Mac, Linux - Unity 2022 3 17f1 _DX11_ 2025-04-02 오후 7_52_52](https://github.com/user-attachments/assets/96545fbd-71a3-4907-897f-007e2a765031)
+
 # 플레이 영상  
 
