@@ -42,7 +42,8 @@
 
 무기 장착씬
 ---
-![Team_Project_Horror - GameScene - Windows, Mac, Linux - Unity 2022 3 17f1 _DX11_ 2025-04-02 오후 7_55_46](https://github.com/user-attachments/assets/974d28c2-a200-4798-bf30-c261444618f4)
+![Team_Project_Horror - GameScene - Windows, Mac, Linux - Unity 2022 3 17f1 _DX11_ 2025-04-02 오후 7_57_40](https://github.com/user-attachments/assets/3f409e74-e9bf-46f4-b8f3-2a1a4f730c5e)
+
 
 적캐릭터 구현  
 ---
