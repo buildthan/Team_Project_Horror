@@ -66,7 +66,7 @@ public class GameUI : BaseUI
         //CharacterManager.Instance.Player.addItem += AddItem;  // delegate에 함수 등록
 
 
-        inventorySlots = new GameObject[20]; //아이템 슬롯 생성
+        inventorySlots = new GameObject[10]; //아이템 슬롯 생성
         //추후에 아이템 데이터를 받아와서 적용하는 것으로 바꿀 것.
 
         for (int i = 0; i < inventorySlots.Length; i++)
