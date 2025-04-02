@@ -50,6 +50,12 @@ public class ItemManager : MonoBehaviour
         System.Type type = item.GetType();
         Debug.Log($"런타임 자료형: {type.Name}");
 
+        /// 버렸다가 줍는 아이템은 이름에 (Clone)이 붙는다
+        /// 삭제와 생성을 하기 때문...
+        /// 저장되어 있는 이름도 (Clone)이 붙는다
+        /// 그래서 이름비교할때 저장되어 있는 이름에 (Clone)을 제거하지않으면 
+        /// 당연히 없다고 나온다
+        /// 버릴때 삭제하지 않으면 된다
 
         // Dictionary에서 T를 키로 하는 List에서 검색
         // 있을 수 없는 일이지만, key에 해당하는 List가없다면
@@ -130,7 +136,9 @@ public class ItemManager : MonoBehaviour
         // 풀에서 꺼내 활성화
         BaseItem equipItem = GetEnableItemFromPool(item);
         // 혹시 여기도 (Clone)이름 붙으면 문제가 생길 것을 대비하여 제거
-        equipItem.name = item.name; // (Clone) 제거
+        //string equipName = equipItem.gameObject.name.Replace("(Clone)", "").Trim();
+        string itemName = item.name.Replace("(Clone)", "").Trim();
+        equipItem.name = itemName; // (Clone) 제거
 
         if (!equippedItems.Contains(equipItem))
         {
