@@ -91,20 +91,12 @@ public class UIManager : MonoBehaviour
 
     public void Update() //테스트용. 나중에 플레이어에서 수정할 것.
     {
-        if(Input.GetKeyDown(KeyCode.V) && currentState == UIState.Game)
-        {
-            InvokeGameOverUI(); //죽었을 때 해당 UI 띄우기
-        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             TogglePauseUI(); //패스키 할당용
         }
 
-        if (Input.GetKeyDown(KeyCode.B) && currentState == UIState.Game)
-        {
-            GetDamagedUI(); //데미지 입었을 때 해당 UI 작동
-        }
     }
 
     public void PlayUIClickAudio()

@@ -55,7 +55,7 @@ public class PlayerCondition : MonoBehaviour
 
     private void FixedUpdate() //플레이어 Hp UI 정보 업데이트용
     {
-        //UIManager.Instance.gameUI.UpdatePlayerHpIndicator(currentHealth,maxHealth);
+        UIManager.Instance.gameUI.UpdatePlayerHpIndicator(currentHealth,maxHealth);
     }
 
     void DrainStamina()
@@ -70,6 +70,7 @@ public class PlayerCondition : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        UIManager.Instance.GetDamagedUI();
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
@@ -81,6 +82,7 @@ public class PlayerCondition : MonoBehaviour
 
     void Die()
     {
+        UIManager.Instance.InvokeGameOverUI();
         Debug.Log("[PlayerCondition] 플레이어 사망!");
     }
 
