@@ -26,24 +26,24 @@ public class BulletManager : MonoBehaviour
     /// BulletManager 관련 메서드가 제네릭인 이유는
     /// bulletPool에 리플렉션을 이용하여 저장했기 때문
     /// </summary>
-
+    int magazineIndex;  // 탄창은 몇번 인덱스인가
 
     // Start is called before the first frame update
     void Start()
     {
         bulletPool = new Dictionary<System.Type, List<Bullet>>();
         UIManager.Instance.gameUI.bulletManager = this;
+        magazineIndex = -1;
     }
 
     #region magazine(탄창)
     // 총을 장착하는 경우, 그것에 맞는 총알을 가진 아이템 슬롯의 총알을 자동으로 연결한다
     // 무기 장착은 OnUpEquipButton뿐이므로 OnUpEquipButton에서 호출한다
-    public void AssignBulletToWeapon(RangedWeapon weapon)
+    public void LoadBullet(RangedWeapon weapon)
     {
         RangedWeaponDataSO weaponData = weapon.weaponData;  // 총
-        GameObject weaponPrefab = weaponData.prefab;    // 총알 정보
+        GameObject weaponPrefab = weaponData.prefab;    // 총알 프리팹
 
-        int minIndex = -1;
         BaseItemDataSO matchedBulletItem = null;
 
         GameObject[] slots = UIManager.Instance.gameUI.inventorySlots;
@@ -60,9 +60,9 @@ public class BulletManager : MonoBehaviour
             if (item is RangedWeaponDataSO rangedWeaponData && rangedWeaponData.bulletType == weaponData.bulletType)
             {
                 // 현재까지 찾은 가장 작은 인덱스 업데이트
-                if (minIndex == -1 || i < minIndex)
+                if (magazineIndex == -1 || i < magazineIndex)
                 {
-                    minIndex = i;
+                    magazineIndex = i;
                     matchedBulletItem = item;
                 }
             }
