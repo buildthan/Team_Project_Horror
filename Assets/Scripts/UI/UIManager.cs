@@ -109,7 +109,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClickStart()
     {
-        nextSceneName = "GameScene"; //로딩이 끝나면 이동할 씬 이름
+        nextSceneName = "GameScene_JSJ"; //로딩이 끝나면 이동할 씬 이름
         ChangeState(UIState.Nothing); //로딩하는 동안 UI를 모두 꺼준다.
         SceneManager.LoadScene("KYH_UI_LoadingScene");
     }
