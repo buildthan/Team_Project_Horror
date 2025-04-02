@@ -26,12 +26,10 @@ public class Loading : MonoBehaviour
         if (name == "ISG_Item")
         {
             UIManager.Instance.ChangeState(UIState.Game);
-        }
-        else if (name == "KYH_UI")
+        }else if (name == "KYH_UI")
         {
             UIManager.Instance.ChangeState(UIState.Title);
-        }
-        else if (name == "GameScene_SUE")
+        }else if(name == "GameScene")
         {
             UIManager.Instance.ChangeState(UIState.Game);
         }
