@@ -5,6 +5,7 @@ using UnityEngine;
 /// <summary>
 /// bullet의 오브젝트 풀링
 /// 사용한 bullet을 종류별로 저장한다
+/// 
 /// </summary>
 public class BulletManager : MonoBehaviour
 {
@@ -34,6 +35,56 @@ public class BulletManager : MonoBehaviour
         UIManager.Instance.gameUI.bulletManager = this;
     }
 
+    #region magazine(탄창)
+    // 총을 장착하는 경우, 그것에 맞는 총알을 가진 아이템 슬롯의 총알을 자동으로 연결한다
+    // 무기 장착은 OnUpEquipButton뿐이므로 OnUpEquipButton에서 호출한다
+    public void AssignBulletToWeapon(RangedWeapon weapon)
+    {
+        RangedWeaponDataSO weaponData = weapon.weaponData;
+        GameObject weaponPrefab = weaponData.prefab;
+
+        int minIndex = -1;
+        BaseItemDataSO matchedBulletItem = null;
+
+        GameObject[] slots = UIManager.Instance.gameUI.inventorySlots;
+        // 인벤토리 순회하여 장착된 총에 맞는 총알 찾기
+        for (int i = 0; i < slots.Length; i++)
+        {
+            //BaseItemDataSO item = slots[i];
+
+            if (item.prefab == weaponPrefab) // 장착된 무기와 같은 프리팹인지 확인
+            {
+                continue; // 무기 자체는 건너뜀
+            }
+
+            if (item is RangedWeaponDataSO rangedWeaponData && rangedWeaponData.bulletType == weaponData.bulletType)
+            {
+                // 현재까지 찾은 가장 작은 인덱스 업데이트
+                if (minIndex == -1 || i < minIndex)
+                {
+                    minIndex = i;
+                    matchedBulletItem = item;
+                }
+            }
+        }
+
+        if (matchedBulletItem != null)
+        {
+            // 총과 총알 연결
+            weapon.bullet = matchedBulletItem.prefab.GetComponent<Bullet>();
+            Debug.Log($"총알 {matchedBulletItem.itemName}을(를) {weaponData.itemName}과 연결");
+        }
+        else
+        {
+            Debug.LogWarning($"해당 총({weaponData.itemName})에 맞는 총알이 인벤토리에 없습니다.");
+        }
+    }
+
+
+    #endregion
+
+
+    #region bullet의 오브젝트 풀링
     /// <summary>
     /// 총알을 발사할 때 총알을 풀에서 가져옴 (없으면 생성)
     /// 잔여 총알의 수를 줄이는 것은 총알을 발사하는 곳에서 한다
@@ -81,4 +132,5 @@ public class BulletManager : MonoBehaviour
         bullet.gameObject.SetActive(false);
         bulletPool[type].Add(bullet);
     }
+    #endregion
 }
